@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn CSS Grid Visually | Free Grid Builder - Gridlock Holmes</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <img src="assets/images/logo200px.png" class="logo-gridlock"  alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="gridlock-holmes-learn-hub.html">Learn</a></li>
+      <li><a href="gridlock-holmes-gradient.html">Gradients</a></li>
+      <li><a href="gridlock-holmes-grid-detective.html">Grid Detective</a></li>
+      <li><a href="gridlock-holmes-educators.html">For Educators</a></li>
+      <li><a href="gridlock-holmes-blog.html">Blog</a></li>
+      <li><a href="gridlock-holmes-about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Free CSS Grid Tools &amp; Learning</div>
+    <h1>Build, learn, and fix CSS Grid<br><em>visually.</em></h1>
+    <p class="hero-sub">Build3 layouts, test spacing, edit gradients and generate clean code while you learn how CSS Grid actually works.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn btn-primary">Build a layout visually</a>
+      <a href="gridlock-holmes-learn-hub.html" class="btn btn-outline">Start the learning path</a>
+      <a href="gridlock-holmes-grid-detective.html" class="btn btn-outline">Fix broken grid code</a>
+    </div>
+    <p class="hero-trust">Free to use &bull; No signup needed &bull; CSS &bull; Tailwind &bull; JavaScript &bull; SCSS</p>
+  </div>
+</section>
+
+<!-- ROUTE SELECTOR -->
+<section class="routes-section">
+  <div class="routes-inner">
+    <div class="section-label">Start here</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:8px;">What do you want to do today?</h2>
+    <p style="color:var(--muted);">Choose the route that matches how you want to use Gridlock Holmes.</p>
+    <div class="routes-grid">
+      <div class="route-card">
+       <!--  <div class="route-icon">📚</div> -->
+        <img src="assets/images/Learn CSS Grid.png" class="icon-gridlock"  alt="Learn Css Grid">
+        <h3>Learn CSS Grid</h3>
+        <p>Step-by-step lessons in CSS, Tailwind, JS and SCSS</p>
+        <a href="gridlock-holmes-learn-hub.html">Start learning &rarr;</a>
+      </div>
+      <div class="route-card">
+        <img src="assets/images/Build a Layout.png" class="icon-gridlock" alt="Build a Layout">
+        <h3>Build a Layout</h3>
+        <p>Drag, adjust and generate code instantly</p>
+        <a href="#">Open generator &rarr;</a>
+      </div>
+      <div class="route-card">
+        <img src="assets/images/Fix My Code.png" class="icon-gridlock" alt="Fix My Code">
+        <h3>Fix My Code</h3>
+        <p>Paste broken grid code and see what's wrong</p>
+        <a href="gridlock-holmes-grid-detective.html">Use Grid Detective &rarr;</a>
+      </div>
+      <div class="route-card">
+        <img src="assets/images/I Teach CSS Grid.png" class="icon-gridlock" alt="I Teach CSS Grid">
+        <h3>I Teach CSS Grid</h3>
+        <p>Free slides and classroom exercises</p>
+        <a href="gridlock-holmes-educators.html">Get resources &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT 1 -->
+<div style="background:var(--bg2);padding:16px 24px 4px;">
+  <div class="ad-slot" style="max-width:1200px;margin:0 auto;">[ AdSense Unit 1 &mdash; 728&times;90 &mdash; After route selector, before generator controls ]</div>
+  <p class="ad-label">Advertisement</p>
+</div>
+
+<!-- TOOL PREVIEW -->
+<section class="tool-section">
+  <div class="tool-inner">
+    <div>
+      <div class="section-label">CSS Grid Generator</div>
+      <h2 style="font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:12px;">Build layouts without guessing</h2>
+      <p style="color:var(--muted);margin-bottom:4px;">Adjust columns, rows, gaps and colours while the layout updates live on screen. Copy clean code when you're done.</p>
+      <ul class="feature-list">
+        <li>Start from ready-made layouts: Holy Grail, card grid, dashboard, magazine, masonry, app shell</li>
+        <li>Adjust columns, rows and spacing visually</li>
+        <li>Style items with solid colours or gradients</li>
+        <li>Generate code in CSS, Tailwind, JavaScript or SCSS</li>
+      </ul>
+      <a href="#" class="btn btn-primary">Try the visual generator</a>
+    </div>
+    <div>
+      <div class="mock-grid-wrap">
+        <div class="mock-grid">
+          <div class="mc mc-h">header</div>
+          <div class="mc mc-s">sidebar</div>
+          <div class="mc mc-m">main content</div>
+          <div class="mc mc-f">footer</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="cm">/* Generated CSS */</span>
+.container {
+  <span class="cp">display</span>: grid;
+  <span class="cp">grid-template-columns</span>: 180px 1fr;
+  <span class="cp">grid-template-rows</span>: 44px 1fr 36px;
+  <span class="cp">gap</span>: 6px;
+}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRID DETECTIVE -->
+<section class="detective-section">
+  <div class="detective-inner">
+    <div>
+      <span class="badge-purple">Grid Detective</span>
+      <h2 class="section-title">Find and fix CSS Grid errors</h2>
+      <p class="section-description">Paste your grid code and Grid Detective will check it for common mistakes, missing properties and logic errors - then explain what to fix and why.</p>
+      <ul class="feature-list">
+        <li>Works with CSS, Tailwind, JavaScript and SCSS</li>
+        <li>Colour-coded results: errors, warnings and tips</li>
+        <li>Plain-English explanations, not just error codes</li>
+        <li>No login or signup required</li>
+      </ul>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="gridlock-holmes-grid-detective.html" class="btn btn-primary">Check my code</a>
+        <a href="gridlock-holmes-learn-hub.html" class="btn btn-secondary">Learn CSS Grid</a>
+      </div>
+    </div>
+    <div>
+      <div class="tool-frame">
+        <div class="tool-tabs">
+          <div class="ttab active">CSS</div>
+          <div class="ttab">Tailwind</div>
+          <div class="ttab">JS</div>
+          <div class="ttab">SCSS</div>
+        </div>
+        <div class="tool-body">
+          <div class="code-in">.grid {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-columns:<br>&nbsp;&nbsp;&nbsp;&nbsp;repeat(3, 1fr);<br>&nbsp;&nbsp;grid-column: 1 / 5;<br>}</div>
+          <div class="results-p">
+            <div class="r-item"><div class="r-dot rd-e"></div><div><div class="r-label">Error</div><div class="r-text">grid-column: 1/5 exceeds 3-column grid</div></div></div>
+            <div class="r-item"><div class="r-dot rd-w"></div><div><div class="r-label">Warning</div><div class="r-text">No gap defined - layout may look unintentional</div></div></div>
+            <div class="r-item"><div class="r-dot rd-t"></div><div><div class="r-label">Tip</div><div class="r-text">Consider grid-template-areas for named placement</div></div></div>
+          </div>
+        </div>
+        <div class="tool-bar">
+          <button class="btn btn-primary" style="padding:8px 18px;font-size:0.82rem;">Analyse Code</button>
+          <button class="btn btn-secondary" style="padding:7px 14px;font-size:0.82rem;">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRADIENT -->
+<section class="gradient-section">
+  <div class="gradient-inner">
+    <div>
+      <div class="section-label">Gradient Tool</div>
+      <h2 class="section-title">Create CSS gradients you can actually see</h2>
+      <p class="section-description">Choose colours, directions, stops and styles visually. Copy the finished CSS in one click. Apply directly to your grid layouts.</p>
+      <ul class="feature-list">
+        <li>Linear, radial, conic and repeating gradients</li>
+        <li>Live preview updates as you adjust</li>
+        <li>Copy CSS or Tailwind output instantly</li>
+        <li>Shareable gradient URL</li>
+      </ul>
+      <a href="gridlock-holmes-gradient.html" class="btn btn-primary">Open Gradient Tool</a>
+    </div>
+    <div>
+      <div class="grad-preview">
+        <div class="grad-canvas"></div>
+        <div class="grad-controls">
+          <div class="swatch" style="background:#1D9E75;"></div>
+          <div class="swatch" style="background:#534AB7;"></div>
+          <div class="swatch" style="background:#D4537E;"></div>
+          <span style="font-size:0.78rem;color:var(--teal);margin-left:6px;cursor:pointer;">+ Add stop</span>
+          <span style="font-size:0.78rem;color:var(--muted);margin-left:auto;background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:5px;">135deg</span>
+        </div>
+        <div class="grad-code">background: linear-gradient(<br>&nbsp;&nbsp;135deg,<br>&nbsp;&nbsp;#1D9E75 0%, #534AB7 55%, #D4537E 100%);</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING PATHS -->
+<section class="learning-section">
+  <div class="learning-inner">
+  
+    <div class="section-label">Learning Path</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:10px;">Learn CSS Grid step by step</h2>
+    <p style="color:var(--muted);">Guided lessons, hands-on examples and real layout challenges. Choose your language.</p>
+    <div class="paths-grid">
+      <div class="path-card featured">
+        <span class="start-badge">Start here</span>
+        <div class="path-tag pt-css">Pure CSS</div>
+        <h3>CSS Path</h3>
+        <p>The recommended starting point. No framework needed.</p>
+        <div class="pbar"><div style="height:3px;background:var(--teal);border-radius:2px;width:0%;"></div></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; Beginner friendly</span><br>
+        <a href="gridlock-holmes-learn-hub.html" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-tw">Tailwind</div>
+        <h3>Tailwind Path</h3>
+        <p>Grid utilities in Tailwind CSS syntax.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; Some CSS knowledge</span><br>
+        <a href="gridlock-holmes-learn-hub.html" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-js">JavaScript</div>
+        <h3>JavaScript Path</h3>
+        <p>Setting grid properties via JS and DOM.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; JS basics needed</span><br>
+        <a href="gridlock-holmes-learn-hub.html" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-scss">SCSS</div>
+        <h3>SCSS Path</h3>
+        <p>Grid with Sass mixins and variables.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; CSS confidence needed</span><br>
+        <a href="gridlock-holmes-learn-hub.html" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start &rarr;</a>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a href="gridlock-holmes-learn-hub.html" class="btn btn-primary">View all learning paths</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATORS -->
+<section class="educator-section">
+  <div class="educator-inner">
+    <div>
+      <div class="section-label">For Educators</div>
+      <h2 class="section-title">Teaching CSS Grid? Start with free classroom resources</h2>
+      <p class="section-description">Use the free slide deck and interactive tool to help students see what changes when they adjust columns, rows, gaps and alignment.</p>
+      <ul class="feature-list">
+        <li>Free PowerPoint slides for classroom use</li>
+        <li>No signup needed for students</li>
+        <li>Useful for schools, colleges and bootcamps</li>
+      </ul>
+      <a href="gridlock-holmes-educators.html" class="btn btn-primary">Download free teaching slides</a>
+    </div>
+    <div class="download-card">
+       <img src="assets/images/Teaching Slides.png" class="icon2-gridlock" alt="Teaching Slides">
+      <h3>Free CSS Grid Teaching Slides</h3>
+      <div class="badge-row">
+        <span class="badge">PowerPoint</span>
+        <span class="badge">30+ slides</span>
+        <span class="badge">Free forever</span>
+        <span class="badge">No signup</span>
+      </div>
+      <a href="gridlock-holmes-educators.html" class="btn btn-primary" style="display:block;text-align:center;">Download Slides</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT HELPS -->
+<section class="who-section">
+  <div class="who-inner">
+    <div class="section-label">Audience</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:10px;">Made for people who learn by doing</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <img src="assets/images/Students & Beginners.png" class="icon2-gridlock" alt="Students & Beginners">
+        <h3>Students &amp; Beginners</h3>
+        <p>No experience needed. Start from zero and build confidence visually.</p>
+        <a href="#">See CSS Grid for Beginners &rarr;</a>
+      </div>
+      <div class="who-card">
+        <img src="assets/images/Teachers & Trainers.png" class="icon2-gridlock" alt="Teachers & Trainers">
+        <h3>Teachers &amp; Trainers</h3>
+        <p>Free slides, exercises and Grid Detective for the classroom.</p>
+        <a href="gridlock-holmes-educators.html">Get Educator Resources &rarr;</a>
+      </div>
+      <div class="who-card">
+        <img src="assets/images/Designers & Prototypers.png" class="icon2-gridlock" alt="Designers & Prototypers">
+        <h3>Designers &amp; Prototypers</h3>
+        <p>Use the generator and gradient tool in your visual workflow.</p>
+        <a href="#">See CSS Grid for Designers &rarr;</a>
+      </div>
+      <div class="who-card">
+        <img src="assets/images/Junior & Senior Devs.png" class="icon2-gridlock" alt="Junior & Senior Devs">
+        <h3>Junior &amp; Senior Devs</h3>
+        <p>Quick layout tool, code checker and clean code in 4 languages.</p>
+        <a href="#">See CSS Grid for Developers &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT 2 -->
+<div style="background:var(--bg3);padding:16px 24px 4px;">
+  <div class="ad-slot" style="max-width:1200px;margin:0 auto;">[ AdSense Unit 2 &mdash; 728&times;90 &mdash; After Who It Helps, before Final CTA ]</div>
+  <p class="ad-label">Advertisement</p>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Start learning or building for free</h2>
+  <p>Use Gridlock Holmes to understand CSS Grid by seeing it work.</p>
+  <div class="final-btns">
+    <a href="#" class="btn btn-primary">Build a layout visually</a>
+    <a href="gridlock-holmes-learn-hub.html" class="btn btn-secondary">Start the learning path</a>
+    <a href="gridlock-holmes-grid-detective.html" class="btn btn-secondary">Use Grid Detective</a>
+    <a href="gridlock-holmes-educators.html" class="btn btn-secondary">Get educator resources</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="gridlock-holmes-blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
