@@ -188,6 +188,7 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .logo-gridlock{width:180px;padding:10px;}
 .icon-gridlock{width:60px;}
 .icon2-gridlock{width:100px;}
+.ghmiddle img{width:400px;}
 .section-title {
     font-size: 1.8rem;
     font-weight: 800;
