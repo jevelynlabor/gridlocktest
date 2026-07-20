@@ -53,7 +53,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(6,25,41,0.97); backdr
 
 /* BUTTONS */
 .btn { display:inline-block; border-radius:8px; font-weight:700; font-size:0.92rem; text-decoration:none; transition:all 0.2s; cursor:pointer; border:none; }
-.btn-primary { background:#b6762f; color:var(--white); padding:13px 24px; }
+.btn-primary { background:#b6762f; color:#fff; padding:13px 24px; }
 .btn-primary:hover { background:var(--teal-d); transform:translateY(-1px); text-decoration:none; color:var(--white); }
 .btn-secondary { background:transparent; color:var(--text); padding:12px 22px; border:1px solid var(--border); border-color:var(--teal); color:var(--teal); text-decoration:none; }
 .btn-secondary:hover { border-color:var(--teal); color:var(--teal); text-decoration:none; }
@@ -188,7 +188,7 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .logo-gridlock{width:180px;padding:10px;}
 .icon-gridlock{width:60px;}
 .icon2-gridlock{width:100px;}
-.ghmiddle img{width:400px;}
+.ghmiddle img{width:400px;text-align: center;}
 .section-title {
     font-size: 1.8rem;
     font-weight: 800;
@@ -220,5 +220,6 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 @media(max-width:900px){
   .tool-inner,.detective-inner,.gradient-inner,.educator-inner{grid-template-columns:1fr;}
   .routes-grid,.paths-grid,.who-grid{grid-template-columns:repeat(2,1fr);}
+  .ghmiddle img{width:250px;}
 }
 </style>
