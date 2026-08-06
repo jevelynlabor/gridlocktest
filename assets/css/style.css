@@ -188,7 +188,9 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .logo-gridlock{width:180px;padding:10px;}
 .icon-gridlock{width:60px;}
 .icon2-gridlock{width:100px;}
+.icon3-gridlock{width:200px;}
 .ghmiddle img{width:400px;text-align: center;}
+.detective-cta { padding-bottom:50px;margin-bottom:70px; !important; }
 .section-title {
     font-size: 1.8rem;
     font-weight: 800;
