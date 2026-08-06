@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Gridlock Holmes | Gridlock Holmes</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* Page-specific additions not covered by style.css */
+.about-main { max-width:1200px; margin:0 auto; padding:80px 24px; display:grid; grid-template-columns:1fr 300px; gap:56px; align-items:start; }
+.creator-card { background:rgba(79,70,229,0.06); border:1px solid rgba(79,70,229,0.2); border-radius:16px; padding:28px; text-align:center; }
+.creator-avatar { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--teal),var(--purple)); margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:2rem; color:var(--white); }
+.creator-warn { background:rgba(229,62,62,0.1); border:1px solid rgba(229,62,62,0.3); border-radius:8px; padding:12px; margin-top:16px; font-size:0.76rem; color:rgba(255,140,140,0.9); }
+.mini-links { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.mini-link { text-align:center; padding:18px 12px; }
+.mini-link .mi { font-size:1.6rem; margin-bottom:8px; }
+.mini-link h3 { font-size:0.82rem; font-weight:700; color:var(--white); margin-bottom:4px; }
+.mini-link a { font-size:0.78rem; color:var(--teal); font-weight:600; }
+.callout { background:rgba(79,70,229,0.08); border-left:3px solid var(--teal); padding:16px 20px; border-radius:0 8px 8px 0; margin-bottom:28px; }
+.values-section { background:var(--bg2); border-top:1px solid var(--border); padding:80px 24px; }
+.values-inner { max-width:1200px; margin:0 auto; }
+.values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:28px; }
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-top:32px; }
+.stat { padding:22px; text-align:center; border-right:1px solid var(--border); }
+.stat:last-child { border-right:none; }
+.stat-num { font-size:1.9rem; font-weight:800; color:var(--teal); }
+.stat-label { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+@media(max-width:900px){ .about-main{ grid-template-columns:1fr; } .values-grid{ grid-template-columns:repeat(2,1fr); } .stat-row{ grid-template-columns:repeat(2,1fr); } .mini-links{ grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo200px.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gridlock-holmes-learn-hub.html">Learn</a></li>
+      <li><a href="gridlock-holmes-gradient.html">Gradients</a></li>
+      <li><a href="gridlock-holmes-grid-detective.html">Grid Detective</a></li>
+      <li><a href="gridlock-holmes-educators.html">For Educators</a></li>
+      <li><a href="gridlock-holmes-blog.html">Blog</a></li>
+      <li><a href="gridlock-holmes-about.html" class="active">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">About</div>
+    <h1>Built to make <em>CSS Grid easier</em></h1>
+    <p class="hero-sub">A free visual CSS Grid builder, code generator and learning platform.</p>
+  </div>
+</section>
+
+<!-- STORY -->
+<div class="about-main">
+  <div>
+    <div class="section-label">Story</div>
+    <h2 class="section-title">Why Gridlock Holmes exists</h2>
+    <p style="color:var(--muted);margin-bottom:16px;">CSS Grid is one of the most powerful layout tools in modern web development. But learning it from documentation or finished code examples can be slow and frustrating. You copy a snippet, change one value, and something breaks - but you do not know why.</p>
+    <p style="color:var(--muted);margin-bottom:16px;">Gridlock Holmes was built to change that. The idea is simple: let users see what each CSS Grid property does as they change it. When the layout updates live on screen, the rules start to make sense in a way that reading about them does not.</p>
+    <p style="color:var(--muted);margin-bottom:28px;">The site is free and will stay free. It is supported by Google AdSense ads placed carefully so they do not interrupt the tool or the learning experience. There is no signup, no paywall and no tracking beyond standard analytics.</p>
+    <div class="callout">
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:8px;">We publish short posts about CSS Grid techniques, platform updates and new features on our blog.</p>
+      <a href="gridlock-holmes-blog.html" style="font-size:0.88rem;font-weight:600;color:var(--teal);">Read the Gridlock Holmes blog &rarr;</a>
+    </div>
+    <div class="mini-links">
+      <div class="card mini-link"><div class="mi">&#9889;</div><h3>Generator</h3><a href="index.html">Open</a></div>
+      <div class="card mini-link"><div class="mi">&#128269;</div><h3>Grid Detective</h3><a href="gridlock-holmes-grid-detective.html">Open</a></div>
+      <div class="card mini-link"><div class="mi">&#127912;</div><h3>Gradients</h3><a href="gridlock-holmes-gradient.html">Open</a></div>
+      <div class="card mini-link"><div class="mi">&#128218;</div><h3>Learn</h3><a href="gridlock-holmes-learn-hub.html">Open</a></div>
+    </div>
+  </div>
+  <div>
+    <div class="creator-card">
+      <div class="creator-avatar">?</div>
+      <h3 style="font-size:1rem;font-weight:700;color:var(--white);margin-bottom:8px;">[Creator Name]</h3>
+      <p style="font-size:0.83rem;color:var(--muted);margin-bottom:14px;">[Bio - 2 to 3 sentences. Required for AdSense approval.]</p>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <a href="#" style="font-size:0.82rem;color:var(--teal);font-weight:600;">GitHub &rarr;</a>
+        <a href="#" style="font-size:0.82rem;color:var(--teal);font-weight:600;">LinkedIn &rarr;</a>
+      </div>
+      <div class="creator-warn">Replace placeholder before launch. AdSense requires a real named creator with at least one external link.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="values-inner">
+    <div class="section-label">Values</div>
+    <h2 class="section-title">What we believe about learning to code</h2>
+    <div class="values-grid">
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#127987;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">Free and accessible</h3><p style="font-size:0.83rem;color:var(--muted);">No signup, no cost, ever</p></div>
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#128065;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">See it to understand it</h3><p style="font-size:0.83rem;color:var(--muted);">Live visual feedback on everything</p></div>
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#127891;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">Useful for teachers too</h3><p style="font-size:0.83rem;color:var(--muted);">Classroom resources for all</p></div>
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#128221;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">Real code, not black boxes</h3><p style="font-size:0.83rem;color:var(--muted);">Clean, readable generated code</p></div>
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#129309;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">Honest and transparent</h3><p style="font-size:0.83rem;color:var(--muted);">Ad-funded, no dark patterns</p></div>
+      <div class="card"><div style="font-size:1.4rem;margin-bottom:8px;">&#128295;</div><h3 style="font-size:0.93rem;font-weight:700;color:var(--white);margin-bottom:5px;">Always improving</h3><p style="font-size:0.83rem;color:var(--muted);">New features in development</p></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">Free</div><div class="stat-label">No cost, ever</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Code language paths</div></div>
+      <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Layout presets</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Signups required</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="gridlock-holmes-blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

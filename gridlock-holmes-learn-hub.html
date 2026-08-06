@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn CSS Grid Step by Step | Gridlock Holmes</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* Page-specific additions not covered by style.css */
+.btn-purple { background:var(--purple); color:var(--white); padding:12px 24px; }
+.btn-purple:hover { background:#4238a0; color:var(--white); text-decoration:none; }
+.skill-pills { display:flex; gap:10px; justify-content:center; margin:24px 0 0; flex-wrap:wrap; }
+.skill-pill { padding:5px 14px; border-radius:20px; font-size:0.78rem; font-weight:600; border:1px solid var(--border); color:var(--muted); }
+.skill-pill.active { background:rgba(79,70,229,0.15); border-color:var(--teal); color:var(--teal); }
+.what-section { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:80px 24px; }
+.what-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; }
+.what-list { list-style:none; margin-top:20px; }
+.what-list li { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:0.9rem; color:var(--muted); }
+.what-list li::before { content:'\2192'; color:var(--teal); flex-shrink:0; }
+.lesson-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.lesson-row { display:flex; align-items:center; gap:14px; padding:13px 18px; border-bottom:1px solid var(--border); }
+.lesson-row:last-child { border-bottom:none; }
+.lesson-num { width:26px; height:26px; border-radius:50%; background:rgba(79,70,229,0.15); color:var(--teal); font-weight:700; font-size:0.78rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.lesson-title { font-weight:600; color:var(--white); font-size:0.87rem; }
+.detective-cta { background:rgba(96,165,250,0.1); border:1px solid rgba(96,165,250,0.25); border-radius:14px; padding:32px; margin:40px auto 0; max-width:1200px; display:flex; gap:32px; align-items:center; }
+@media(max-width:900px){ .what-inner{ grid-template-columns:1fr; } .detective-cta{ flex-direction:column; text-align:center; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo200px.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gridlock-holmes-learn-hub.html" class="active">Learn</a></li>
+      <li><a href="gridlock-holmes-gradient.html">Gradients</a></li>
+      <li><a href="gridlock-holmes-grid-detective.html">Grid Detective</a></li>
+      <li><a href="gridlock-holmes-educators.html">For Educators</a></li>
+      <li><a href="gridlock-holmes-blog.html">Blog</a></li>
+      <li><a href="gridlock-holmes-about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Free Lessons</div>
+    <h1>Learn CSS Grid <em>step by step</em></h1>
+    <p class="hero-sub">Guided lessons, hands-on examples and real layout challenges. Choose your language and follow a structured path.</p>
+    <div class="hero-btns">
+      <a href="#paths" class="btn btn-primary">Choose your learning path</a>
+      <a href="gridlock-holmes-grid-detective.html" class="btn btn-secondary">Try Grid Detective</a>
+    </div>
+    <div class="skill-pills">
+      <span class="skill-pill active">Pure CSS</span>
+      <span class="skill-pill">Tailwind</span>
+      <span class="skill-pill">JavaScript</span>
+      <span class="skill-pill">SCSS</span>
+    </div>
+    <p class="hero-trust">No experience needed &bull; No signup &bull; Free forever</p>
+  </div>
+</section>
+
+<!-- PATHS -->
+<section class="learning-section" id="paths">
+  <div class="learning-inner">
+    <div class="section-label">Step 1</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:8px;">Choose your language</h2>
+    <p style="color:var(--muted);margin-bottom:8px;">All four paths teach the same CSS Grid concepts in different syntax. Start with Pure CSS if you are new.</p>
+    <div class="paths-grid">
+      <div class="path-card featured">
+        <span class="start-badge">Start here</span>
+        <div class="path-tag pt-css">Pure CSS</div>
+        <h3>CSS Path</h3>
+        <p>The recommended starting point. No framework needed.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; Beginner friendly</span><br>
+        <a href="#" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start CSS path &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-tw">Tailwind</div>
+        <h3>Tailwind Path</h3>
+        <p>Grid utilities in Tailwind CSS syntax.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; Some CSS needed</span><br>
+        <a href="#" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start Tailwind path &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-js">JavaScript</div>
+        <h3>JavaScript Path</h3>
+        <p>Grid via JS and DOM manipulation.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; JS basics needed</span><br>
+        <a href="#" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start JS path &rarr;</a>
+      </div>
+      <div class="path-card">
+        <div class="path-tag pt-scss">SCSS</div>
+        <h3>SCSS Path</h3>
+        <p>Grid with Sass mixins and variables.</p>
+        <div class="pbar"></div>
+        <span style="font-size:0.78rem;color:var(--muted);">9 lessons &bull; CSS confidence needed</span><br>
+        <a href="#" style="font-size:0.83rem;font-weight:600;color:var(--teal);display:inline-block;margin-top:12px;">Start SCSS path &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="what-section">
+  <div class="what-inner">
+    <div>
+      <div class="section-label">Curriculum</div>
+      <h2 class="section-title">From zero to confident with CSS Grid</h2>
+      <p class="section-description">Each lesson builds on the last. You will understand what each property does, not just copy code.</p>
+      <ul class="what-list">
+        <li>How display: grid works and when to use it</li>
+        <li>Columns and rows with grid-template</li>
+        <li>The fr unit and flexible sizing</li>
+        <li>Grid gaps, alignment and justification</li>
+        <li>Placing and spanning items across cells</li>
+        <li>Named grid areas for complex layouts</li>
+        <li>Auto-fill and auto-fit for responsive grids</li>
+        <li>Real patterns: Holy Grail, dashboard, card grid</li>
+        <li>Fixing mistakes with Grid Detective challenges</li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:14px;">9 Lessons</div>
+      <div class="lesson-panel">
+        <div class="lesson-row"><div class="lesson-num">1</div><div class="lesson-title">What is CSS Grid?</div></div>
+        <div class="lesson-row"><div class="lesson-num">2</div><div class="lesson-title">Columns and Rows</div></div>
+        <div class="lesson-row"><div class="lesson-num">3</div><div class="lesson-title">The fr Unit</div></div>
+        <div class="lesson-row"><div class="lesson-num">4</div><div class="lesson-title">Grid Gaps</div></div>
+        <div class="lesson-row"><div class="lesson-num">5</div><div class="lesson-title">Alignment and Justification</div></div>
+        <div class="lesson-row"><div class="lesson-num">6</div><div class="lesson-title">Spanning Items</div></div>
+        <div class="lesson-row"><div class="lesson-num">7</div><div class="lesson-title">Named Grid Areas</div></div>
+        <div class="lesson-row"><div class="lesson-num">8</div><div class="lesson-title">Auto-fill and Auto-fit</div></div>
+        <div class="lesson-row"><div class="lesson-num">9</div><div class="lesson-title">Grid Detective Challenge</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETECTIVE CTA -->
+<div style="padding:60px 24px 0;">
+  <div class="detective-cta">
+    <div style="font-size:2.5rem;">&#128269;</div>
+    <div>
+      <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:8px;">Stuck on a layout? Try Grid Detective</h3>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;">Paste your CSS, Tailwind, JavaScript or SCSS and Grid Detective checks for common mistakes.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="gridlock-holmes-grid-detective.html" class="btn btn-purple">Use Grid Detective</a>
+        <a href="index.html" class="btn btn-outline">Open Generator</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ready to start learning?</h2>
+  <p>Pick a language path above and build your first grid layout today.</p>
+  <div class="final-btns">
+    <a href="#paths" class="btn btn-primary">Choose your learning path</a>
+    <a href="gridlock-holmes-grid-detective.html" class="btn btn-secondary">Try Grid Detective</a>
+    <a href="index.html" class="btn btn-secondary">CSS Grid Generator</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="gridlock-holmes-blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
