@@ -22,24 +22,7 @@ const tutorialSteps=[
 ];
 
 function init(){
-const visited=localStorage.getItem('gridlock-visited');
-if(!visited){
-setTimeout(()=>document.getElementById('welcome-modal').classList.remove('hidden'),500);
-}
-loadSaved();setupKeys();updateLineNumbers();updateGrid();
-}
-
-function startTutorial(){
-document.getElementById('welcome-modal').classList.add('hidden');
-localStorage.setItem('gridlock-visited','tutorial');
-tutorialStep=0;
-showTutorialStep();
-document.getElementById('tutorial-modal').classList.remove('hidden');
-}
-
-function skipToTool(){
-document.getElementById('welcome-modal').classList.add('hidden');
-localStorage.setItem('gridlock-visited','skipped');
+loadSaved();setupKeys();updateLineNumbers();updateGrid();toggleGrid();
 }
 
 function showTutorialStep(){
