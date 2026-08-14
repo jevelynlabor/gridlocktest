@@ -153,7 +153,7 @@
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="gradient-enabled" class="sr-only peer" onchange="debouncedUpdate()">
-                            <div class="w-9 h-5 bg-gray-300 peer-checked:bg-purple-500 rounded-full transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
+                            <div class="gradient-toggle-track w-9 h-5 rounded-full transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
                         </label>
                     </div>
 
@@ -318,7 +318,7 @@
                     <h3 class="font-bold mb-2">🔍 Grid Detective</h3>
                     <p class="text-xs text-gray-600 mb-2">Paste your code and we'll check for errors</p>
                     <div class="flex gap-1 mb-2">
-                        <button onclick="switchAnalyzerTab('css')" id="analyzer-tab-css" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-red-600 text-white">CSS</button>
+                        <button onclick="switchAnalyzerTab('css')" id="analyzer-tab-css" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-brown-600 text-white">CSS</button>
                         <button onclick="switchAnalyzerTab('tailwind')" id="analyzer-tab-tailwind" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">Tailwind</button>
                         <button onclick="switchAnalyzerTab('js')" id="analyzer-tab-js" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">JavaScript</button>
                         <button onclick="switchAnalyzerTab('scss')" id="analyzer-tab-scss" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">SCSS</button>
@@ -327,7 +327,7 @@
                         <div id="line-nums" class="absolute left-0 top-0 bottom-0 w-10 bg-gray-200 rounded-l-lg p-3 text-xs text-gray-500 font-mono overflow-hidden"></div>
                         <textarea id="analyze-input" rows="6" class="w-full p-3 pl-14 border rounded font-mono text-xs" oninput="updateLineNumbers()" placeholder="Paste your code here..."></textarea>
                     </div>
-                    <button onclick="analyzeCode()" class="mt-2 w-full bg-red-600 text-white py-2 rounded">Analyze Code</button>
+                    <button onclick="analyzeCode()" class="mt-2 w-full bg-brown-600 text-white py-2 rounded">Analyze Code</button>
                     <div id="analyze-output" class="mt-3 p-3 rounded bg-gray-100 border text-sm hidden"></div>
                 </div>
             </div>

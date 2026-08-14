@@ -94,7 +94,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
 .ad-label { text-align:center; font-size:0.7rem; color:rgba(148,163,184,0.35); margin-bottom:0; padding-bottom:12px; }
 
 /* TOOL PREVIEW */
-.tool-section { background:var(--bg); padding:80px 24px; }
+.tool-section { background:#0A141D; padding:80px 24px; }
 .tool-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
 .feature-list { list-style:none; margin:20px 0 30px; }
 .feature-list li { display:flex; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:0.9rem; color:var(--muted); }
@@ -383,6 +383,20 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .tool-page .text-purple-600,.tool-page .text-purple-700 { color:var(--purple) !important; }
 .tool-page .text-purple-800,.tool-page .text-purple-900 { color:#C7D2FE !important; }
 .tool-page .bg-purple-500,.tool-page .bg-purple-600,.tool-page .peer-checked\:bg-purple-500 { background:var(--purple) !important; color:#0b1220; }
+
+/* Colour Styling (CSS Gradient) toggle switch - grayed out when off, brighter when on */
+.tool-page #gradient-enabled ~ .gradient-toggle-track {
+  background:#48566B !important;
+  opacity:0.55;
+  box-shadow:none;
+  transition:background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+.tool-page #gradient-enabled:hover ~ .gradient-toggle-track { opacity:0.75; }
+.tool-page #gradient-enabled:checked ~ .gradient-toggle-track {
+  background:linear-gradient(135deg,#8B5CF6,#60A5FA) !important;
+  opacity:1;
+  box-shadow:0 0 10px rgba(139,92,246,0.6);
+}
 .tool-page .hover\:bg-purple-700:hover,.tool-page .from-purple-600,.tool-page .from-purple-700 { background:#3f8ae0 !important; }
 .tool-page .to-pink-600,.tool-page .to-pink-700 { --tw-gradient-to:var(--pink) !important; }
 .tool-page .from-purple-50,.tool-page .to-indigo-50,.tool-page .to-pink-50 { background:rgba(96,165,250,0.08) !important; }
@@ -398,6 +412,7 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 
 /* red -> Grid Detective accent + validation errors */
 .tool-page .bg-red-600,.tool-page .bg-red-500 { background:#DC2626 !important; }
+.tool-page .bg-brown-600 { background:#B77730 !important; }
 .tool-page .bg-red-50 { background:rgba(239,68,68,0.1) !important; }
 .tool-page .border-red-200,.tool-page .border-red-300 { border-color:rgba(239,68,68,0.35) !important; }
 .tool-page .text-red-700 { color:#F87171 !important; }
@@ -422,3 +437,6 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 /* scrollbar polish inside dark textareas/pre */
 .tool-page pre.code-output::-webkit-scrollbar,.tool-page textarea::-webkit-scrollbar { width:8px; height:8px; }
 .tool-page pre.code-output::-webkit-scrollbar-thumb,.tool-page textarea::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+/* additional */
+.gridgentry {width:300px; border-radius:20px;}

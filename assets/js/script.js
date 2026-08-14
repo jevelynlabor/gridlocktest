@@ -527,11 +527,11 @@ generateCode();
 function switchAnalyzerTab(format){
 currentAnalyzerFormat=format;
 document.querySelectorAll('.analyzer-tab').forEach(btn=>{
-btn.classList.remove('bg-red-600','text-white');
+btn.classList.remove('bg-brown-600','text-white');
 btn.classList.add('bg-gray-300','text-gray-700');
 });
 document.getElementById(`analyzer-tab-${format}`).classList.remove('bg-gray-300','text-gray-700');
-document.getElementById(`analyzer-tab-${format}`).classList.add('bg-red-600','text-white');
+document.getElementById(`analyzer-tab-${format}`).classList.add('bg-brown-600','text-white');
 document.getElementById('analyze-input').value='';
 document.getElementById('analyze-output').classList.add('hidden');
 updateLineNumbers();
