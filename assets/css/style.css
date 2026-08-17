@@ -440,3 +440,4 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 
 .gridgentry {width:100%; max-width:480px; border-radius:20px; overflow:hidden;}
 .gridgentry video {width:100%; height:auto; display:block; border-radius:20px;}
+.gridgentry iframe {width:100%; aspect-ratio:16/9; height:auto; display:block; border-radius:20px; border:0;}
