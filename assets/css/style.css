@@ -438,5 +438,5 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .tool-page pre.code-output::-webkit-scrollbar,.tool-page textarea::-webkit-scrollbar { width:8px; height:8px; }
 .tool-page pre.code-output::-webkit-scrollbar-thumb,.tool-page textarea::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
 
-/* additional */
-.gridgentry {width:300px; border-radius:20px;}
+/* additional 
+.gridgentry {width:300px; border-radius:20px;}*/
