@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Gradient Generator | Gridlock Holmes</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
+
+<!-- SEO -->
+<meta name="description" content="Free CSS gradient generator. Create linear, radial, conic and repeating gradients visually and copy clean CSS or Tailwind code instantly.">
+<meta name="keywords" content="CSS gradient generator, linear gradient generator, radial gradient CSS, conic gradient tool">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/gradient.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="CSS Gradient Generator | Gridlock Holmes">
+<meta property="og:description" content="Free CSS gradient generator. Create linear, radial, conic and repeating gradients visually and copy clean CSS or Tailwind code instantly.">
+<meta property="og:url" content="https://gridlockholmes.com/gradient.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CSS Gradient Generator | Gridlock Holmes">
+<meta name="twitter:description" content="Free CSS gradient generator. Create linear, radial, conic and repeating gradients visually and copy clean CSS or Tailwind code instantly.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="learn-hub.html">Learn</a></li>
+      <li><a href="gradient.html" class="active">Gradients</a></li>
+      <li><a href="grid-detective.html">Grid Detective</a></li>
+      <li><a href="educators.html">For Educators</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Gradient Tool</div>
+    <h1>Create CSS gradients <em>you can actually see</em></h1>
+    <p class="hero-sub">Choose colours, directions, stops and styles visually. Copy the finished CSS in one click. Apply directly to your grid layouts.</p>
+    <div class="hero-btns">
+      <a href="#tool" class="btn btn-primary">Open Gradient Tool</a>
+      <a href="index.html" class="btn btn-outline">CSS Grid Generator</a>
+    </div>
+    <p class="hero-trust">Free to use &bull; No signup needed &bull; Copies CSS instantly</p>
+  </div>
+</section>
+
+<!-- TOOL -->
+<section class="gradient-section" id="tool">
+  <div class="gradient-inner">
+    <div>
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need to build the right gradient</h2>
+      <ul class="feature-list">
+        <li>Live preview - gradient updates in real time</li>
+        <li>Multiple colour stops - add, drag and reorder</li>
+        <li>Direction control - preset directions or custom angle</li>
+        <li>Copy in one click - CSS and Tailwind output</li>
+        <li>Share your gradient - shareable URL</li>
+        <li>Apply to grid layouts - use directly in the CSS Grid generator</li>
+      </ul>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="index.html" class="btn btn-primary">Open CSS Grid Generator</a>
+        <a href="learn-hub.html" class="btn btn-secondary">Start Learning</a>
+      </div>
+    </div>
+    <div>
+      <div class="grad-preview">
+        <div class="grad-canvas"></div>
+        <div class="grad-controls">
+          <div class="swatch" style="background:var(--teal);"></div>
+          <div class="swatch" style="background:var(--navy);"></div>
+          <div class="swatch" style="background:var(--pink);"></div>
+          <span style="font-size:0.78rem;color:var(--teal);margin-left:6px;cursor:pointer;">+ Add stop</span>
+          <select style="background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:0.78rem;color:var(--muted);margin-left:auto;">
+            <option>Linear</option><option>Radial</option><option>Conic</option><option>Repeating</option>
+          </select>
+        </div>
+        <div style="padding:12px 18px;display:flex;gap:8px;border-top:1px solid var(--border);flex-wrap:wrap;">
+          <button class="btn btn-primary" style="padding:7px 16px;font-size:0.8rem;">Copy CSS</button>
+          <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.8rem;">Copy Tailwind</button>
+          <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.8rem;">Share</button>
+        </div>
+        <div class="grad-code">background: linear-gradient(<br>&nbsp;&nbsp;135deg,<br>&nbsp;&nbsp;#4F46E5 0%,<br>&nbsp;&nbsp;#3B82F6 55%,<br>&nbsp;&nbsp;#F97316 100%);</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRADIENT TYPES -->
+<section class="types-section">
+  <div class="types-inner">
+    <div class="section-label">Gradient Types</div>
+    <h2 class="section-title">Four types of CSS gradient</h2>
+    <p class="section-description">The tool supports all four CSS gradient types. Switch between them instantly.</p>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-swatch" style="background:linear-gradient(135deg,var(--teal),var(--navy));"></div>
+        <div class="type-label">Linear<div class="type-sub">Colour transitions in a straight line</div></div>
+      </div>
+      <div class="type-card">
+        <div class="type-swatch" style="background:radial-gradient(circle,var(--purple),var(--navy));"></div>
+        <div class="type-label">Radial<div class="type-sub">Radiates from a centre point</div></div>
+      </div>
+      <div class="type-card">
+        <div class="type-swatch" style="background:conic-gradient(var(--pink),var(--purple),var(--teal),var(--pink));"></div>
+        <div class="type-label">Conic<div class="type-sub">Sweeps around a centre point</div></div>
+      </div>
+      <div class="type-card">
+        <div class="type-swatch" style="background:repeating-linear-gradient(45deg,var(--teal),var(--teal) 8px,var(--navy) 8px,var(--navy) 16px);"></div>
+        <div class="type-label">Repeating<div class="type-sub">Tiles a gradient pattern</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ready to build your gradient?</h2>
+  <p>Use the tool above, then copy the CSS straight into your project.</p>
+  <div class="final-btns">
+    <a href="#tool" class="btn btn-primary">Open Gradient Tool</a>
+    <a href="index.html" class="btn btn-secondary">CSS Grid Generator</a>
+    <a href="learn-hub.html" class="btn btn-secondary">Start Learning</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

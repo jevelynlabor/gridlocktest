@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use Gridlock Holmes in a 60-Minute CSS Lesson | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="A practical lesson plan for teaching CSS Grid visually with Gridlock Holmes. Includes a warm up, a build challenge and a Grid Detective debugging exercise.">
+<meta name="keywords" content="teach CSS Grid, CSS Grid lesson plan, CSS classroom activity, Grid Detective exercise">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/60-minute-lesson.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="How to Use Gridlock Holmes in a 60-Minute CSS Lesson">
+<meta property="og:description" content="A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/60-minute-lesson.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Use Gridlock Holmes in a 60-Minute CSS Lesson">
+<meta name="twitter:description" content="A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn-hub.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="hero-tag" style="color:var(--teal);">For Educators</div>
+    <h1>How to use Gridlock Holmes in a 60-minute CSS lesson</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>24 September 2026</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+      <p>CSS Grid is easy to explain and hard to internalise from slides alone &mdash; students need to drag values around and watch a layout break in real time before <code>fr</code> units and implicit rows actually click. Here is a lesson plan we have seen work well in bootcamps and single-session workshops, built entirely around the free Gridlock Holmes tools.</p>
+
+      <h2>Before class</h2>
+      <ul>
+        <li>Share the <a href="../index.html">CSS Grid Generator</a> link so students can open it on their own machine &mdash; no account or install needed.</li>
+        <li>Print or share the CSS Grid cheat sheet from the footer of any page, so students have property names in front of them without switching tabs.</li>
+        <li>Have one deliberately broken grid layout ready to paste into Grid Detective for the final exercise (see the mistakes covered in <a href="css-grid-mistakes.html">our common mistakes post</a> for good candidates).</li>
+      </ul>
+
+      <h2>The 60-minute plan</h2>
+      <div class="timeline">
+        <div class="t-row">
+          <div class="t-time">0&ndash;10 min</div>
+          <div class="t-body">
+            <h4>Warm up: rows vs. columns</h4>
+            <p>Open the generator and ask students to guess what <code>grid-template-columns: 1fr 2fr 1fr</code> will look like before you hit apply. Change one value at a time and have the class predict the result out loud &mdash; this surfaces the "fr is a share of remaining space" misconception early.</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <div class="t-time">10&ndash;25 min</div>
+          <div class="t-body">
+            <h4>Concept walkthrough</h4>
+            <p>Cover explicit vs. implicit grid, <code>gap</code>, and named areas using the live code panel. Keep this section led by you, but pause every few minutes for students to reproduce what is on screen in their own generator tab.</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <div class="t-time">25&ndash;45 min</div>
+          <div class="t-body">
+            <h4>Build challenge</h4>
+            <p>In pairs, students recreate a simple three-column card layout (image, title, description) from a screenshot you provide. No starter code &mdash; they build the grid from scratch. Circulate and nudge rather than answer directly.</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <div class="t-time">45&ndash;55 min</div>
+          <div class="t-body">
+            <h4>Grid Detective exercise</h4>
+            <p>Give every pair the same broken CSS snippet and have them paste it into Grid Detective. Ask them to fix the errors first, then the warnings, and explain in one sentence why each one happened. This is usually the moment implicit grid sizing finally clicks.</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <div class="t-time">55&ndash;60 min</div>
+          <div class="t-body">
+            <h4>Wrap up</h4>
+            <p>Quick show of hands on what surprised them most. Point students to the Learn hub's CSS path for self-paced practice, and mention the Tailwind path if your course uses utility classes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-callout"><strong>Timing tip:</strong> the build challenge is the section most likely to overrun. If a pair finishes early, ask them to add a responsive breakpoint that collapses the layout to one column &mdash; it keeps fast finishers busy without derailing the room's pace.</div>
+
+      <h2>Adapting the plan</h2>
+      <ul>
+        <li><strong>Shorter session (30 min):</strong> drop the build challenge and go straight from the concept walkthrough into the Grid Detective exercise.</li>
+        <li><strong>Self-paced / async:</strong> record the warm up and concept sections as a short video, and let students do the build challenge and Grid Detective exercise as homework with a submitted screenshot.</li>
+        <li><strong>Advanced group:</strong> swap the card layout challenge for the full Holy Grail layout from <a href="holy-grail-layout.html">our tutorial post</a>, and ask students to add a Tailwind version once the CSS version works.</li>
+      </ul>
+
+      <p>All of the tools referenced here are free and require no sign-up, which makes this plan easy to reuse across sessions without worrying about account limits or setup time eating into the lesson.</p>
+
+      <div class="share-row">
+        <a href="../educators.html" class="btn btn-primary">See more educator resources</a>
+        <a href="../grid-detective.html" class="btn btn-secondary">Open Grid Detective</a>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="../blog.html">Tutorials <span style="float:right;">2</span></a>
+      <a class="cat-link" href="../blog.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Grid Detective <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">For Educators <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Gradient Tool <span style="float:right;">0</span></a>
+    </div>
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn-hub.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

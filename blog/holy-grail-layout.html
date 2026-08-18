@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Build a Holy Grail Layout with CSS Grid | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="A step by step guide to building the classic Holy Grail layout — header, footer, nav, content and sidebar — with CSS Grid, including a Tailwind version.">
+<meta name="keywords" content="Holy Grail layout CSS, CSS Grid tutorial, grid-template-areas, Tailwind grid layout">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/holy-grail-layout.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="How to Build a Holy Grail Layout with CSS Grid">
+<meta property="og:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/holy-grail-layout.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build a Holy Grail Layout with CSS Grid">
+<meta name="twitter:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn-hub.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="hero-tag" style="color:var(--purple);">Tutorial</div>
+    <h1>How to build a Holy Grail layout with CSS Grid</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>10 September 2026</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+      <p>The "Holy Grail" layout is one of the oldest naming conventions in web design: a header across the top, a footer across the bottom, and three columns in between &mdash; navigation on the left, main content in the middle, and a sidebar on the right. It used to require floats, negative margins and a fair amount of hackery. CSS Grid makes it about ten lines of code.</p>
+
+      <div class="demo-frame">
+        <div class="demo-grid">
+          <div class="demo-header">header</div>
+          <div class="demo-nav">nav</div>
+          <div class="demo-main">main</div>
+          <div class="demo-aside">aside</div>
+          <div class="demo-footer">footer</div>
+        </div>
+      </div>
+
+      <h2>1. Set up the grid areas</h2>
+      <p>The cleanest way to build this layout is with named <code>grid-template-areas</code>. You lay the page out visually in your CSS, which makes the structure obvious to anyone reading the file later.</p>
+      <pre><code>.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
+  grid-template-columns: 200px 1fr 220px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 16px;
+}
+
+.header { grid-area: header; }
+.nav    { grid-area: nav; }
+.main   { grid-area: main; }
+.aside  { grid-area: aside; }
+.footer { grid-area: footer; }</code></pre>
+
+      <h2>2. Match your HTML to the areas</h2>
+      <pre><code>&lt;div class="layout"&gt;
+  &lt;header class="header"&gt;Site header&lt;/header&gt;
+  &lt;nav class="nav"&gt;Navigation&lt;/nav&gt;
+  &lt;main class="main"&gt;Main content&lt;/main&gt;
+  &lt;aside class="aside"&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="footer"&gt;Site footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+      <p>Each element's <code>grid-area</code> name has to match a name used in <code>grid-template-areas</code> exactly, including case. This is the single most common typo in Holy Grail layouts &mdash; a mismatched name will silently drop the element into the default flow instead of its area, and Grid Detective is built to catch exactly that.</p>
+
+      <h2>3. Make it responsive</h2>
+      <p>Below a certain width, three columns stop making sense. Redefine the areas in a single column and let the grid columns collapse to <code>1fr</code>:</p>
+      <pre><code>@media (max-width: 700px) {
+  .layout {
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "aside"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+      <p>Because every child is already positioned by name, you do not need to reorder any HTML &mdash; only the area map changes.</p>
+
+      <h2>The same layout in Tailwind</h2>
+      <p>If you are working in Tailwind, the equivalent uses <code>grid-cols-[200px_1fr_220px]</code> with arbitrary values, plus a couple of <code>col-start</code> / <code>row-start</code> utilities for the header and footer to span the full width:</p>
+      <pre><code>&lt;div class="grid grid-cols-[200px_1fr_220px] grid-rows-[auto_1fr_auto] gap-4 min-h-screen"&gt;
+  &lt;header class="col-span-3"&gt;Site header&lt;/header&gt;
+  &lt;nav&gt;Navigation&lt;/nav&gt;
+  &lt;main&gt;Main content&lt;/main&gt;
+  &lt;aside&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="col-span-3"&gt;Site footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+
+      <div class="post-callout"><strong>Tip:</strong> if the sidebar's content is genuinely optional (an ad, a "related posts" widget), consider making it a fourth grid-template-areas column only on wide screens, rather than forcing it into the layout on mobile where it usually just adds scroll length.</div>
+
+      <h2>Common pitfalls</h2>
+      <ul>
+        <li><strong>Mismatched area names</strong> between <code>grid-template-areas</code> and each child's <code>grid-area</code>.</li>
+        <li><strong>Forgetting <code>min-height: 100vh</code></strong> on the layout, which leaves the footer floating mid-page on short content.</li>
+        <li><strong>Fixed pixel widths on nav/aside</strong> with no fallback for narrow viewports &mdash; use the responsive rewrite above rather than trying to squeeze three columns onto a phone.</li>
+      </ul>
+
+      <p>You can paste any version of this layout straight into the CSS Grid Generator to preview it live, or into Grid Detective if something is not lining up the way you expect.</p>
+
+      <div class="share-row">
+        <a href="../index.html" class="btn btn-primary">Try it in the generator</a>
+        <a href="../grid-detective.html" class="btn btn-secondary">Debug with Grid Detective</a>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="../blog.html">Tutorials <span style="float:right;">2</span></a>
+      <a class="cat-link" href="../blog.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Grid Detective <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">For Educators <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Gradient Tool <span style="float:right;">0</span></a>
+    </div>
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn-hub.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
