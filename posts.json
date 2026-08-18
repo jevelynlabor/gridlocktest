@@ -50,18 +50,5 @@
     "excerpt": "A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.",
     "image": "assets/images/whatsnew.png",
     "image_alt": "How to use Gridlock Holmes in a 60-minute CSS lesson featured image"
-  },
-   {
-    "slug": "example-blogjev",
-    "title": "Example Blog Post for Gridlock Holmes",
-    "category_slug": "for-educators",
-    "badge": "For Educators",
-    "date": "2026-09-26",
-    "date_display": "26 September 2026",
-    "read_time": "5 min read",
-    "words": "500",
-    "excerpt": "A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.",
-    "image": "assets/images/whatsnew.png",
-    "image_alt": "Example Blog Post for Gridlock Holmes featured image"
   }
 ]
