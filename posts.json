@@ -1,0 +1,67 @@
+[
+  {
+    "slug": "whats-new-2026",
+    "title": "What is new in Gridlock Holmes - 2026",
+    "category_slug": "platform-updates",
+    "badge": "Platform Update",
+    "date": "2026-09-03",
+    "date_display": "3 September 2026",
+    "read_time": "4 min read",
+    "words": "400",
+    "excerpt": "A look at everything new: Grid Detective standalone page, 4 coding paths, gradient tool updates and free educator resources.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "What is new in Gridlock Holmes - 2026 featured image"
+  },
+  {
+    "slug": "holy-grail-layout",
+    "title": "How to build a Holy Grail layout with CSS Grid",
+    "category_slug": "tutorials",
+    "badge": "Tutorial",
+    "date": "2026-09-10",
+    "date_display": "10 September 2026",
+    "read_time": "6 min read",
+    "words": "600",
+    "excerpt": "A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "How to build a Holy Grail layout with CSS Grid featured image"
+  },
+  {
+    "slug": "css-grid-mistakes",
+    "title": "The 5 most common CSS Grid mistakes and how to fix them",
+    "category_slug": "grid-detective",
+    "badge": "Grid Detective",
+    "date": "2026-09-17",
+    "date_display": "17 September 2026",
+    "read_time": "7 min read",
+    "words": "700",
+    "excerpt": "Learn what causes common CSS Grid problems and how Grid Detective can help you find and fix them.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "The 5 most common CSS Grid mistakes and how to fix them featured image"
+  },
+  {
+    "slug": "60-minute-lesson",
+    "title": "How to use Gridlock Holmes in a 60-minute CSS lesson",
+    "category_slug": "for-educators",
+    "badge": "For Educators",
+    "date": "2026-09-24",
+    "date_display": "24 September 2026",
+    "read_time": "5 min read",
+    "words": "500",
+    "excerpt": "A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "How to use Gridlock Holmes in a 60-minute CSS lesson featured image"
+  },
+   {
+    "slug": "example-blogjev",
+    "title": "Example Blog Post for Gridlock Holmes",
+    "category_slug": "for-educators",
+    "badge": "For Educators",
+    "date": "2026-09-26",
+    "date_display": "26 September 2026",
+    "read_time": "5 min read",
+    "words": "500",
+    "excerpt": "A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "Example Blog Post for Gridlock Holmes featured image"
+  }
+]

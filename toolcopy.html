@@ -1,18 +1,5 @@
-
 <!DOCTYPE html>
-<!--
-████████████████████████████████████████████████████████████████
-  GRIDLOCK HOLMES - CSS Grid Generator
-  
-  Copyright © 2026 Gridlock Holmes. All Rights Reserved.
-  Unauthorized reproduction or distribution is prohibited.
-  
-  Website: https://gridlock-holmes.com
-  
-  This tool helps developers learn and generate CSS Grid layouts
-  with support for CSS, Tailwind, JavaScript, and SCSS formats.
-████████████████████████████████████████████████████████████████
--->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,188 +29,52 @@
     <meta property="twitter:description" content="Generate CSS Grid layouts with live preview. Supports CSS, Tailwind, JavaScript, and SCSS.">
     <meta property="twitter:image" content="https://gridlock-holmes.com/logo.png">
     
-    <!-- Favicon - Multiple sizes for better display -->
-    <link rel="icon" type="image/jpeg" href="/logo.png" sizes="any">
-    <link rel="icon" type="image/jpeg" href="/logo.png" sizes="16x16">
-    <link rel="icon" type="image/jpeg" href="/logo.png" sizes="32x32">
-    <link rel="icon" type="image/jpeg" href="/logo.png" sizes="48x48">
-    <link rel="apple-touch-icon" href="/logo.png">
+ <!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
+
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles.css?v=3.0">
-    
-    <!-- Google AdSense Verification — commented out until approved
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9803086972452856"
-     crossorigin="anonymous"></script>
-    -->
+   <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Gridlock Holmes - CSS Grid Generator",
-      "applicationCategory": "DeveloperApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "operatingSystem": "Web Browser",
-      "description": "Learn CSS Grid free with interactive tutorials. Perfect for beginners and students learning web development. Free CSS Grid generator with step-by-step guidance.",
-      "url": "https://gridlock-holmes.com",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "127"
-      },
-      "featureList": [
-        "Live Preview",
-        "CSS Grid Generator",
-        "Tailwind Grid Classes",
-        "JavaScript Grid Styles",
-        "SCSS Grid Code",
-        "Educational Tutorials",
-        "No Signup Required"
-      ]
-    }
-    </script>
+    
 </head>
-<body class="overflow-x-hidden bg-gray-50 p-4 sm:p-8">
-    <div class="max-w-7xl mx-auto">
+<body class="overflow-x-hidden tool-page">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="gridlock-holmes-gradient.html">Gradients</a></li>
+      <li><a href="gridlock-holmes-grid-detective.html">Grid Detective</a></li>
+      <li><a href="gridlock-holmes-educators.html">For Educators</a></li>
+      <li><a href="gridlock-holmes-blog.html">Blog</a></li>
+      <li><a href="gridlock-holmes-about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+    <div class="inner" style="padding-top:40px;">
         <header class="text-center mb-6">
             <h1 class="sr-only">Learn CSS Grid Free - Interactive Tutorial & Generator for Beginners</h1>
-            <img src="/logo.png" 
-                 id="site-logo"
-                 alt="Gridlock Holmes - CSS Grid Generator" 
-                 class="mx-auto mb-3" 
-                 style="max-width: 175px; height: auto; display: block;" 
-                 loading="eager">
-            <script>
-            // Switch logo based on dark mode
-            (function() {
-                const logo = document.getElementById('site-logo');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-                
-                function updateLogo(e) {
-                    if (e.matches) {
-                        logo.src = '/logo-dark.png';
-                    } else {
-                        logo.src = '/logo.png';
-                    }
-                }
-                
-                // Initial check
-                updateLogo(prefersDark);
-                
-                // Listen for changes
-                prefersDark.addEventListener('change', updateLogo);
-            })();
-            </script>
-            <p class="text-lg text-gray-600">Learn CSS Grid • Interactive Tutorial • 100% Free</p>
-            <div class="mt-3 flex justify-center gap-4">
-                <button onclick="showHelpModal()" class="text-sm text-gray-500 hover:text-blue-600 underline">❓ How to Use</button>
-                <button onclick="showKeyboardHelp()" class="text-sm text-gray-500 hover:text-blue-600 underline">⌨️ Shortcuts & Tips</button>
+            <p class="hero-tag" style="margin-bottom:14px;">CSS Grid Generator</p>
+            <h1 style="font-size:clamp(2rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:10px;">Build, learn, and fix CSS Grid visually.</h1>
+            <p style="color:var(--muted);margin-bottom:18px;">Learn CSS Grid &bull; Interactive Tutorial &bull; 100% Free</p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                <button onclick="showHelpModal()" class="btn-outline" style="border-radius:8px;background:none;cursor:pointer;font-weight:600;">❓ How to Use</button>
+                <button onclick="showKeyboardHelp()" class="btn-outline" style="border-radius:8px;background:none;cursor:pointer;font-weight:600;">⌨️ Shortcuts & Tips</button>
             </div>
-            
-            <!-- Navigation Links - Centered & Smaller (7 cards) -->
-            <nav class="mt-6 flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-                <!-- Generator -->
-                <a href="/" class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36">
-                    <div class="text-xl mb-1">🏠</div>
-                    <div class="text-xs font-bold">Generator</div>
-                </a>
-                <a class='bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/gradient'>
-                    <div class="text-xl mb-1">🎨</div>
-                    <div class="text-xs font-bold">Gradients</div>
-                </a>
-                
-                <!-- Start Learning -->
-                <a class='bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/learn/choose-language'>
-                    <div class="text-xl mb-1">🚀</div>
-                    <div class="text-xs font-bold">Start Learning</div>
-                </a>
-                
-                <!-- CSS Tutorial -->
-                <a class='bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/guide'>
-                    <div class="text-xl mb-1">📚</div>
-                    <div class="text-xs font-bold">CSS Tutorial</div>
-                </a>
-                
-                <!-- Grid vs Flexbox -->
-                <a class='bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/grid-vs-flexbox'>
-                    <div class="text-xl mb-1">⚖️</div>
-                    <div class="text-xs font-bold">Grid vs Flexbox</div>
-                </a>
-                
-                <!-- About -->
-                <a class='bg-gradient-to-br from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/about'>
-                    <div class="text-xl mb-1">ℹ️</div>
-                    <div class="text-xs font-bold">About</div>
-                </a>
-                
-                <!-- For Educators -->
-                <a class='bg-gradient-to-br from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36' href='/educators'>
-                    <div class="text-xl mb-1">🎓</div>
-                    <div class="text-xs font-bold">For Educators</div>
-                </a>
-                
-                <!-- Get Pro -->
-                <button id="pro-nav-button" onclick="showProHelp()" 
-                        class="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-3 rounded-lg text-center transition transform hover:scale-105 shadow-md w-36">
-                    <div class="text-xl mb-1">💎</div>
-                    <div class="text-xs font-bold">Get Pro</div>
-                </button>
-            </nav>
         </header>
 
-        <!-- SEO Content Section -->
-        <section class="mb-6 bg-white p-6 rounded-xl shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-800 mb-3">Learn CSS Grid Free - Interactive Tutorial & Generator</h2>
-            <p class="text-gray-700 mb-2">
-                <strong>Learning CSS Grid?</strong> Our free interactive tool helps beginners and students master CSS Grid layouts with 
-                step-by-step tutorials, live preview, and instant code generation. Perfect for self-taught developers, coding bootcamp students, 
-                and anyone learning web development. No signup required - start learning CSS Grid today!
-            </p>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
-                <div class="bg-blue-50 p-3 rounded">
-                    <strong class="text-blue-800">🎓 Learn by Doing</strong>
-                    <p class="text-gray-600">Interactive tutorials perfect for beginners learning CSS Grid</p>
-                </div>
-                <div class="bg-green-50 p-3 rounded">
-                    <strong class="text-green-800">👨‍🏫 Free Tuition</strong>
-                    <p class="text-gray-600">Step-by-step guidance with instant visual feedback</p>
-                </div>
-                <div class="bg-purple-50 p-3 rounded">
-                    <strong class="text-purple-800">💯 100% Free</strong>
-                    <p class="text-gray-600">No signup, no cost - free learning tool for students</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Ad Space 1: Top of Page (Primary position - highest visibility) -->
-        <div id="adsense-top" class="mb-6">
-            <p class="text-xs text-gray-500 text-center mb-2">Advertisement</p>
-            <div class="bg-yellow-100 border-2 border-yellow-400 rounded-lg px-6 py-8 text-center">
-                <p class="text-sm font-semibold text-gray-700">📢 Ad Space 1 - Header</p>
-                <p class="text-xs text-gray-500 mt-2">Replace this entire div with your AdSense code after approval</p>
-                <!-- 
-                AFTER ADSENSE APPROVAL:
-                1. Delete the yellow div above
-                2. Paste your AdSense code here:
-                
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="XXXXXXXXXX"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-                -->
-            </div>
-        </div>
+       
 
         <main class="grid lg:grid-cols-2 gap-6">
             <div class="bg-white p-6 rounded-xl shadow-xl">
@@ -302,7 +153,7 @@
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="gradient-enabled" class="sr-only peer" onchange="debouncedUpdate()">
-                            <div class="w-9 h-5 bg-gray-300 peer-checked:bg-purple-500 rounded-full transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
+                            <div class="gradient-toggle-track w-9 h-5 rounded-full transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
                         </label>
                     </div>
 
@@ -467,7 +318,7 @@
                     <h3 class="font-bold mb-2">🔍 Grid Detective</h3>
                     <p class="text-xs text-gray-600 mb-2">Paste your code and we'll check for errors</p>
                     <div class="flex gap-1 mb-2">
-                        <button onclick="switchAnalyzerTab('css')" id="analyzer-tab-css" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-red-600 text-white">CSS</button>
+                        <button onclick="switchAnalyzerTab('css')" id="analyzer-tab-css" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-brown-600 text-white">CSS</button>
                         <button onclick="switchAnalyzerTab('tailwind')" id="analyzer-tab-tailwind" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">Tailwind</button>
                         <button onclick="switchAnalyzerTab('js')" id="analyzer-tab-js" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">JavaScript</button>
                         <button onclick="switchAnalyzerTab('scss')" id="analyzer-tab-scss" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">SCSS</button>
@@ -476,7 +327,7 @@
                         <div id="line-nums" class="absolute left-0 top-0 bottom-0 w-10 bg-gray-200 rounded-l-lg p-3 text-xs text-gray-500 font-mono overflow-hidden"></div>
                         <textarea id="analyze-input" rows="6" class="w-full p-3 pl-14 border rounded font-mono text-xs" oninput="updateLineNumbers()" placeholder="Paste your code here..."></textarea>
                     </div>
-                    <button onclick="analyzeCode()" class="mt-2 w-full bg-red-600 text-white py-2 rounded">Analyze Code</button>
+                    <button onclick="analyzeCode()" class="mt-2 w-full bg-brown-600 text-white py-2 rounded">Analyze Code</button>
                     <div id="analyze-output" class="mt-3 p-3 rounded bg-gray-100 border text-sm hidden"></div>
                 </div>
             </div>
@@ -634,38 +485,7 @@
                 -->
             </div>
         </div>
-        
-        <footer class="mt-8 pt-6 border-t text-center text-sm text-gray-600">
-            <p class="mb-2">© 2026 Gridlock Holmes. All rights reserved.</p>
-            <div class="flex justify-center gap-4">
-                <a class='hover:text-blue-600 underline' href='/privacy'>Privacy Policy</a>
-                <span>•</span>
-                <a class='hover:text-blue-600 underline' href='/contact'>Contact</a>
-            </div>
-        </footer>
-    </div>
 
-    <div id="welcome-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-xl p-8 max-w-lg mx-4 w-full">
-            <h2 class="text-3xl font-bold text-blue-900 mb-4 text-center">🔍 Welcome to Gridlock Holmes!</h2>
-            <p class="text-gray-700 mb-6 text-center">Your guide to mastering CSS Grid layouts</p>
-            
-            <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
-                <p class="text-center font-medium text-gray-800 mb-4">How familiar are you with CSS Grid?</p>
-                
-                <div class="space-y-3">
-                    <button onclick="startTutorial()" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-lg shadow-lg transform transition hover:scale-105">
-                        🎓 I'm new to this - Show me around!
-                    </button>
-                    
-                    <button onclick="skipToTool()" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-lg shadow-lg transform transition hover:scale-105">
-                        ⚡ I know the basics - Let's build!
-                    </button>
-                </div>
-            </div>
-            
-            <p class="text-xs text-gray-500 text-center">You can always access the tutorial later from the "How to Use" button</p>
-        </div>
     </div>
 
     <div id="tutorial-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
@@ -691,97 +511,8 @@
             <button onclick="closeShareModal()" class="mt-2 w-full bg-gray-300 py-2 rounded">Close</button>
         </div>
     </div>
-    <!-- Welcome Popup Overlay -->
-    <div id="welcome-popup-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-lg mx-4 overflow-hidden">
-            
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white text-center">
-                <h2 class="text-3xl font-bold mb-2">🎓 Welcome to Gridlock Holmes!</h2>
-                <p class="text-blue-100">Learn CSS Grid through interactive lessons and hands-on practice</p>
-            </div>
-            
-            <!-- Body -->
-            <div class="p-8">
-                <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">What brings you here today?</h3>
-                
-                <!-- Option 1: Learn -->
-                <button onclick="chooseLearn()" class="w-full mb-4 p-6 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300 rounded-xl hover:from-green-100 hover:to-green-200 transition transform hover:scale-105 text-left group">
-                    <div class="flex items-start gap-4">
-                        <div class="text-4xl">🎓</div>
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-green-700">I want to LEARN CSS Grid</h4>
-                            <p class="text-sm text-gray-600">Never used it before? Start with our guided learning path</p>
-                        </div>
-                        <div class="text-2xl text-gray-400 group-hover:text-green-600">→</div>
-                    </div>
-                </button>
-                
-                <!-- Option 2: Use Generator -->
-                <button onclick="chooseGenerator()" class="w-full mb-6 p-6 bg-gradient-to-r from-blue-50 to-blue-100 border-2 border-blue-300 rounded-xl hover:from-blue-100 hover:to-blue-200 transition transform hover:scale-105 text-left group">
-                    <div class="flex items-start gap-4">
-                        <div class="text-4xl">⚡</div>
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-700">I want to USE the generator</h4>
-                            <p class="text-sm text-gray-600">Already know CSS Grid? Jump straight to the tool</p>
-                        </div>
-                        <div class="text-2xl text-gray-400 group-hover:text-blue-600">→</div>
-                    </div>
-                </button>
-                
-                <!-- Don't show again -->
-                <label class="flex items-center justify-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-gray-800">
-                    <input type="checkbox" id="dont-show-again" class="rounded">
-                    <span>Don't show this again</span>
-                </label>
-            </div>
-            
-        </div>
-    </div>
-
-    <script>
-    // ═══════════════════════════════════════════════════════════
-    // WELCOME POPUP LOGIC
-    // ═══════════════════════════════════════════════════════════
-
-    // Check if user has seen the welcome popup before
-    function showWelcomePopup() {
-        const hasSeenWelcome = localStorage.getItem('gridlock-welcome-seen');
-        
-        if (!hasSeenWelcome) {
-            // Show popup after a short delay for better UX
-            setTimeout(() => {
-                document.getElementById('welcome-popup-overlay').classList.remove('hidden');
-            }, 800);
-        }
-    }
-
-    // User chooses to LEARN
-    function chooseLearn() {
-        saveWelcomeChoice();
-        window.location.href = '/learn/choose-language.html';
-    }
-
-    // User chooses to USE generator
-    function chooseGenerator() {
-        saveWelcomeChoice();
-        // Close popup and stay on current page (generator)
-        document.getElementById('welcome-popup-overlay').classList.add('hidden');
-    }
-
-    // Save user's choice
-    function saveWelcomeChoice() {
-        const dontShowAgain = document.getElementById('dont-show-again').checked;
-        if (dontShowAgain) {
-            localStorage.setItem('gridlock-welcome-seen', 'true');
-        }
-    }
-
-    // Show popup when page loads
-    window.addEventListener('DOMContentLoaded', showWelcomePopup);
-    </script>
-    
-    <script src="script.js?v=3.1"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/app.js"></script>
     <footer class="bg-gray-800 text-gray-400 py-8 mt-8">
         <div class="max-w-5xl mx-auto px-4 text-center text-sm">
             <div class="flex justify-center gap-6 mb-4 flex-wrap">
@@ -789,66 +520,9 @@
                 <a class='hover:text-white transition' href='/terms'>Terms of Service</a>
                 <a class='hover:text-white transition' href='/cookies'>Cookie Policy</a>
                 <a class='hover:text-white transition' href='/contact'>Contact</a>
-                <a href="#" onclick="resetCookieConsent();return false;" class="hover:text-white transition">Cookie Preferences</a>
             </div>
             <p>&copy; 2026 Gridlock Holmes. All rights reserved.</p>
         </div>
     </footer>
-    <!-- Cookie Consent Banner -->
-    <div id="gh-consent" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 shadow-2xl z-50">
-        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div class="flex-1 text-sm leading-relaxed">
-                We use cookies to analyse site usage and serve relevant ads. Essential cookies for site functionality are always active. 
-                <a class='underline text-blue-300 hover:text-blue-200' href='/cookies'>Read our Cookie Policy</a>.
-            </div>
-            <div class="flex gap-2 flex-shrink-0">
-                <button onclick="acceptCookies()" class="bg-green-600 hover:bg-green-700 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Accept All</button>
-                <button onclick="rejectCookies()" class="bg-gray-600 hover:bg-gray-700 text-white text-sm font-bold px-4 py-2 rounded-lg transition">Reject All</button>
-            </div>
-        </div>
-    </div>
-    <script>
-    (function(){
-        var consent = null;
-        try { consent = JSON.parse(localStorage.getItem("gh-cookie-consent")); } catch(e){}
-        if (consent) {
-            var b = document.getElementById("gh-consent");
-            if (b) b.style.display = "none";
-            if (consent.analytics) loadAnalytics();
-        }
-    })();
-    function acceptCookies() {
-        var c = {analytics:true, advertising:true, timestamp:new Date().toISOString()};
-        localStorage.setItem("gh-cookie-consent", JSON.stringify(c));
-        document.getElementById("gh-consent").style.display = "none";
-        loadAnalytics();
-    }
-    function rejectCookies() {
-        var c = {analytics:false, advertising:false, timestamp:new Date().toISOString()};
-        localStorage.setItem("gh-cookie-consent", JSON.stringify(c));
-        document.getElementById("gh-consent").style.display = "none";
-    }
-    function loadAnalytics() {
-        if (document.getElementById("gtag-script")) return;
-        var s = document.createElement("script");
-        s.id = "gtag-script";
-        s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=G-0JBHNDYVT2";
-        document.head.appendChild(s);
-        s.onload = function() {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag("js", new Date());
-            gtag("config", "G-0JBHNDYVT2");
-        };
-    }
-
-    function resetCookieConsent() {
-        localStorage.removeItem("gh-cookie-consent");
-        var b = document.getElementById("gh-consent");
-        if (b) b.style.display = "";
-        else window.location.reload();
-    }
-    </script>
 </body>
 </html>

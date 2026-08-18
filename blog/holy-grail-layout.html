@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Build a Holy Grail Layout with CSS Grid | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="A step by step guide to building the classic Holy Grail layout — header, footer, nav, content and sidebar — with CSS Grid, including a Tailwind version.">
+<meta name="keywords" content="Holy Grail layout CSS, CSS Grid tutorial, grid-template-areas, Tailwind grid layout">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/holy-grail-layout.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="How to Build a Holy Grail Layout with CSS Grid">
+<meta property="og:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/holy-grail-layout.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build a Holy Grail Layout with CSS Grid">
+<meta name="twitter:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 16px; }
+  .author-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:0.85rem; }
+  .author-row span:not(:last-child)::after { content:'\2022'; margin-left:10px; color:rgba(148,163,184,0.5); }
+  .post-content { max-width:100%; }
+  .post-content h2 { font-size:1.5rem; font-weight:800; color:var(--white); margin:38px 0 14px; }
+  .post-content h3 { font-size:1.12rem; font-weight:700; color:var(--white); margin:26px 0 10px; }
+  .post-content p { color:var(--muted); margin-bottom:16px; font-size:0.95rem; line-height:1.75; }
+  .post-content ul, .post-content ol { margin:0 0 20px 22px; color:var(--muted); font-size:0.95rem; line-height:1.75; }
+  .post-content li { margin-bottom:8px; }
+  .post-content li strong { color:var(--white); }
+  .post-content code { background:#0a0f1a; color:#A5B4FC; padding:2px 6px; border-radius:4px; font-family:'Fira Code',Consolas,monospace; font-size:0.85em; }
+  .post-content pre { background:#0a0f1a; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:20px 0; font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; line-height:1.7; color:#A5B4FC; }
+  .post-content pre code { background:none; padding:0; color:inherit; }
+  .callout { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:10px; padding:16px 20px; margin:24px 0; font-size:0.9rem; color:var(--muted); }
+  .callout strong { color:var(--white); }
+  .demo-frame { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:20px 0; }
+  .demo-grid { display:grid; grid-template-areas:"header header header" "nav main aside" "footer footer footer"; grid-template-columns:120px 1fr 140px; grid-template-rows:auto 160px auto; gap:8px; padding:10px; background:var(--bg3); }
+  .demo-grid > div { border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:rgba(255,255,255,0.85); padding:10px; }
+  .demo-header { grid-area:header; background:#4338CA; }
+  .demo-nav { grid-area:nav; background:#1E3A8A; }
+  .demo-main { grid-area:main; background:var(--purple); }
+  .demo-aside { grid-area:aside; background:#1E3A8A; }
+  .demo-footer { grid-area:footer; background:#0B1220; }
+  @media(max-width:520px){ .demo-grid { grid-template-areas:"header" "nav" "main" "aside" "footer"; grid-template-columns:1fr; } }
+  .share-row { display:flex; gap:12px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/tutorials.html">Tutorials</a><span class="sep">/</span>
+      <span class="current">Holy Grail layout with CSS Grid</span>
+    </div>
+    <div class="hero-tag" style="color:var(--purple);">Tutorial</div>
+    <h1>How to build a Holy Grail layout with CSS Grid</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>10 September 2026</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/whatsnew.png" alt="How to build a Holy Grail layout with CSS Grid - featured image" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+      <p>The "Holy Grail" layout is one of the oldest naming conventions in web design: a header across the top, a footer across the bottom, and three columns in between, navigation on the left, main content in the middle, and a sidebar on the right. It used to require floats, negative margins and a fair amount of hackery. CSS Grid makes it about ten lines of code.</p>
+
+      <div class="demo-frame">
+        <div class="demo-grid">
+          <div class="demo-header">header</div>
+          <div class="demo-nav">nav</div>
+          <div class="demo-main">main</div>
+          <div class="demo-aside">aside</div>
+          <div class="demo-footer">footer</div>
+        </div>
+      </div>
+
+      <h2>1. Set up the grid areas</h2>
+      <p>The cleanest way to build this layout is with named <code>grid-template-areas</code>. You lay the page out visually in your CSS, which makes the structure obvious to anyone reading the file later.</p>
+      <pre><code>.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
+  grid-template-columns: 200px 1fr 220px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 16px;
+}
+
+.header { grid-area: header; }
+.nav    { grid-area: nav; }
+.main   { grid-area: main; }
+.aside  { grid-area: aside; }
+.footer { grid-area: footer; }</code></pre>
+
+      <h2>2. Match your HTML to the areas</h2>
+      <pre><code>&lt;div class="layout"&gt;
+  &lt;header class="header"&gt;Site header&lt;/header&gt;
+  &lt;nav class="nav"&gt;Navigation&lt;/nav&gt;
+  &lt;main class="main"&gt;Main content&lt;/main&gt;
+  &lt;aside class="aside"&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="footer"&gt;Site footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+      <p>Each element's <code>grid-area</code> name has to match a name used in <code>grid-template-areas</code> exactly, including case. This is the single most common typo in Holy Grail layouts, a mismatched name will silently drop the element into the default flow instead of its area, and Grid Detective is built to catch exactly that.</p>
+
+      <h2>3. Make it responsive</h2>
+      <p>Below a certain width, three columns stop making sense. Redefine the areas in a single column and let the grid columns collapse to <code>1fr</code>:</p>
+      <pre><code>@media (max-width: 700px) {
+  .layout {
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "aside"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+      <p>Because every child is already positioned by name, you do not need to reorder any HTML, only the area map changes.</p>
+
+      <h2>The same layout in Tailwind</h2>
+      <p>If you are working in Tailwind, the equivalent uses <code>grid-cols-[200px_1fr_220px]</code> with arbitrary values, plus a couple of <code>col-start</code> / <code>row-start</code> utilities for the header and footer to span the full width:</p>
+      <pre><code>&lt;div class="grid grid-cols-[200px_1fr_220px] grid-rows-[auto_1fr_auto] gap-4 min-h-screen"&gt;
+  &lt;header class="col-span-3"&gt;Site header&lt;/header&gt;
+  &lt;nav&gt;Navigation&lt;/nav&gt;
+  &lt;main&gt;Main content&lt;/main&gt;
+  &lt;aside&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="col-span-3"&gt;Site footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+
+      <div class="callout"><strong>Tip:</strong> if the sidebar's content is genuinely optional (an ad, a "related posts" widget), consider making it a fourth grid-template-areas column only on wide screens, rather than forcing it into the layout on mobile where it usually just adds scroll length.</div>
+
+      <h2>Common pitfalls</h2>
+      <ul>
+        <li><strong>Mismatched area names</strong> between <code>grid-template-areas</code> and each child's <code>grid-area</code>.</li>
+        <li><strong>Forgetting <code>min-height: 100vh</code></strong> on the layout, which leaves the footer floating mid-page on short content.</li>
+        <li><strong>Fixed pixel widths on nav/aside</strong> with no fallback for narrow viewports, use the responsive rewrite above rather than trying to squeeze three columns onto a phone.</li>
+      </ul>
+
+      <p>You can paste any version of this layout straight into the CSS Grid Generator to preview it live, or into Grid Detective if something is not lining up the way you expect.</p>
+
+      <div class="share-row">
+        <a href="../index.html" class="btn btn-primary">Try it in the generator</a>
+        <a href="../grid-detective.html" class="btn btn-secondary">Debug with Grid Detective</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav">
+        <a href="whats-new-2026.html" class="post-nav-link prev">
+          <span class="post-nav-label">&larr; Previous post</span>
+          <span class="post-nav-title">What is new in Gridlock Holmes - 2026</span>
+        </a>
+        <a href="css-grid-mistakes.html" class="post-nav-link next">
+          <span class="post-nav-label">Next post &rarr;</span>
+          <span class="post-nav-title">The 5 most common CSS Grid mistakes and how to fix them</span>
+        </a>
+      </div>
+
+
+
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">0</span></a>
+    </div>
+
+
+
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
