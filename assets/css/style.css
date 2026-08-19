@@ -429,7 +429,7 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 .icon-gridlock{width:60px;}
 .icon2-gridlock{width:100px;}
 .icon3-gridlock{width:100%;height:auto;border-radius:10px;}
-.ghmiddle img{width:400px;text-align:center;}
+.ghmiddle img{width:400px;text-align:center;padding-bottom:30px;}
 .section-title {
     font-size: 1.8rem;
     font-weight: 800;
