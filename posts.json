@@ -50,5 +50,18 @@
     "excerpt": "A practical lesson plan for teaching CSS Grid visually. Includes a warm up, practical build challenge and Grid Detective exercise.",
     "image": "assets/images/whatsnew.png",
     "image_alt": "How to use Gridlock Holmes in a 60-minute CSS lesson featured image"
+  },
+  {
+    "slug": "css-grid-exercises-for-students",
+    "title": "5 CSS Grid Exercises That Show What Your Students Actually Understand",
+    "category_slug": "for-educators",
+    "badge": "For Educators",
+    "date": "2026-10-01",
+    "date_display": "1 October 2026",
+    "read_time": "9 min read",
+    "words": "2000",
+    "excerpt": "A student can copy display: grid without understanding Grid at all. These five exercises reveal what they actually understand and where they are getting stuck.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "5 CSS Grid exercises that show what your students actually understand featured image"
   }
 ]

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 CSS Grid Exercises That Show What Your Students Actually Understand | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="Use these five CSS Grid exercises to test whether students really understand tracks, placement, responsive layouts and Grid structure rather than just copying code.">
+<meta name="keywords" content="css grid exercises, css grid practice, css grid quiz, css grid challenges, css grid for beginners, learn css grid, css exercises, css grid examples">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/css-grid-exercises-for-students.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="5 CSS Grid Exercises That Show What Your Students Actually Understand">
+<meta property="og:description" content="Use these five CSS Grid exercises to test whether students really understand tracks, placement, responsive layouts and Grid structure rather than just copying code.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/css-grid-exercises-for-students.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="5 CSS Grid Exercises That Show What Your Students Actually Understand">
+<meta name="twitter:description" content="Use these five CSS Grid exercises to test whether students really understand tracks, placement, responsive layouts and Grid structure rather than just copying code.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .post-featured-wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  .featured-image-frame { max-width:900px; margin:0 auto 8px; border-radius:14px; overflow:hidden; border:1px solid var(--border); }
+  .featured-image-frame img { display:block; width:100%; height:auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 16px; }
+  .author-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:0.85rem; }
+  .author-row span:not(:last-child)::after { content:'\2022'; margin-left:10px; color:rgba(148,163,184,0.5); }
+  .blog-main > div:first-child { min-width:0; }
+  .post-content { max-width:100%; min-width:0; }
+  .post-content h2 { font-size:1.4rem; font-weight:800; color:var(--white); margin:36px 0 14px; }
+  .post-content h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin:22px 0 10px; }
+  .post-content p { color:var(--muted); margin-bottom:16px; font-size:0.95rem; line-height:1.75; }
+  .post-content ul, .post-content ol { margin:0 0 20px 22px; color:var(--muted); font-size:0.95rem; line-height:1.75; }
+  .post-content li { margin-bottom:8px; }
+  .post-content li strong { color:var(--white); }
+  .post-content code { background:#0a0f1a; color:#A5B4FC; padding:2px 6px; border-radius:4px; font-family:'Fira Code',Consolas,monospace; font-size:0.85em; }
+  .post-content pre { background:#0a0f1a; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:20px 0; font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; line-height:1.7; color:#A5B4FC; }
+  .post-content pre code { background:none; padding:0; color:inherit; }
+  .callout { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:10px; padding:16px 20px; margin:24px 0; font-size:0.9rem; color:var(--muted); }
+  .callout strong { color:var(--white); }
+  .share-row { display:flex; gap:12px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; }
+
+  /* Exercise visuals */
+  .ex-visual { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin:24px 0; }
+  .ex-visual-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+  .ex-visual-note { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+  .ex-lines { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--muted); margin-bottom:6px; padding:0 4px; }
+  .ex-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .ex-cell { background:#1E3A8A; border-radius:8px; padding:20px 0; text-align:center; font-size:0.82rem; font-weight:600; color:#fff; }
+  .ex-cell.span2 { grid-column:span 2; background:var(--teal); }
+  .ex-mini-row { display:flex; gap:16px; flex-wrap:wrap; }
+  .ex-mini { flex:1; min-width:130px; }
+  .ex-mini-label { font-size:0.68rem; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px; text-align:center; letter-spacing:0.05em; }
+  .ex-mini-grid { display:grid; gap:6px; }
+  .ex-mini-cell { background:var(--navy); border-radius:5px; height:26px; }
+  .ex-areas { display:grid; grid-template-columns:70px 1fr; grid-template-rows:32px 68px 32px; gap:6px; }
+  .ex-area { border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.68rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#fff; }
+  .ex-area.header, .ex-area.footer { grid-column:1/-1; background:#4338CA; }
+  .ex-area.sidebar { background:var(--purple); }
+  .ex-area.main { background:#1E3A8A; }
+  .ex-broken-wrap { background:#0a0f1a; border:1px dashed rgba(229,62,62,0.55); border-radius:8px; padding:16px; overflow-x:auto; }
+  .ex-broken { display:flex; gap:8px; width:max-content; }
+  .ex-broken-card { width:110px; height:64px; background:#1E3A8A; border-radius:6px; flex-shrink:0; }
+  .ex-broken-card.long { background:var(--pink); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:#fff; padding:0 8px; text-align:center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/for-educators.html">For Educators</a><span class="sep">/</span>
+      <span class="current">5 CSS Grid Exercises for Students</span>
+    </div>
+    <div class="hero-tag" style="color:var(--teal);">For Educators</div>
+    <h1>5 CSS Grid Exercises That Show What Your Students Actually Understand</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>1 October 2026</span>
+      <span>9 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/whatsnew.png" alt="5 CSS Grid exercises that show what your students actually understand" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+
+      <!-- ===================================================== -->
+      <p>A student can copy this:</p>
+      <pre><code>display: grid;
+grid-template-columns: repeat(3, 1fr);</code></pre>
+      <p>and still have almost no idea what CSS Grid is doing.</p>
+      <p>That is one of the harder parts of teaching Grid. The finished layout can look correct even when the student is relying on copied code, guessing values or changing properties until something works.</p>
+      <p>So a useful Grid exercise shouldn't only ask <strong style="color:var(--white);">can you recreate this layout?</strong> It should also help you answer <strong style="color:var(--white);">do they understand why it works?</strong></p>
+      <p>These five exercises are designed to expose that difference. Each one tests a different Grid concept, and each includes the mistakes worth watching for.</p>
+
+      <div class="callout">
+        <strong>For teachers</strong>
+        <p style="margin-top:8px;margin-bottom:0;">Don't show the solution first. Give students the target layout, the supplied HTML and the constraint for the exercise. The important part is seeing how they reason their way to the result.</p>
+      </div>
+
+      <h2>1. Build three equal columns without being given the property</h2>
+
+      <h3>The exercise</h3>
+      <p>Give students this HTML:</p>
+      <pre><code>&lt;div class="grid"&gt;
+  &lt;div&gt;One&lt;/div&gt;
+  &lt;div&gt;Two&lt;/div&gt;
+  &lt;div&gt;Three&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <p>And this target: <strong style="color:var(--white);">three equal-width columns with a 20px gap.</strong> Tell them they may change the CSS, but not the HTML. Do not give them <code>grid-template-columns</code>.</p>
+
+      <h3>What this tests</h3>
+      <p>This looks like the simplest exercise in the article. It is. But it gives you a useful baseline. You're checking whether the student understands that:</p>
+      <ul>
+        <li>Grid is created on the parent</li>
+        <li>Columns are tracks</li>
+        <li><code>fr</code> distributes available space</li>
+        <li><code>gap</code> belongs to the Grid container</li>
+      </ul>
+      <p>A good solution might look like:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</code></pre>
+      <p>MDN's current Grid skill test starts with a similar fundamentals task, asking learners to create three equal columns and a gap before exploring how additional children auto-place.</p>
+
+      <h3>What to watch for</h3>
+      <p>A student may use <code>width: 33%;</code> on every child. Or Flexbox. Or three hard-coded pixel widths. Those solutions may produce something visually similar. That doesn't necessarily mean the student has failed. It tells you something more useful: <strong style="color:var(--white);">they have not yet chosen Grid as the layout model for the problem.</strong></p>
+
+      <h3>Ask them this</h3>
+      <p>Instead of immediately correcting the code, ask: <strong style="color:var(--white);">where are the three columns defined?</strong> If they cannot point to the Grid container and explain the tracks, that is the concept to revisit.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Target</div>
+        <div class="ex-grid-3">
+          <div class="ex-cell">One</div>
+          <div class="ex-cell">Two</div>
+          <div class="ex-cell">Three</div>
+        </div>
+        <p class="ex-visual-note">Do not show the solution until students have attempted the layout.</p>
+      </div>
+
+      <h2>2. Make one item span two columns</h2>
+
+      <h3>The exercise</h3>
+      <p>Start with a simple three-column Grid containing six items. Ask the student to make the first item span two columns without changing the HTML. The target should look roughly like: <strong style="color:var(--white);">Item 1</strong> spans columns 1 and 2, <strong style="color:var(--white);">Item 2</strong> sits in column 3, and the remaining items continue below.</p>
+
+      <h3>What this tests</h3>
+      <p>Now you're testing whether the student understands the difference between <strong style="color:var(--white);">the Grid itself</strong> and <strong style="color:var(--white);">where an item sits on that Grid.</strong> A possible solution is:</p>
+      <pre><code>.featured {
+  grid-column: span 2;
+}</code></pre>
+      <p>Or they may use explicit Grid lines. Both can be valid depending on how you've taught placement. Jen Simmons' exercise collection similarly moves from creating a Grid into explicitly placing and enlarging Grid items, which is a useful progression from structure into placement.</p>
+
+      <h3>What to watch for</h3>
+      <p>One revealing mistake is changing <code>grid-template-columns</code> just to make the first item wider. That suggests the student may still see the layout as a collection of boxes rather than <strong style="color:var(--white);">tracks + items placed on tracks.</strong> Another is adding extra markup purely to force the position.</p>
+
+      <h3>Ask them this</h3>
+      <p><strong style="color:var(--white);">Did you change the Grid or did you change the item?</strong> If they can explain why the item should span existing tracks, they are starting to understand one of Grid's most important ideas.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Target - with grid lines</div>
+        <div class="ex-lines"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div class="ex-grid-3">
+          <div class="ex-cell span2">Item 1</div>
+          <div class="ex-cell">Item 2</div>
+        </div>
+        <p class="ex-visual-note">Item 1 spans from line 1 to line 3.</p>
+      </div>
+
+      <h2>3. Make the cards responsive without giving them a breakpoint</h2>
+
+      <h3>The exercise</h3>
+      <p>Give students six cards. The requirement is: <strong style="color:var(--white);">show as many useful columns as will comfortably fit. On narrow screens, reduce the number of columns.</strong> Add one rule: <strong style="color:var(--white);">do not start with a media query.</strong> This is important.</p>
+
+      <h3>What this tests</h3>
+      <p>This reveals whether the student understands responsive Grid as more than desktop breakpoint &rarr; tablet breakpoint &rarr; mobile breakpoint. A strong solution may use:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}</code></pre>
+      <p>The student doesn't need to produce that exact line from memory. What you're really looking for is whether they understand a useful minimum track width, flexible growth, automatic column count, and available space.</p>
+
+      <h3>What to watch for</h3>
+      <p>A student may immediately write three media queries. That can produce a perfectly functional result. The teaching question is whether they understand <strong style="color:var(--white);">why they chose those breakpoints.</strong> If the answer is "because that's what we normally use," then this exercise has exposed an opportunity. They may understand media queries without yet understanding intrinsic Grid behaviour.</p>
+
+      <h3>Ask them this</h3>
+      <p><strong style="color:var(--white);">Could the layout decide when another card no longer fits instead of you deciding the exact screen width?</strong> That question usually leads naturally toward <code>minmax()</code> and <code>auto-fit</code>.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Target at three container widths</div>
+        <div class="ex-mini-row">
+          <div class="ex-mini">
+            <div class="ex-mini-label">Wide - 3 columns</div>
+            <div class="ex-mini-grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+            </div>
+          </div>
+          <div class="ex-mini">
+            <div class="ex-mini-label">Medium - 2 columns</div>
+            <div class="ex-mini-grid" style="grid-template-columns:repeat(2,1fr);">
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+            </div>
+          </div>
+          <div class="ex-mini">
+            <div class="ex-mini-label">Narrow - 1 column</div>
+            <div class="ex-mini-grid" style="grid-template-columns:1fr;">
+              <div class="ex-mini-cell"></div><div class="ex-mini-cell"></div><div class="ex-mini-cell"></div>
+            </div>
+          </div>
+        </div>
+        <p class="ex-visual-note">This is the target students are trying to reproduce - the CSS is not shown to them.</p>
+      </div>
+
+      <div class="callout">
+        <strong>Teacher note</strong>
+        <p style="margin-top:8px;margin-bottom:0;">Don't mark media queries as "wrong." They are not. The purpose of this exercise is to find out whether the student also understands how Grid can respond to available space.</p>
+      </div>
+
+      <h2>4. Recreate the layout without changing the HTML order</h2>
+
+      <h3>The exercise</h3>
+      <p>Provide HTML in this order:</p>
+      <pre><code>&lt;header&gt;Header&lt;/header&gt;
+&lt;main&gt;Main content&lt;/main&gt;
+&lt;aside&gt;Sidebar&lt;/aside&gt;
+&lt;footer&gt;Footer&lt;/footer&gt;</code></pre>
+      <p>Ask students to create a desktop layout where the header spans the full width, the sidebar sits on the left, the main content sits on the right, and the footer spans the full width. The HTML order must remain unchanged.</p>
+
+      <h3>What this tests</h3>
+      <p>This moves students beyond repeated card layouts. You're testing whether they can think in terms of a <strong style="color:var(--white);">two-dimensional page structure.</strong> A good approach may use Grid areas:</p>
+      <pre><code>.page {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+}
+header { grid-area: header; }
+main   { grid-area: main; }
+aside  { grid-area: sidebar; }
+footer { grid-area: footer; }</code></pre>
+      <p>It could also be solved using explicit line placement. The exact syntax is less important than whether the student can map the desired layout onto Grid tracks. Wes Bos' Grid exercises include both Grid template areas and larger responsive layouts later in the learning sequence, reflecting the move from individual Grid mechanics into page-level composition.</p>
+
+      <h3>What to watch for</h3>
+      <p>Students may reorder the HTML, use absolute positioning, add unnecessary wrappers, or use large margins to push elements around. Again, don't treat the unusual solution as the problem by itself. Ask <strong style="color:var(--white);">why</strong> they chose it.</p>
+
+      <h3>Ask them this</h3>
+      <p><strong style="color:var(--white);">Can you point to the rows and columns before you write the placement CSS?</strong> If they can't sketch the underlying Grid, they may be trying to position individual elements without first understanding the layout structure.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Grid map</div>
+        <div class="ex-areas">
+          <div class="ex-area header">Header</div>
+          <div class="ex-area sidebar">Sidebar</div>
+          <div class="ex-area main">Main</div>
+          <div class="ex-area footer">Footer</div>
+        </div>
+        <p class="ex-visual-note">Rendered with CSS Grid, not an HTML table - keep faint grid lines visible where possible.</p>
+      </div>
+
+      <h2>5. Debug a Grid that looks almost right</h2>
+
+      <h3>The exercise</h3>
+      <p>This is the most important exercise of the five. Don't ask the student to build anything from scratch. Give them a broken layout. For example:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 300px);
+  gap: 32px;
+}</code></pre>
+      <p>Place it in a container that is too narrow. Add one long piece of content to one card. Then give the student this instruction: <strong style="color:var(--white);">fix the layout without hiding the overflow.</strong></p>
+
+      <h3>What this tests</h3>
+      <p>Building from a blank file and debugging somebody else's CSS are different skills. This exercise reveals whether students can identify the visible symptom, inspect the Grid, isolate the rule causing it, distinguish track problems from content problems, and change the smallest useful thing. That is much closer to what happens in real development.</p>
+
+      <h3>What to watch for</h3>
+      <p>The quickest student response may be <code>overflow: hidden;</code>. That removes the symptom. It doesn't necessarily fix the layout. Others may rewrite the entire Grid before identifying why it broke.</p>
+
+      <h3>Ask them this</h3>
+      <p>Before they change any CSS, ask: <strong style="color:var(--white);">which element or rule is making the layout wider than the available space?</strong> That forces diagnosis before experimentation. Possible fixes may involve flexible columns, reducing an inappropriate fixed width, <code>min-width: 0</code>, allowing long content to wrap, constraining media, or changing an unrealistic <code>minmax()</code> minimum. There may be more than one valid solution. That's useful.</p>
+
+      <h3>The real assessment</h3>
+      <p>Don't only look at whether the finished Grid works. Ask the student to explain: <strong style="color:var(--white);">what was broken? Why did it happen? Why does your change fix it?</strong> If they can answer those three questions, they are demonstrating much more than syntax recall.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Broken layout - as students receive it</div>
+        <div class="ex-broken-wrap">
+          <div class="ex-broken">
+            <div class="ex-broken-card"></div>
+            <div class="ex-broken-card long">One very long piece of content</div>
+            <div class="ex-broken-card"></div>
+          </div>
+        </div>
+        <p class="ex-visual-note">Two possible clues: fixed-width tracks, and one long piece of content. What would you inspect first?</p>
+      </div>
+
+      <h2>How to use these exercises in one lesson</h2>
+      <p>You don't need to run all five as a test. A useful progression is:</p>
+      <ul>
+        <li><strong style="color:var(--white);">Exercise 1</strong> - can they define tracks?</li>
+        <li><strong style="color:var(--white);">Exercise 2</strong> - can they place items on those tracks?</li>
+        <li><strong style="color:var(--white);">Exercise 3</strong> - can they make the tracks respond to available space?</li>
+        <li><strong style="color:var(--white);">Exercise 4</strong> - can they plan a complete two-dimensional layout?</li>
+        <li><strong style="color:var(--white);">Exercise 5</strong> - can they diagnose something they didn't build?</li>
+      </ul>
+      <p>The progression matters. The first four ask <strong style="color:var(--white);">can you make Grid do something?</strong> The fifth asks <strong style="color:var(--white);">do you understand Grid well enough to explain why it didn't?</strong> That is a much stronger test of understanding.</p>
+
+      <h2>What not to grade too quickly</h2>
+      <p>A student using different CSS from your model answer does not automatically mean they misunderstood the exercise. CSS often has several valid ways to reach a similar visual result. Before marking a solution wrong, ask: <strong style="color:var(--white);">can they explain their decision?</strong> If they used a media query instead of <code>auto-fit</code>, why? If they used Grid lines instead of areas, why? If they used <code>minmax(0, 1fr)</code> instead of <code>1fr</code>, do they understand what changed? The explanation often tells you more than whether their code matches yours.</p>
+
+      <div class="callout">
+        <strong>The mistake worth looking for</strong>
+        <p style="margin-top:8px;margin-bottom:0;">The most revealing student habit is often not incorrect syntax. It's changing values until the layout looks right without being able to explain what changed. That's the difference between recognising CSS and understanding it. A good exercise makes that visible.</p>
+      </div>
+
+      <h2>Give students the layout before you give them the answer</h2>
+      <p>One reason Grid can be difficult to teach is that the code and the visual structure are separated. Students see <code>grid-column: 1 / 3;</code> but they may not yet see: start at this Grid line, cross these tracks, stop here. That is where visual tools become useful.</p>
+      <p>Let the student see the Grid. Let them make a prediction. Then let them change the CSS and see whether the layout behaves the way they expected. That turns the exercise from <strong style="color:var(--white);">copy the property</strong> into <strong style="color:var(--white);">predict the layout.</strong></p>
+
+      <!-- ===================================================== -->
+
+      <div class="share-row">
+        <a href="../grid-detective.html" class="btn btn-primary">Try Grid Detective with your class</a>
+        <a href="../educators.html" class="btn btn-secondary">Get more educator resources</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav">
+        <a href="60-minute-lesson.html" class="post-nav-link prev">
+          <span class="post-nav-label">&larr; Previous post</span>
+          <span class="post-nav-title">How to use Gridlock Holmes in a 60-minute CSS lesson</span>
+        </a>
+        <span></span>
+      </div>
+
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">0</span></a>
+    </div>
+
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
