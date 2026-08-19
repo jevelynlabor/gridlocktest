@@ -53,19 +53,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .preset-swatch { transition: transform 0.15s, box-shadow 0.15s; }
-        .preset-swatch:hover { transform: scale(1.08); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .mode-tab { transition: all 0.15s; }
-        .mode-tab.active { background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,0.3); color: var(--white); font-weight: 600; }
-        .dir-btn { transition: all 0.1s; }
-        .dir-btn.active { background: rgba(79,70,229,0.15); border-color: var(--teal); color: var(--teal); font-weight: 600; }
-        .code-area { font-family: 'Courier New', Courier, monospace; tab-size: 2; }
-        .code-area:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
-        #gradient-preview { transition: background 0.3s ease; }
-        .format-tab { transition: all 0.1s; }
-        .format-tab.active { background: var(--teal); color: white; }
-    </style>
 </head>
 <body class="overflow-x-hidden tool-page">
     <nav>
@@ -88,33 +75,33 @@
       </div>
     </nav>
 
-    <div class="inner" style="padding-top:40px;">
+    <div class="inner pt-40">
         <header class="text-center mb-6">
-            <p class="hero-tag" style="margin-bottom:14px;">CSS Gradient Generator</p>
-            <h1 style="font-size:clamp(2rem,4vw,2.8rem);font-weight:800;color:var(--white);margin-bottom:10px;">Create beautiful gradients visually.</h1>
-            <p style="color:var(--muted);margin-bottom:18px;">Linear, Radial, Conic &amp; Text Gradients &bull; Live Preview &bull; 100% Free</p>
+            <p class="hero-tag mb-14">CSS Gradient Generator</p>
+            <h1 class="tool-hero-title mb-10">Create beautiful gradients visually.</h1>
+            <p class="text-muted mb-18">Linear, Radial, Conic &amp; Text Gradients &bull; Live Preview &bull; 100% Free</p>
         </header>
     </div>
 
     <div class="max-w-6xl mx-auto px-4 py-6">
 
         <!-- Mode Tabs -->
-        <div class="flex bg-gray-200 rounded-lg p-1 mb-6 max-w-md mx-auto">
-            <button onclick="switchMode('generator')" id="mode-generator" class="mode-tab active flex-1 py-2.5 text-sm rounded-md text-center">🎨 Generator</button>
-            <button onclick="switchMode('editor')" id="mode-editor" class="mode-tab flex-1 py-2.5 text-sm rounded-md text-center text-gray-600">✏️ Code Editor</button>
+        <div class="mode-switcher flex mb-8 max-w-md mx-auto">
+            <button onclick="switchMode('generator')" id="mode-generator" class="mode-tab active flex-1 py-2.5 text-sm rounded-lg text-center">Generator</button>
+            <button onclick="switchMode('editor')" id="mode-editor" class="mode-tab flex-1 py-2.5 text-sm rounded-lg text-center">Code Editor</button>
         </div>
 
         <!-- ==================== GENERATOR MODE ==================== -->
-        <div id="panel-generator" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div id="panel-generator" class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,1fr)] gap-5 items-start">
 
             <!-- Left: Controls -->
-            <div class="bg-white rounded-xl shadow-lg p-5 space-y-5">
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2">Controls</h2>
+            <div class="tool-card space-y-6">
+                <div class="tool-card-head"><span class="dot"></span>Controls</div>
 
                 <!-- Type -->
                 <div>
-                    <label class="block text-sm font-medium mb-1">Type</label>
-                    <select id="gen-type" class="w-full p-2 border rounded text-sm" onchange="updateGenerator()">
+                    <label class="field-label">Type</label>
+                    <select id="gen-type" class="w-full p-2.5 border rounded-lg text-sm" onchange="updateGenerator()">
                         <option value="linear">Linear Gradient</option>
                         <option value="radial">Radial Gradient</option>
                         <option value="conic">Conic Gradient</option>
@@ -124,19 +111,20 @@
 
                 <!-- Direction (linear only) -->
                 <div id="gen-direction-wrap">
-                    <label class="block text-sm font-medium mb-1">Direction</label>
-                    <div class="grid grid-cols-4 gap-1 mb-2">
-                        <button onclick="setGenDir('to right',this)" class="gen-dir dir-btn active text-sm py-2 border rounded">→</button>
-                        <button onclick="setGenDir('to left',this)" class="gen-dir dir-btn text-sm py-2 border rounded">←</button>
-                        <button onclick="setGenDir('to bottom',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↓</button>
-                        <button onclick="setGenDir('to top',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↑</button>
-                        <button onclick="setGenDir('to bottom right',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↘</button>
-                        <button onclick="setGenDir('to bottom left',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↙</button>
-                        <button onclick="setGenDir('to top right',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↗</button>
-                        <button onclick="setGenDir('to top left',this)" class="gen-dir dir-btn text-sm py-2 border rounded">↖</button>
+                    <label class="field-label">Direction</label>
+                    <div class="dir-compass mb-3">
+                        <button onclick="setGenDir('to top left',this)" class="gen-dir dir-btn">↖</button>
+                        <button onclick="setGenDir('to top',this)" class="gen-dir dir-btn">↑</button>
+                        <button onclick="setGenDir('to top right',this)" class="gen-dir dir-btn">↗</button>
+                        <button onclick="setGenDir('to left',this)" class="gen-dir dir-btn">←</button>
+                        <span class="dir-center">dir</span>
+                        <button onclick="setGenDir('to right',this)" class="gen-dir dir-btn active">→</button>
+                        <button onclick="setGenDir('to bottom left',this)" class="gen-dir dir-btn">↙</button>
+                        <button onclick="setGenDir('to bottom',this)" class="gen-dir dir-btn">↓</button>
+                        <button onclick="setGenDir('to bottom right',this)" class="gen-dir dir-btn">↘</button>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <label class="text-xs text-gray-500">Angle:</label>
+                    <div class="flex items-center gap-3">
+                        <label class="text-xs text-gray-500 flex-shrink-0">Angle</label>
                         <input type="range" id="gen-angle" min="0" max="360" value="90" class="flex-1" oninput="setGenAngle(this.value)">
                         <span id="gen-angle-display" class="text-xs font-mono w-10 text-right">90°</span>
                     </div>
@@ -144,8 +132,8 @@
 
                 <!-- Radial shape (radial only) -->
                 <div id="gen-radial-wrap" class="hidden">
-                    <label class="block text-sm font-medium mb-1">Shape</label>
-                    <select id="gen-radial-shape" class="w-full p-2 border rounded text-sm" onchange="updateGenerator()">
+                    <label class="field-label">Shape</label>
+                    <select id="gen-radial-shape" class="w-full p-2.5 border rounded-lg text-sm" onchange="updateGenerator()">
                         <option value="circle">Circle</option>
                         <option value="ellipse">Ellipse</option>
                     </select>
@@ -153,80 +141,94 @@
 
                 <!-- Conic controls (conic only) -->
                 <div id="gen-conic-wrap" class="hidden">
-                    <label class="block text-sm font-medium mb-1">Starting Angle</label>
-                    <div class="flex items-center gap-2">
+                    <label class="field-label">Starting Angle</label>
+                    <div class="flex items-center gap-3">
                         <input type="range" id="gen-conic-angle" min="0" max="360" value="0" class="flex-1" oninput="updateGenerator();document.getElementById('conic-angle-display').textContent=this.value+'°'">
                         <span id="conic-angle-display" class="text-xs font-mono w-10 text-right">0°</span>
                     </div>
-                    <div class="flex items-center gap-2 mt-2">
+                    <label class="flex items-center gap-2 mt-3 text-xs text-gray-600 cursor-pointer">
                         <input type="checkbox" id="gen-conic-repeating" onchange="updateGenerator()">
-                        <label for="gen-conic-repeating" class="text-xs text-gray-600">Repeating pattern</label>
-                    </div>
+                        Repeating pattern
+                    </label>
                 </div>
 
                 <!-- Text gradient controls (text only) -->
-                <div id="gen-text-wrap" class="hidden">
-                    <label class="block text-sm font-medium mb-1">Preview Text</label>
-                    <input type="text" id="gen-text-input" value="Gridlock Holmes" class="w-full p-2 border rounded text-sm" oninput="updateGenerator()" placeholder="Type your text here">
-                    <label class="block text-sm font-medium mb-1 mt-3">Font Size</label>
-                    <div class="flex items-center gap-2">
-                        <input type="range" id="gen-text-size" min="24" max="96" value="48" class="flex-1" oninput="updateGenerator();document.getElementById('text-size-display').textContent=this.value+'px'">
-                        <span id="text-size-display" class="text-xs font-mono w-12 text-right">48px</span>
+                <div id="gen-text-wrap" class="hidden space-y-4">
+                    <div>
+                        <label class="field-label">Preview Text</label>
+                        <input type="text" id="gen-text-input" value="Gridlock Holmes" class="w-full p-2.5 border rounded-lg text-sm" oninput="updateGenerator()" placeholder="Type your text here">
                     </div>
-                    <label class="block text-sm font-medium mb-1 mt-3">Font Weight</label>
-                    <select id="gen-text-weight" class="w-full p-2 border rounded text-sm" onchange="updateGenerator()">
-                        <option value="400">Regular (400)</option>
-                        <option value="500">Medium (500)</option>
-                        <option value="600">Semi-bold (600)</option>
-                        <option value="700" selected>Bold (700)</option>
-                        <option value="900">Black (900)</option>
-                    </select>
+                    <div>
+                        <label class="field-label">Font Size</label>
+                        <div class="flex items-center gap-3">
+                            <input type="range" id="gen-text-size" min="24" max="96" value="48" class="flex-1" oninput="updateGenerator();document.getElementById('text-size-display').textContent=this.value+'px'">
+                            <span id="text-size-display" class="text-xs font-mono w-12 text-right">48px</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="field-label">Font Weight</label>
+                        <select id="gen-text-weight" class="w-full p-2.5 border rounded-lg text-sm" onchange="updateGenerator()">
+                            <option value="400">Regular (400)</option>
+                            <option value="500">Medium (500)</option>
+                            <option value="600">Semi-bold (600)</option>
+                            <option value="700" selected>Bold (700)</option>
+                            <option value="900">Black (900)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Colour Stops -->
                 <div>
-                    <div class="flex items-center justify-between mb-1">
-                        <label class="block text-sm font-medium">Colour Stops</label>
-                        <button onclick="addStop()" class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-medium hover:bg-blue-200 transition">+ Add Stop</button>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="field-label mb-0">Colour Stops</label>
+                        <button onclick="addStop()" class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-md font-semibold hover:bg-blue-200 transition">+ Add Stop</button>
                     </div>
-                    <div id="gen-stops" class="space-y-2"></div>
+                    <div id="gen-stops" class="space-y-2.5"></div>
                 </div>
 
                 <!-- Presets -->
                 <div>
-                    <label class="block text-sm font-medium mb-2">Presets</label>
+                    <label class="field-label">Presets</label>
                     <div id="gen-presets" class="grid grid-cols-5 gap-2"></div>
                 </div>
             </div>
 
             <!-- Center: Live Preview -->
-            <div class="bg-white rounded-xl shadow-lg p-5">
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-4">Live Preview</h2>
-                <div id="gradient-preview" class="rounded-lg border-2 border-gray-200" style="height:320px;background:linear-gradient(to right,#6366F1,#EC4899);"></div>
-                <div class="mt-3 flex gap-2">
-                    <button onclick="setPreviewSize('square')" class="text-xs px-2 py-1 border rounded hover:bg-gray-50">Square</button>
-                    <button onclick="setPreviewSize('wide')" class="text-xs px-2 py-1 border rounded hover:bg-gray-50">Wide</button>
-                    <button onclick="setPreviewSize('tall')" class="text-xs px-2 py-1 border rounded hover:bg-gray-50">Tall</button>
-                    <button onclick="setPreviewSize('full')" class="text-xs px-2 py-1 border rounded hover:bg-gray-50">Full Width</button>
+            <div class="tool-card lg:sticky lg:top-[76px]">
+                <div class="tool-card-head"><span class="dot"></span>Live Preview</div>
+                <div class="preview-frame">
+                    <div id="gradient-preview" class="rounded-lg"></div>
                 </div>
-                <p class="text-xs text-gray-400 mt-2">Preview shape doesn't affect your generated code</p>
+                <div class="size-switch mt-4">
+                    <button onclick="setPreviewSize('square',this)" id="size-square" class="size-btn text-xs py-1.5">Square</button>
+                    <button onclick="setPreviewSize('wide',this)" class="size-btn text-xs py-1.5">Wide</button>
+                    <button onclick="setPreviewSize('tall',this)" class="size-btn text-xs py-1.5">Tall</button>
+                    <button onclick="setPreviewSize('full',this)" class="size-btn text-xs py-1.5">Full</button>
+                </div>
+                <p class="text-xs text-gray-400 mt-3 text-center">Preview shape doesn't affect your generated code</p>
             </div>
 
             <!-- Right: Code Output -->
-            <div class="bg-white rounded-xl shadow-lg p-5">
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-3">Generated Code</h2>
+            <div class="tool-card lg:sticky lg:top-[76px]">
+                <div class="tool-card-head"><span class="dot"></span>Generated Code</div>
 
                 <!-- Format tabs -->
-                <div class="flex gap-1 mb-3 flex-wrap">
-                    <button onclick="setGenFormat('css',this)" class="format-tab active text-xs px-3 py-1.5 border rounded">CSS</button>
-                    <button onclick="setGenFormat('tailwind',this)" class="format-tab text-xs px-3 py-1.5 border rounded">Tailwind</button>
-                    <button onclick="setGenFormat('scss',this)" class="format-tab text-xs px-3 py-1.5 border rounded">SCSS</button>
-                    <button onclick="setGenFormat('js',this)" class="format-tab text-xs px-3 py-1.5 border rounded">JavaScript</button>
+                <div class="flex gap-1.5 mb-3 flex-wrap">
+                    <button onclick="setGenFormat('css',this)" class="format-tab active text-xs px-3 py-1.5 border rounded-md">CSS</button>
+                    <button onclick="setGenFormat('tailwind',this)" class="format-tab text-xs px-3 py-1.5 border rounded-md">Tailwind</button>
+                    <button onclick="setGenFormat('scss',this)" class="format-tab text-xs px-3 py-1.5 border rounded-md">SCSS</button>
+                    <button onclick="setGenFormat('js',this)" class="format-tab text-xs px-3 py-1.5 border rounded-md">JavaScript</button>
                 </div>
 
-                <pre id="gen-code-output" class="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto leading-relaxed" style="min-height:200px;"></pre>
+                <div class="code-panel">
+                    <div class="code-panel-bar">
+                        <div class="code-panel-dots"><span></span><span></span><span></span></div>
+                        <span class="text-xs text-gray-500 font-mono">output</span>
+                    </div>
+                    <pre id="gen-code-output" class="text-green-400 p-4 text-sm overflow-x-auto leading-relaxed code-output-lg"></pre>
+                </div>
 
-                <button onclick="copyGenCode()" id="gen-copy-btn" class="mt-3 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
+                <button onclick="copyGenCode()" id="gen-copy-btn" class="mt-3 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition">
                     📋 Copy to Clipboard
                 </button>
             </div>
@@ -234,12 +236,12 @@
 
         <!-- ==================== EDITOR MODE ==================== -->
         <div id="panel-editor" class="hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                 <!-- Left: Code Input -->
-                <div class="bg-white rounded-xl shadow-lg p-5">
-                    <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-3">Paste Your CSS</h2>
-                    <textarea id="editor-input" class="code-area w-full p-4 border-2 border-gray-200 rounded-lg text-sm bg-gray-50 leading-relaxed" rows="14" placeholder=".hero {
+                <div class="tool-card">
+                    <div class="tool-card-head"><span class="dot"></span>Paste Your CSS</div>
+                    <textarea id="editor-input" class="code-area w-full p-4 border-2 rounded-lg text-sm leading-relaxed" rows="14" placeholder=".hero {
   background: linear-gradient(to right, #667eea, #764ba2);
   padding: 4rem 2rem;
 }
@@ -252,11 +254,11 @@
                 </div>
 
                 <!-- Right: Detected Gradients -->
-                <div class="bg-white rounded-xl shadow-lg p-5">
-                    <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-3">Detected Backgrounds</h2>
+                <div class="tool-card">
+                    <div class="tool-card-head"><span class="dot"></span>Detected Backgrounds</div>
                     <div id="editor-detected" class="space-y-4">
                         <div class="text-center py-12 text-gray-400">
-                            <div class="text-4xl mb-3">🔍</div>
+                            
                             <p>Paste CSS code on the left to detect and edit gradients</p>
                         </div>
                     </div>
@@ -264,20 +266,26 @@
             </div>
 
             <!-- Updated code output -->
-            <div class="mt-6 bg-white rounded-xl shadow-lg p-5">
-                <div class="flex items-center justify-between border-b pb-2 mb-3">
-                    <h2 class="text-lg font-bold text-gray-800">Updated Code</h2>
-                    <button onclick="copyEditorCode()" id="editor-copy-btn" class="py-1.5 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
+            <div class="tool-card mt-5">
+                <div class="flex items-center justify-between tool-card-head">
+                    <span><span class="dot"></span> Updated Code</span>
+                    <button onclick="copyEditorCode()" id="editor-copy-btn" class="py-1.5 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition normal-case tracking-normal">
                         📋 Copy
                     </button>
                 </div>
-                <pre id="editor-code-output" class="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto leading-relaxed" style="min-height:100px;">Paste code above to see updated output here</pre>
+                <div class="code-panel">
+                    <div class="code-panel-bar">
+                        <div class="code-panel-dots"><span></span><span></span><span></span></div>
+                        <span class="text-xs text-gray-500 font-mono">output</span>
+                    </div>
+                    <pre id="editor-code-output" class="text-green-400 p-4 text-sm overflow-x-auto leading-relaxed code-output-sm">Paste code above to see updated output here</pre>
+                </div>
             </div>
         </div>
 
         <!-- SEO Content Section -->
         <div class="mt-10 max-w-3xl mx-auto">
-            <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="tool-card p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Use CSS Gradients</h2>
 
                 <div class="space-y-4 text-gray-700 leading-relaxed">
@@ -429,7 +437,6 @@
 
     function addStop() {
         if (genStops.length >= 6) return;
-        var lastColor = genStops[genStops.length - 1].color;
         genStops.push({color: '#888888', position: 100});
         // Redistribute positions evenly
         genStops.forEach(function(s, i) { s.position = Math.round((i / (genStops.length - 1)) * 100); });
@@ -525,7 +532,8 @@
             var fontWeight = document.getElementById('gen-text-weight').value;
             // For text type, buildGradientString returns a linear-gradient
             preview.innerHTML = '<div style="font-size:' + fontSize + 'px;font-weight:' + fontWeight + ';background:' + gradStr + ';-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;justify-content:center;height:100%;line-height:1.2;text-align:center;padding:16px;word-break:break-word;">' + text.replace(/</g,'&lt;') + '</div>';
-            preview.style.background = '';
+            preview.style.background = 'none';
+            preview.style.borderRadius = '';
         } else {
             preview.innerHTML = '';
             preview.style.background = gradStr;
@@ -591,10 +599,15 @@
         });
     }
 
-    function setPreviewSize(size) {
+    function setPreviewSize(size, btn) {
         var el = document.getElementById('gradient-preview');
         el.style.height = size === 'square' ? '320px' : size === 'wide' ? '160px' : size === 'tall' ? '480px' : '200px';
-        el.style.width = size === 'full' ? '100%' : '';
+        el.style.width = size === 'square' ? '320px' : size === 'full' ? '100%' : '';
+        el.style.maxWidth = '100%';
+        el.style.margin = size === 'square' ? '0 auto' : '';
+
+        document.querySelectorAll('.size-btn').forEach(function(b){ b.classList.remove('active'); });
+        if (btn) btn.classList.add('active');
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -681,7 +694,7 @@
         var container = document.getElementById('editor-detected');
         
         if (detectedGradients.length === 0) {
-            container.innerHTML = '<div class="text-center py-12 text-gray-400"><div class="text-4xl mb-3">🔍</div><p>No gradients or background colours detected</p></div>';
+            container.innerHTML = '<div class="text-center py-12 text-gray-400"><p>No gradients or background colours detected</p></div>';
             return;
         }
         
@@ -689,6 +702,8 @@
         detectedGradients.forEach(function(g, idx) {
             var card = document.createElement('div');
             card.className = 'border rounded-lg p-4';
+            card.style.borderColor = 'var(--border)';
+            card.style.background = 'var(--bg2)';
             
             var previewBg = '';
             var controlsHtml = '';
@@ -784,6 +799,7 @@
     renderStops();
     renderPresets();
     updateGenerator();
+    setPreviewSize('square', document.getElementById('size-square'));
     </script>
 
     <footer class="bg-gray-800 text-gray-400 py-8 mt-8">

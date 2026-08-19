@@ -81,7 +81,7 @@
         <li>Share your gradient - shareable URL</li>
         <li>Apply to grid layouts - use directly in the CSS Grid generator</li>
       </ul>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <div class="btn-row">
         <a href="index.html" class="btn btn-primary">Open CSS Grid Generator</a>
         <a href="learn.html" class="btn btn-secondary">Start Learning</a>
       </div>
@@ -100,19 +100,19 @@
     <p class="section-description">The tool supports all four CSS gradient types. Switch between them instantly.</p>
     <div class="type-grid">
       <div class="type-card">
-        <div class="type-swatch" style="background:linear-gradient(135deg,var(--teal),var(--navy));"></div>
+        <div class="type-swatch type-swatch-linear"></div>
         <div class="type-label">Linear<div class="type-sub">Colours transition in a straight line</div></div>
       </div>
       <div class="type-card">
-        <div class="type-swatch" style="background:radial-gradient(circle,var(--purple),var(--navy));"></div>
+        <div class="type-swatch type-swatch-radial"></div>
         <div class="type-label">Radial<div class="type-sub">Colours spread outwards from a centre point</div></div>
       </div>
       <div class="type-card">
-        <div class="type-swatch" style="background:conic-gradient(var(--pink),var(--purple),var(--teal),var(--pink));"></div>
+        <div class="type-swatch type-swatch-conic"></div>
         <div class="type-label">Conic<div class="type-sub">Colours rotate around a centre point</div></div>
       </div>
       <div class="type-card">
-        <div class="type-swatch" style="background:repeating-linear-gradient(45deg,var(--teal),var(--teal) 8px,var(--navy) 8px,var(--navy) 16px);"></div>
+        <div class="type-swatch type-swatch-repeating"></div>
         <div class="type-label">Repeating<div class="type-sub">Repeats the same gradient pattern automatically</div></div>
       </div>
     </div>
