@@ -217,6 +217,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
 .detect-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:28px; }
 .detect-item { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 18px; display:flex; gap:12px; align-items:flex-start; font-size:0.88rem; color:var(--muted); }
 .di-dot { width:8px; height:8px; border-radius:50%; background:var(--teal); flex-shrink:0; margin-top:6px; }
+.tool-frameimage img { width:100%; border-radius:10px; }
 
 /* EDUCATORS PAGE (classroom guide) */
 .steps-section { background:var(--bg2); border-top:1px solid var(--border); padding:80px 24px; }
