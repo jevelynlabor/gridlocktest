@@ -53,7 +53,7 @@
   <div class="post-hero-inner">
     <a href="../blog.html" class="back-link">&larr; Back to blog</a>
     <div class="hero-tag" style="color:var(--teal);">Platform Update</div>
-    <h1>What is new in Gridlock Holmes - 2026</h1>
+    <h1>What is new in Gridlock Holmes &mdash; 2026</h1>
     <div class="author-row">
       <span>Gridlock Holmes team</span>
       <span>3 September 2026</span>
@@ -68,23 +68,23 @@
       <p>It has been a big year for Gridlock Holmes. What started as a single CSS Grid generator has grown into a small toolkit for anyone who writes, teaches or debugs grid layouts. Here is everything that shipped in 2026, and a little of what is coming next.</p>
 
       <h2>Grid Detective is now its own page</h2>
-      <p>Grid Detective, our layout debugger, used to live as a panel bolted onto the generator. It now has a dedicated page with a bigger analysis panel, clearer error grouping, and room to explain <em>why</em> a rule is flagged, not just that it is. Paste in a broken grid and you get a categorised list of issues: errors that will break the layout, warnings that will cause subtle bugs, and tips for cleaner code.</p>
+      <p>Grid Detective &mdash; our layout debugger &mdash; used to live as a panel bolted onto the generator. It now has a dedicated page with a bigger analysis panel, clearer error grouping, and room to explain <em>why</em> a rule is flagged, not just that it is. Paste in a broken grid and you get a categorised list of issues: errors that will break the layout, warnings that will cause subtle bugs, and tips for cleaner code.</p>
       <div class="post-callout"><strong>Why it matters:</strong> separating Grid Detective from the generator means you can drop it into an existing project's CSS without needing to rebuild the layout from scratch first.</div>
 
       <h3>What it catches</h3>
       <ul>
-        <li><strong>Overflow traps</strong>: grid items with images or long text that ignore their track's <code>minmax()</code> because of the default <code>min-width: auto</code>.</li>
-        <li><strong>Orphaned grid-area names</strong>: areas referenced in <code>grid-template-areas</code> that never got a matching <code>grid-area</code> declaration.</li>
-        <li><strong>Legacy syntax</strong>: old <code>grid-gap</code> / <code>grid-column-gap</code> properties mixed in with modern <code>gap</code>.</li>
+        <li><strong>Overflow traps</strong> &mdash; grid items with images or long text that ignore their track's <code>minmax()</code> because of the default <code>min-width: auto</code>.</li>
+        <li><strong>Orphaned grid-area names</strong> &mdash; areas referenced in <code>grid-template-areas</code> that never got a matching <code>grid-area</code> declaration.</li>
+        <li><strong>Legacy syntax</strong> &mdash; old <code>grid-gap</code> / <code>grid-column-gap</code> properties mixed in with modern <code>gap</code>.</li>
       </ul>
 
       <h2>Four coding paths for learning</h2>
       <p>The Learn hub now offers four parallel paths so you can practise grid in whichever syntax you actually use day to day:</p>
       <ul>
-        <li><strong>CSS</strong>: plain <code>grid-template-columns</code>, <code>fr</code> units, and named areas.</li>
-        <li><strong>Tailwind</strong>: the same layouts built with utility classes like <code>grid-cols-12</code> and arbitrary values.</li>
-        <li><strong>JavaScript</strong>: reading and writing computed grid styles at runtime, useful for dashboards that reflow dynamically.</li>
-        <li><strong>SCSS</strong>: grid mixins and variables for teams that already have a Sass build step.</li>
+        <li><strong>CSS</strong> &mdash; plain <code>grid-template-columns</code>, <code>fr</code> units, and named areas.</li>
+        <li><strong>Tailwind</strong> &mdash; the same layouts built with utility classes like <code>grid-cols-12</code> and arbitrary values.</li>
+        <li><strong>JavaScript</strong> &mdash; reading and writing computed grid styles at runtime, useful for dashboards that reflow dynamically.</li>
+        <li><strong>SCSS</strong> &mdash; grid mixins and variables for teams that already have a Sass build step.</li>
       </ul>
       <p>Each path shares the same exercises, so you can start in CSS and switch to Tailwind later without losing your place.</p>
 
@@ -96,7 +96,7 @@
 }</code></pre>
 
       <h2>Free resources for educators</h2>
-      <p>If you teach CSS, whether in a bootcamp, a classroom, or a company onboarding, the For Educators page now has downloadable lesson plans, a printable grid cheat sheet, and a bank of "spot the bug" exercises built from real Grid Detective reports. All of it is free, no account required.</p>
+      <p>If you teach CSS &mdash; in a bootcamp, a classroom, or a company onboarding &mdash; the For Educators page now has downloadable lesson plans, a printable grid cheat sheet, and a bank of "spot the bug" exercises built from real Grid Detective reports. All of it is free, no account required.</p>
 
       <h2>What is next</h2>
       <p>Early 2027 work is focused on subgrid support in Grid Detective's analysis, plus a shareable link for saved layouts so you can send a grid setup to a teammate without pasting raw CSS into Slack. If there is something specific you would find useful, the feedback link in the footer goes straight to the team.</p>

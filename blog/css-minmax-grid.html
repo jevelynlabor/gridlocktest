@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How CSS Minmax Stops Your Grid From Falling Apart | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="minmax() stops feeling like magic CSS once you understand what its two values actually control. See how minimum widths, auto-fit and container size interact in CSS Grid.">
+<meta name="keywords" content="css minmax, minmax css grid, css grid minmax, css grid auto-fit, css grid responsive, grid-template-columns, responsive css grid, auto-fit css grid">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/css-minmax-grid.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="How CSS Minmax Stops Your Grid From Falling Apart">
+<meta property="og:description" content="minmax() stops feeling like magic CSS once you understand what its two values actually control. See how minimum widths, auto-fit and container size interact in CSS Grid.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/css-minmax-grid.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/blog/Minmax Stops Your CSS Grid.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How CSS Minmax Stops Your Grid From Falling Apart">
+<meta name="twitter:description" content="minmax() stops feeling like magic CSS once you understand what its two values actually control. See how minimum widths, auto-fit and container size interact in CSS Grid.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/blog/Minmax Stops Your CSS Grid.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/tutorials.html">Tutorials</a><span class="sep">/</span>
+      <span class="current">How CSS Minmax Stops Your Grid Falling Apart</span>
+    </div>
+    <div class="hero-tag" style="color:var(--purple);">Tutorial</div>
+    <h1>How CSS Minmax Stops Your Grid From Falling Apart</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>8 October 2026</span>
+      <span>9 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/blog/Minmax Stops Your CSS Grid.png" alt="How CSS minmax stops your Grid from falling apart featured image" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+
+      <p>You add this to your Grid:</p>
+      <pre><code>grid-template-columns:
+  repeat(auto-fit, minmax(220px, 1fr));</code></pre>
+      <p>Everything suddenly looks more responsive. Great.</p>
+      <p>Then you change 220px to 300px and the layout starts overflowing. Or you make it 150px and your cards become tiny. Or you copy the same line into another project and it behaves completely differently.</p>
+      <p>That's usually the point where <code>minmax()</code> stops feeling clever and starts feeling like magic CSS you're afraid to touch.</p>
+      <p>It isn't magic. Those two values are simply telling the browser <strong style="color:var(--white);">how small a Grid track is allowed to become and how large it is allowed to grow.</strong> Once you can see that happening, <code>minmax()</code> becomes much easier to reason about.</p>
+
+      <div class="demo-panel">
+        <div class="demo-label">Live demo</div>
+        <div class="demo-controls">
+          <label for="mmRange">Minimum card width</label>
+          <input type="range" id="mmRange" min="120" max="360" value="220" step="10">
+          <span class="demo-val" id="mmVal">220px</span>
+        </div>
+        <div class="demo-controls">
+          <span style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:700;">Container</span>
+          <div class="demo-width-btns" id="mmWidthBtns">
+            <button data-w="320">Small</button>
+            <button data-w="640" class="active">Medium</button>
+            <button data-w="960">Large</button>
+          </div>
+        </div>
+        <div class="demo-stage-wrap" id="mmStageWrap" style="max-width:640px;">
+          <div class="demo-grid" id="mmGrid" style="grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));">
+            <div class="demo-card">Card</div>
+            <div class="demo-card">Card</div>
+            <div class="demo-card">Card</div>
+            <div class="demo-card">Card</div>
+          </div>
+        </div>
+        <div class="demo-code" id="mmCode">grid-template-columns:
+  repeat(auto-fit, minmax(220px, 1fr));</div>
+        <p class="demo-caption">Change the minimum width and watch when the Grid decides there is no longer room for another column.</p>
+      </div>
+
+      <h2>1. Your cards keep getting too narrow</h2>
+      <p>You've made a responsive Grid. Technically, it works. The cards get smaller as the screen gets smaller. The problem is that eventually they get <strong style="color:var(--white);">too small to be useful.</strong></p>
+      <p>Consider:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</code></pre>
+      <p>On a wide screen, those three columns may look great. Make the container narrower and each column simply gets a smaller share of the available width. Nothing in that CSS says <strong style="color:var(--white);">stop shrinking when the cards become unreadable.</strong></p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p><code>1fr</code> distributes available space. It does not know what you consider a sensible minimum width for the content.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Give the tracks a lower limit with <code>minmax()</code> so they never shrink past a useful width.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(220px, 1fr));
+  gap: 20px;
+}</code></pre>
+      <p>Now you're saying: each track should be at least 220px wide, and if there is extra space, it can grow. That is the basic job of <code>minmax()</code>.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Before / after</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">Without minmax</div>
+            <div class="sbs-box"><div class="cramped-grid"><div class="cramped-cell"></div><div class="cramped-cell"></div><div class="cramped-cell"></div></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">With minmax</div>
+            <div class="sbs-box"><div class="fitcount-grid" style="grid-template-columns:1fr 1fr;"><div class="fitcount-cell"></div><div class="fitcount-cell"></div></div></div>
+          </div>
+        </div>
+        <p class="ex-visual-note">minmax() can protect the width of a track. It does not automatically decide how many tracks should exist.</p>
+      </div>
+
+      <h2>2. Minmax doesn't automatically make the number of columns responsive</h2>
+      <p>This is where a lot of copied CSS gets misunderstood. You can write:</p>
+      <pre><code>grid-template-columns:
+  repeat(4, minmax(220px, 1fr));</code></pre>
+      <p>and still have a layout that breaks on a narrow screen. Why? Because you've still told Grid to make four columns. Each of those columns now wants to be at least 220px wide. Four tracks need at least 880px before gaps are included. <code>minmax()</code> is doing exactly what you asked - the problem is the fixed column count.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You've made the <strong style="color:var(--white);">track size</strong> flexible but left the <strong style="color:var(--white);">number of tracks</strong> fixed.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>For repeated content such as cards or gallery items, combine <code>minmax()</code> with <code>auto-fit</code>.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}</code></pre>
+      <p>Now Grid can make two decisions: how wide should each track be (at least 220px, with room to grow), and how many tracks should fit (as many as the available space can hold). That's why this pattern appears so often in responsive CSS Grid examples.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Fixed count vs auto-fit</div>
+        <div class="fillfit-row">
+          <div class="fillfit-col">
+            <div class="sbs-label">Fixed 4 columns</div>
+            <div class="fillfit-track"><div class="fillfit-cell"></div><div class="fillfit-cell"></div><div class="fillfit-cell"></div><div class="fillfit-cell"></div></div>
+          </div>
+          <div class="fillfit-col">
+            <div class="sbs-label">Auto-fit</div>
+            <div class="fillfit-track fit"><div class="fillfit-cell"></div><div class="fillfit-cell"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-callout">If your Grid works on desktop but fails as the screen gets smaller, read <a href="why-css-grid-breaks-on-smaller-screens.html">Why Your CSS Grid Breaks on Smaller Screens</a>.</div>
+
+      <h2>3. Your minimum is bigger than the space available</h2>
+      <p>Now we get to one of the most confusing <code>minmax()</code> problems. Imagine this:</p>
+      <pre><code>grid-template-columns:
+  repeat(auto-fit, minmax(300px, 1fr));</code></pre>
+      <p>Your card should never be smaller than 300px. Makes sense. Then the Grid is displayed inside a container that is only 260px wide. The track still wants its 300px minimum. The container only has 260px. That can result in the Grid becoming wider than its container.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>A minimum is a real constraint. <code>minmax(300px, 1fr)</code> means 300px is the minimum track size, not "try for it unless things get awkward."</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Let the minimum respect the available width if the component may become narrower than your preferred minimum.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(min(100%, 300px), 1fr)
+    );
+}</code></pre>
+      <p>Now the track can still aim for a 300px minimum when the space exists. But when the entire container is narrower than 300px, it can respect 100% of that available width instead.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">260px container</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">Minimum 300px</div>
+            <div class="container-edge"><div class="track-block overflow"></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">Minimum respects container</div>
+            <div class="container-edge"><div class="track-block"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>4. The second value controls how much the track can grow</h2>
+      <p>Most examples use <code>minmax(220px, 1fr)</code>. The first value gets most of the attention. But the second value matters too. Here, <code>1fr</code> means the track can grow and take a share of the available free space. So if three tracks fit into the container with room left over, they don't have to remain exactly 220px wide - they can expand. That's why a Grid like this can fill the row instead of leaving awkward unused space after the final item.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>A lot of developers mentally read 220px as the card width. It isn't - it is the <strong style="color:var(--white);">minimum</strong> track size.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Think of the rule as "at least this wide" and "allowed to grow this far."</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Track growth</div>
+        <div class="track-diagram">
+          <div class="min-part">220px min</div>
+          <div class="grow-part">1fr - shares remaining space</div>
+        </div>
+        <p class="ex-visual-note">Minimum &ne; fixed width.</p>
+      </div>
+
+      <h2>5. Auto-fit and auto-fill are not quite the same</h2>
+      <p>If you've searched for responsive Grid examples, you've probably seen both <code>repeat(auto-fit, minmax(220px, 1fr))</code> and <code>repeat(auto-fill, minmax(220px, 1fr))</code>. They often look identical when there are enough items to fill the row. The difference becomes easier to see when the container has room for more tracks than you actually have content for.</p>
+      <ul>
+        <li><strong style="color:var(--white);">auto-fill</strong> can preserve space for additional tracks that could fit.</li>
+        <li><strong style="color:var(--white);">auto-fit</strong> collapses those unused tracks so the existing items can use the available space.</li>
+      </ul>
+      <p>For many responsive card layouts, <code>auto-fit</code> gives the result people expect because the existing cards can stretch to fill the row. But neither is universally "better" - the right choice depends on whether you want the empty track space to remain part of the layout.</p>
+
+      <h2>6. Minmax isn't only for card layouts</h2>
+      <p>Responsive cards are the example everyone remembers. But <code>minmax()</code> is useful anywhere you want a Grid track to have boundaries rather than a single fixed size. For example, imagine a sidebar that should be useful without becoming enormous.</p>
+      <pre><code>.layout {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 260px) 1fr;
+}</code></pre>
+      <p>The sidebar can live within a sensible range while the main content takes the remaining space. The useful question is: does this track need one exact size, or does it need a sensible range? If it needs a range, <code>minmax()</code> is worth considering.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Bounded sidebar</div>
+        <div class="sidebar-demo">
+          <div class="sd-side">180-260px</div>
+          <div class="sd-main">1fr</div>
+        </div>
+      </div>
+
+      <h2>The three minmax patterns worth remembering</h2>
+      <p>You don't need to memorise dozens of combinations. These three cover a lot of everyday Grid work.</p>
+      <h3>Responsive cards</h3>
+      <pre><code>grid-template-columns:
+  repeat(auto-fit, minmax(220px, 1fr));</code></pre>
+      <p>Useful when the number of columns should respond to available space.</p>
+      <h3>Minimum that cannot exceed the container</h3>
+      <pre><code>grid-template-columns:
+  repeat(
+    auto-fit,
+    minmax(min(100%, 300px), 1fr)
+  );</code></pre>
+      <p>Useful when a component may become narrower than your preferred card width.</p>
+      <h3>Bounded sidebar</h3>
+      <pre><code>grid-template-columns:
+  minmax(180px, 260px) 1fr;</code></pre>
+      <p>Useful when a track should have both a sensible lower and upper limit.</p>
+
+      <div class="callout">
+        <strong>Why this matters</strong>
+        <p style="margin-top:8px;margin-bottom:0;">Copying <code>minmax(220px, 1fr)</code> works until your layout needs something slightly different. Then the important thing isn't remembering the magic numbers. It's understanding the instruction: how small can this track become, and how large can it grow? Once those two answers make sense, changing minmax() stops feeling like trial and error.</p>
+      </div>
+
+      <h2>If your Grid still looks wrong</h2>
+      <p>Check these before changing random values.</p>
+      <ol>
+        <li><strong style="color:var(--white);">Is your minimum too small?</strong> Your cards may technically fit but become difficult to use.</li>
+        <li><strong style="color:var(--white);">Is your minimum too large?</strong> The Grid may overflow when its container becomes narrower.</li>
+        <li><strong style="color:var(--white);">Is the number of columns still fixed?</strong> minmax() does not automatically change repeat(4, ...) into fewer columns.</li>
+        <li><strong style="color:var(--white);">Are you using auto-fit or auto-fill intentionally?</strong> They can behave differently when the row has empty space.</li>
+        <li><strong style="color:var(--white);">Is the problem actually inside the Grid item?</strong> An image, long URL or nested element may be forcing the track wider.</li>
+      </ol>
+      <p>You can learn a lot about minmax() by reading the syntax. You'll understand it much faster when you can change the values and watch the Grid react. Use Gridlock Holmes to experiment with your track sizes visually and see the CSS change with the layout.</p>
+
+      <div class="share-row">
+        <a href="../index.html" class="btn btn-primary">Try the CSS Grid Generator</a>
+        <a href="../grid-detective.html" class="btn btn-secondary">Check your code in Grid Detective</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav">
+        <a href="css-grid-exercises-for-students.html" class="post-nav-link prev">
+          <span class="post-nav-label">&larr; Previous post</span>
+          <span class="post-nav-title">5 CSS Grid Exercises That Show What Your Students Actually Understand</span>
+        </a>
+        <a href="css-gradients-that-look-good.html" class="post-nav-link next">
+          <span class="post-nav-label">Next post &rarr;</span>
+          <span class="post-nav-title">How to Make CSS Gradients That Actually Look Good</span>
+        </a>
+      </div>
+
+
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">3</span></a>
+      <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">1</span></a>
+    </div>
+
+
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+<script>
+  (function(){
+    var range = document.getElementById('mmRange');
+    var val = document.getElementById('mmVal');
+    var grid = document.getElementById('mmGrid');
+    var code = document.getElementById('mmCode');
+    var stageWrap = document.getElementById('mmStageWrap');
+    var widthBtns = document.getElementById('mmWidthBtns');
+
+    function update(){
+      var px = range.value;
+      val.textContent = px + 'px';
+      grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(' + px + 'px, 1fr))';
+      code.textContent = 'grid-template-columns:\n  repeat(auto-fit, minmax(' + px + 'px, 1fr));';
+    }
+    range.addEventListener('input', update);
+
+    widthBtns.addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      stageWrap.style.maxWidth = btn.dataset.w + 'px';
+      widthBtns.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+
+    update();
+  })();
+</script>
+</body>
+</html>

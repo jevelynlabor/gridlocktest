@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Your CSS Grid Breaks on Smaller Screens | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="CSS Grid can look perfect on desktop and fall apart on smaller screens. Learn the six most common reasons - from fixed widths to oversized content - and how to fix each one.">
+<meta name="keywords" content="css grid responsive, responsive css grid, responsive grid css, css grid mobile, css grid media queries, css grid overflow, css minmax, css grid auto-fit">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/why-css-grid-breaks-on-smaller-screens.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="Why Your CSS Grid Breaks on Smaller Screens">
+<meta property="og:description" content="CSS Grid can look perfect on desktop and fall apart on smaller screens. Learn the six most common reasons - from fixed widths to oversized content - and how to fix each one.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/why-css-grid-breaks-on-smaller-screens.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Your CSS Grid Breaks on Smaller Screens">
+<meta name="twitter:description" content="CSS Grid can look perfect on desktop and fall apart on smaller screens. Learn the six most common reasons - from fixed widths to oversized content - and how to fix each one.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .post-featured-wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  .featured-image-frame { max-width:900px; margin:0 auto 8px; border-radius:14px; overflow:hidden; border:1px solid var(--border); }
+  .featured-image-frame img { display:block; width:100%; height:auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 16px; }
+  .author-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:0.85rem; }
+  .author-row span:not(:last-child)::after { content:'\2022'; margin-left:10px; color:rgba(148,163,184,0.5); }
+  .post-content { max-width:100%; min-width:0; }
+  .blog-main > div:first-child { min-width:0; }
+  .post-content h2 { font-size:1.4rem; font-weight:800; color:var(--white); margin:36px 0 14px; }
+  .post-content h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin:22px 0 10px; }
+  .post-content p { color:var(--muted); margin-bottom:16px; font-size:0.95rem; line-height:1.75; }
+  .post-content ul, .post-content ol { margin:0 0 20px 22px; color:var(--muted); font-size:0.95rem; line-height:1.75; }
+  .post-content li { margin-bottom:8px; }
+  .post-content li strong { color:var(--white); }
+  .post-content code { background:#0a0f1a; color:#A5B4FC; padding:2px 6px; border-radius:4px; font-family:'Fira Code',Consolas,monospace; font-size:0.85em; }
+  .post-content pre { background:#0a0f1a; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:20px 0; font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; line-height:1.7; color:#A5B4FC; }
+  .post-content pre code { background:none; padding:0; color:inherit; }
+  .callout { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:10px; padding:16px 20px; margin:24px 0; font-size:0.9rem; color:var(--muted); }
+  .callout strong { color:var(--white); }
+  .mini-callout { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--teal); border-radius:0 10px 10px 0; padding:12px 18px; margin:20px 0; font-size:0.85rem; color:var(--muted); }
+  .mini-callout a { color:var(--teal); font-weight:600; }
+  .share-row { display:flex; gap:12px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .cause-fix { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 22px; }
+  .cause-fix > div { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .cause-fix .lbl { font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
+  .cause-fix .cause .lbl { color:#dd6b20; }
+  .cause-fix .fix .lbl { color:var(--teal); }
+  .cause-fix p { margin-bottom:0; font-size:0.87rem; }
+  @media(max-width:600px){ .cause-fix { grid-template-columns:1fr; } }
+
+  .checklist { list-style:none; margin:20px 0; padding:0; }
+  .checklist li { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:0.9rem; color:var(--muted); }
+  .checklist li:last-child { border-bottom:none; }
+  .checklist .num { width:24px; height:24px; border-radius:50%; background:rgba(79,70,229,0.15); color:var(--teal); font-weight:700; font-size:0.75rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  /* Demo */
+  .demo-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin:26px 0; }
+  .demo-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+  .demo-controls { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+  .demo-controls label { font-size:0.72rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+  .demo-controls input[type="range"] { flex:1; min-width:130px; accent-color:var(--teal); }
+  .demo-val { font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; color:var(--teal); min-width:60px; }
+  .demo-toggle { display:flex; gap:6px; }
+  .demo-toggle button { background:var(--bg); border:1px solid var(--border); color:var(--muted); font-size:0.75rem; font-weight:700; padding:6px 14px; border-radius:6px; cursor:pointer; }
+  .demo-toggle button.active { border-color:var(--teal); color:var(--teal); background:rgba(79,70,229,0.12); }
+  .demo-stage-wrap { border:1px dashed var(--border); border-radius:10px; padding:16px; overflow-x:auto; }
+  .demo-stage { transition:width 0.2s ease; }
+  .demo-grid { display:grid; gap:12px; }
+  .demo-card { background:#1E3A8A; border-radius:8px; padding:22px 8px; text-align:center; font-size:0.78rem; font-weight:600; color:#fff; }
+  .demo-code { background:#0a0f1a; border-radius:8px; padding:12px 16px; margin-top:14px; font-family:'Fira Code',Consolas,monospace; font-size:0.76rem; color:#A5B4FC; line-height:1.7; white-space:pre-wrap; }
+  .demo-caption { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+
+  .ex-visual { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin:24px 0; }
+  .ex-visual-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+  .ex-visual-note { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+  .side-by-side { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:600px){ .side-by-side { grid-template-columns:1fr; } }
+  .sbs-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px; text-align:center; }
+  .sbs-box { border:1px solid var(--border); border-radius:8px; padding:10px; overflow-x:auto; }
+  .fixed-track { display:flex; gap:6px; width:210px; }
+  .fixed-track div { background:#dd6b20; border-radius:5px; height:34px; flex:1; }
+  .flex-track { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; width:180px; }
+  .flex-track div { background:var(--teal); border-radius:5px; height:34px; }
+  .col-count-row { display:flex; gap:10px; }
+  .col-count-col { flex:1; }
+  .col-count-track { display:grid; gap:6px; border:1px dashed var(--border); border-radius:8px; padding:8px; }
+  .col-count-track.four { grid-template-columns:repeat(4,1fr); }
+  .col-count-track.autofit { grid-template-columns:1fr; }
+  .col-count-cell { background:#1E3A8A; border-radius:5px; height:26px; }
+  .container-edge { position:relative; border:1px dashed rgba(229,62,62,0.6); border-radius:8px; padding:10px; width:180px; }
+  .track-block { background:var(--teal); border-radius:5px; height:34px; }
+  .track-block.overflow { width:210px; background:#dd6b20; }
+  .gap-diagram { display:flex; align-items:center; gap:4px; }
+  .gap-col { background:#1E3A8A; border-radius:5px; height:34px; flex:1; }
+  .gap-space { background:repeating-linear-gradient(45deg, rgba(221,107,32,0.3), rgba(221,107,32,0.3) 6px, rgba(221,107,32,0.1) 6px, rgba(221,107,32,0.1) 12px); border-radius:3px; height:34px; }
+  .overflow-card { border:1px solid var(--border); border-radius:8px; padding:12px; position:relative; overflow-x:hidden; }
+  .overflow-row { display:flex; gap:8px; }
+  .overflow-item { background:#1E3A8A; border-radius:6px; width:70px; height:50px; flex-shrink:0; }
+  .overflow-item.wide { background:var(--pink); width:150px; display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:#fff; text-align:center; padding:0 6px; }
+  .overflow-flag { font-size:0.68rem; color:#dd6b20; font-weight:700; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/tutorials.html">Tutorials</a><span class="sep">/</span>
+      <span class="current">Why Your CSS Grid Breaks on Smaller Screens</span>
+    </div>
+    <div class="hero-tag" style="color:var(--purple);">Tutorial</div>
+    <h1>Why Your CSS Grid Breaks on Smaller Screens</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>22 October 2026</span>
+      <span>10 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/whatsnew.png" alt="Why your CSS Grid breaks on smaller screens featured image" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+
+      <p>Your CSS Grid looks exactly how you wanted it to. Then you make the browser narrower.</p>
+      <p>The cards get crushed. One column disappears off the side of the page. A horizontal scrollbar appears. You change a few widths, add a media query, remove it again, and somehow the layout gets even stranger.</p>
+      <p>If that sounds familiar, the problem usually isn't CSS Grid itself. Something in your layout is telling the browser: <strong style="color:var(--white);">this part cannot get any smaller.</strong> The trick is finding out what.</p>
+
+      <div class="demo-panel">
+        <div class="demo-label">Live demo</div>
+        <div class="demo-controls">
+          <label for="bkWidth">Container width</label>
+          <input type="range" id="bkWidth" min="320" max="1000" value="1000" step="20">
+          <span class="demo-val" id="bkWidthVal">1000px</span>
+        </div>
+        <div class="demo-controls">
+          <label>State</label>
+          <div class="demo-toggle" id="bkStateToggle">
+            <button data-s="broken" class="active">Broken</button>
+            <button data-s="fixed">Fixed</button>
+          </div>
+        </div>
+        <div class="demo-stage-wrap" id="bkStageWrap" style="width:1000px;max-width:100%;">
+          <div class="demo-grid" id="bkGrid" style="grid-template-columns:300px 300px 300px;">
+            <div class="demo-card">Card</div>
+            <div class="demo-card">Card</div>
+            <div class="demo-card">Card</div>
+          </div>
+        </div>
+        <div class="demo-code" id="bkCode">grid-template-columns: 300px 300px 300px;</div>
+        <p class="demo-caption">Resize the Grid and watch where the layout starts to fail.</p>
+      </div>
+
+      <h2>1. Your columns are wider than the screen</h2>
+      <p>This is one of the easiest ways to build a Grid that looks perfect on desktop and falls apart everywhere else. Imagine this:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  gap: 24px;
+}</code></pre>
+      <p>Three columns at 300px already need 900 pixels. Then you add two 24px gaps. Your Grid now needs <strong style="color:var(--white);">948 pixels</strong> before you even think about padding around the container. That works nicely when the available space is wider than 948 pixels. At 700 pixels, it can't. At 400 pixels, it definitely can't.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>Fixed pixel widths don't negotiate with the available space. You told each column to be 300px, so the browser tries to honour that even when the container is smaller.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>If you genuinely want equal columns that share whatever width is available, use flexible tracks with <code>minmax(0, 1fr)</code>.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}</code></pre>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Fixed vs flexible widths</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">300px 300px 300px</div>
+            <div class="sbs-box"><div class="fixed-track"><div></div><div></div><div></div></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">repeat(3, minmax(0, 1fr))</div>
+            <div class="sbs-box"><div class="flex-track"><div></div><div></div><div></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <p>There is one catch. Flexible columns can keep shrinking until the cards become technically responsive but practically useless. Three 110-pixel-wide cards on a phone are not necessarily a good responsive layout. Sometimes the Grid doesn't need <strong style="color:var(--white);">smaller columns.</strong> It needs <strong style="color:var(--white);">fewer columns.</strong></p>
+
+      <h2>2. You're forcing too many columns into the space</h2>
+      <p>This is the next thing to check.</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}</code></pre>
+      <p>That tells the browser: I want four columns. The browser will keep trying to give you four columns, even when four columns no longer make sense for the design. Four cards may look great on a wide desktop screen. On a tablet, three may be easier to read. On a phone, one card per row may be the right answer.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The number of columns is fixed even though the amount of available space isn't.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>For repeated content such as cards, galleries or features, let Grid decide how many columns fit with <code>auto-fit</code>.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}</code></pre>
+      <p>Now the layout can move from four columns to three, two or one without you writing a breakpoint for every possible screen width.</p>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">4 columns vs auto-fit, at a narrow width</div>
+        <div class="col-count-row">
+          <div class="col-count-col">
+            <div class="sbs-label">4 columns</div>
+            <div class="col-count-track four"><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div></div>
+          </div>
+          <div class="col-count-col">
+            <div class="sbs-label">Auto-fit</div>
+            <div class="col-count-track autofit"><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div><div class="col-count-cell"></div></div>
+          </div>
+        </div>
+        <p class="ex-visual-note">Responsive Grid isn't always about making columns smaller. Sometimes the right fix is letting the number of columns change.</p>
+      </div>
+
+      <h2>3. Your minimum width is not actually small enough</h2>
+      <p>This one catches people because the CSS looks responsive. You may already be using:</p>
+      <pre><code>grid-template-columns:
+  repeat(auto-fit, minmax(300px, 1fr));</code></pre>
+      <p>That feels like a responsive rule, and most of the time, it is. But <code>minmax(300px, 1fr)</code> means: do not make this track smaller than 300 pixels. Now imagine the entire Grid container is only 270 pixels wide. The Grid says it needs at least 300 pixels. The container says it only has 270. That's where overflow can appear.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>Your minimum track size is wider than the space available.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Let the minimum respect the container when the component may become narrower than your preferred card width.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(min(100%, 300px), 1fr)
+    );
+}</code></pre>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">260px container</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">Before - minmax(300px, 1fr)</div>
+            <div class="container-edge"><div class="track-block overflow"></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">After - minmax(min(100%, 300px), 1fr)</div>
+            <div class="container-edge"><div class="track-block"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-callout">Still unsure what the two values inside minmax() are doing? Read <a href="css-minmax-grid.html">How CSS Minmax Stops Your Grid From Falling Apart</a>.</div>
+
+      <h2>4. The thing inside your Grid is too wide</h2>
+      <p>Sometimes <code>grid-template-columns</code> isn't the problem at all. The Grid is perfectly capable of shrinking. One of its children isn't. Common offenders include large images, long URLs, code snippets, long strings with nowhere to break, inputs with their own minimum size, and nested layouts.</p>
+      <p>You can spend twenty minutes changing your Grid tracks when the actual problem is one image sitting inside one card.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>Content inside a Grid item can impose its own sizing requirements. If it cannot shrink or wrap, it can force the Grid item wider than expected.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>For images, a useful default is <code>max-width: 100%; height: auto;</code>. Long content may need wrapping. Identify which element is actually crossing the boundary rather than reaching for <code>overflow: hidden</code>.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Grid Detective view</div>
+        <div class="overflow-card">
+          <div class="overflow-row">
+            <div class="overflow-item"></div>
+            <div class="overflow-item wide">Oversized content</div>
+            <div class="overflow-item"></div>
+          </div>
+          <div class="overflow-flag">&uarr; This is causing the overflow</div>
+        </div>
+      </div>
+
+      <div class="mini-callout">Still getting horizontal scrolling? Read <a href="css-grid-overflow.html">Why Your CSS Grid Is Overflowing</a>.</div>
+
+      <h2>5. Your spacing is taking more room than you realise</h2>
+      <p>The columns themselves may not be particularly wide. Your gaps may be. Consider:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+}</code></pre>
+      <p>On a large monitor, 64px may look great. On a narrow container, the same gap uses a much larger percentage of the space you have available. With three columns, you have two gaps. At 64px each, that's <strong style="color:var(--white);">128 pixels of space that cannot be used by the columns.</strong></p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The available width has to accommodate both your tracks and the spacing between them. Large gaps become much more significant as the container gets narrower.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Treat spacing as part of the responsive layout. Reduce the gap at smaller widths, or use a fluid value like <code>gap: clamp(12px, 2vw, 24px);</code>.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">600px container</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">64px gap</div>
+            <div class="gap-diagram"><div class="gap-col"></div><div class="gap-space" style="width:24px;"></div><div class="gap-col"></div><div class="gap-space" style="width:24px;"></div><div class="gap-col"></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">16px gap</div>
+            <div class="gap-diagram"><div class="gap-col"></div><div class="gap-space" style="width:8px;"></div><div class="gap-col"></div><div class="gap-space" style="width:8px;"></div><div class="gap-col"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>6. You may be solving the wrong problem with media queries</h2>
+      <p>A common reaction to a broken Grid is to start adding breakpoints:</p>
+      <pre><code>@media (max-width: 900px) { ... }
+@media (max-width: 700px) { ... }
+@media (max-width: 500px) { ... }</code></pre>
+      <p>Media queries are useful. But they aren't automatically the first fix for every responsive Grid problem. If your content is simply a collection of cards that need to fit naturally into the available space, <code>repeat(auto-fit, minmax(220px, 1fr))</code> may already give the browser enough information to respond without several arbitrary breakpoints.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You're using breakpoints to compensate for rigid Grid rules.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>First ask whether Grid can respond based on the space available. Use a media query when the design actually needs to change - not just get narrower.</p></div>
+      </div>
+
+      <p>For example, a desktop layout might have a sidebar, main content and a secondary panel. On mobile, the right design might be no permanent sidebar, one content column and a menu button instead. That's not just a narrower version of the same layout - it's a different layout decision. A media query makes sense.</p>
+      <pre><code>.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+@media (max-width: 700px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+}</code></pre>
+      <p>A useful rule of thumb: let Grid respond naturally when the content can simply rearrange. Use a media query when the design itself needs to change.</p>
+
+      <h2>Check these six things before you rewrite your Grid</h2>
+      <p>When a CSS Grid works on desktop but breaks on smaller screens, check these first.</p>
+      <ol class="checklist">
+        <li><span class="num">1</span><div><strong style="color:var(--white);">Fixed widths</strong> - look for tracks such as 300px 300px 300px</div></li>
+        <li><span class="num">2</span><div><strong style="color:var(--white);">Too many fixed columns</strong> - ask whether the layout should reduce the number of columns as space disappears</div></li>
+        <li><span class="num">3</span><div><strong style="color:var(--white);">Minimum widths</strong> - check whether a minmax() value is wider than the available container</div></li>
+        <li><span class="num">4</span><div><strong style="color:var(--white);">Oversized content</strong> - look for images, URLs, code or nested components crossing the Grid boundary</div></li>
+        <li><span class="num">5</span><div><strong style="color:var(--white);">Large gaps</strong> - remember that spacing has to fit inside the available width too</div></li>
+        <li><span class="num">6</span><div><strong style="color:var(--white);">Breakpoints</strong> - ask whether the design genuinely needs to change or whether the Grid rules are simply too rigid</div></li>
+      </ol>
+
+      <div class="callout">
+        <strong>Why this matters</strong>
+        <p style="margin-top:8px;margin-bottom:0;">A responsive Grid isn't one that never changes. It's one that has enough information to make sensible decisions as the available space changes. If you're constantly adding another breakpoint or another <code>overflow: hidden</code>, the problem may be that the Grid has been given rules that are too rigid in the first place.</p>
+      </div>
+
+      <p>You don't need to memorise every possible combination of auto-fit, minmax(), fractions and breakpoints. It is much easier to understand CSS Grid when you can see the layout change while you change the CSS. That's what Gridlock Holmes is built for.</p>
+
+      <div class="share-row">
+        <a href="../index.html" class="btn btn-primary">Try the CSS Grid Generator</a>
+        <a href="../grid-detective.html" class="btn btn-secondary">Check your code in Grid Detective</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav"></div>
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+    </div>
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+<script>
+  (function(){
+    var widthRange = document.getElementById('bkWidth');
+    var widthVal = document.getElementById('bkWidthVal');
+    var stageWrap = document.getElementById('bkStageWrap');
+    var grid = document.getElementById('bkGrid');
+    var code = document.getElementById('bkCode');
+    var stateToggle = document.getElementById('bkStateToggle');
+    var state = 'broken';
+
+    function render(){
+      stageWrap.style.width = widthRange.value + 'px';
+      widthVal.textContent = widthRange.value + 'px';
+      if (state === 'broken') {
+        grid.style.gridTemplateColumns = '300px 300px 300px';
+        code.textContent = 'grid-template-columns: 300px 300px 300px;';
+      } else {
+        grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(220px, 1fr))';
+        code.textContent = 'grid-template-columns:\n  repeat(auto-fit, minmax(220px, 1fr));';
+      }
+    }
+
+    widthRange.addEventListener('input', render);
+    stateToggle.addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      state = btn.dataset.s;
+      stateToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      render();
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>

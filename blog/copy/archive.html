@@ -26,6 +26,14 @@
 <meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
 
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 10px; }
+  .post-hero-sub { color:var(--muted); font-size:0.95rem; }
+</style>
 </head>
 <body>
 
@@ -49,7 +57,7 @@
   </div>
 </nav>
 
-<section class="post-hero archive-hero">
+<section class="post-hero">
   <div class="post-hero-inner">
     <a href="../blog.html" class="back-link">&larr; Back to blog</a>
     <div class="breadcrumb">
@@ -78,46 +86,6 @@
     <div class="archive-group">
       <div class="archive-group-title">October 2026</div>
 
-      <div class="archive-row">
-        <a href="css-grid-overflow.html" class="archive-thumb">
-          <img src="../assets/images/whatsnew.png" alt="Why your CSS Grid is overflowing featured image" loading="lazy">
-        </a>
-        <div class="archive-row-body">
-          <div class="archive-row-cat" style="color:var(--purple);">Grid Detective</div>
-          <h3><a href="css-grid-overflow.html" style="color:inherit;">Why Your CSS Grid Is Overflowing</a></h3>
-          <div class="archive-row-date">29 October 2026 &bull; 9 min read</div>
-        </div>
-      </div>
-      <div class="archive-row">
-        <a href="why-css-grid-breaks-on-smaller-screens.html" class="archive-thumb">
-          <img src="../assets/images/whatsnew.png" alt="Why your CSS Grid breaks on smaller screens featured image" loading="lazy">
-        </a>
-        <div class="archive-row-body">
-          <div class="archive-row-cat" style="color:var(--purple);">Tutorial</div>
-          <h3><a href="why-css-grid-breaks-on-smaller-screens.html" style="color:inherit;">Why Your CSS Grid Breaks on Smaller Screens</a></h3>
-          <div class="archive-row-date">22 October 2026 &bull; 10 min read</div>
-        </div>
-      </div>
-      <div class="archive-row">
-        <a href="css-gradients-that-look-good.html" class="archive-thumb">
-          <img src="../assets/images/whatsnew.png" alt="How to make CSS gradients that actually look good featured image" loading="lazy">
-        </a>
-        <div class="archive-row-body">
-          <div class="archive-row-cat" style="color:var(--pink);">Gradient Tool</div>
-          <h3><a href="css-gradients-that-look-good.html" style="color:inherit;">How to Make CSS Gradients That Actually Look Good</a></h3>
-          <div class="archive-row-date">15 October 2026 &bull; 11 min read</div>
-        </div>
-      </div>
-      <div class="archive-row">
-        <a href="css-minmax-grid.html" class="archive-thumb">
-          <img src="../assets/images/whatsnew.png" alt="How CSS minmax stops your Grid from falling apart featured image" loading="lazy">
-        </a>
-        <div class="archive-row-body">
-          <div class="archive-row-cat" style="color:var(--purple);">Tutorial</div>
-          <h3><a href="css-minmax-grid.html" style="color:inherit;">How CSS Minmax Stops Your Grid From Falling Apart</a></h3>
-          <div class="archive-row-date">8 October 2026 &bull; 9 min read</div>
-        </div>
-      </div>
       <div class="archive-row">
         <a href="css-grid-exercises-for-students.html" class="archive-thumb">
           <img src="../assets/images/whatsnew.png" alt="5 CSS Grid exercises that show what your students actually understand featured image" loading="lazy">
@@ -175,8 +143,6 @@
     </div>
 
 
-
-
     <!-- /BUILD:ARCHIVE_LIST -->
   </div>
 
@@ -184,14 +150,12 @@
     <!-- BUILD:SIDEBAR_CATEGORIES -->
     <div class="sidebar-card">
       <h3>Categories</h3>
-      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">3</span></a>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">1</span></a>
       <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
-      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">1</span></a>
       <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
-      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">0</span></a>
     </div>
-
-
 
 
     <!-- /BUILD:SIDEBAR_CATEGORIES -->

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Make CSS Gradients That Actually Look Good | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="Your CSS gradient works but still looks wrong? Learn how better colours, angles and colour stops can make gradients smoother, cleaner and easier to use.">
+<meta name="keywords" content="css gradients, gradient css, css gradient background, css gradient examples, css linear gradient, css gradient generator">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/css-gradients-that-look-good.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="How to Make CSS Gradients That Actually Look Good">
+<meta property="og:description" content="Your CSS gradient works but still looks wrong? Learn how better colours, angles and colour stops can make gradients smoother, cleaner and easier to use.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/css-gradients-that-look-good.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/blog/Make a CSS Gradient.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Make CSS Gradients That Actually Look Good">
+<meta name="twitter:description" content="Your CSS gradient works but still looks wrong? Learn how better colours, angles and colour stops can make gradients smoother, cleaner and easier to use.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/blog/Make a CSS Gradient.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/gradient-tool.html">Gradient Tool</a><span class="sep">/</span>
+      <span class="current">CSS Gradients That Actually Look Good</span>
+    </div>
+    <div class="hero-tag" style="color:var(--pink);">Gradient Tool</div>
+    <h1>How to Make CSS Gradients That Actually Look Good</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>15 October 2026</span>
+      <span>11 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/blog/Make a CSS Gradient.png" alt="How to make CSS gradients that actually look good featured image" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content accent-pink">
+
+      <p>Your CSS works. The gradient appears. Technically, you've succeeded.</p>
+      <p>So why does it still look a bit... wrong?</p>
+      <p>Maybe the middle looks muddy. Maybe one colour takes over the whole background. Maybe the transition feels harsh. Or maybe you've spent ten minutes changing the angle from 45deg to 47deg and you're no longer sure whether anything looks better.</p>
+      <p>The good news is that you usually don't need more complicated CSS. You need to make a few better decisions about <strong style="color:var(--white);">the colours, the transition and the space each colour gets.</strong></p>
+
+      <div class="demo-panel">
+        <div class="demo-label">Starting gradient</div>
+        <div class="demo-preview" id="grPreview"></div>
+        <div class="demo-controls">
+          <label>Angle</label>
+          <div class="angle-btns" id="grAngleBtns">
+            <button data-a="45">45&deg;</button>
+            <button data-a="90" class="active">90&deg;</button>
+            <button data-a="135">135&deg;</button>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label for="grMid">Midpoint</label>
+          <input type="range" id="grMid" min="25" max="75" value="50">
+          <span class="demo-val" id="grMidVal">50%</span>
+        </div>
+        <div class="demo-controls">
+          <label>Add middle colour</label>
+          <div class="mid-toggle-wrap" id="grMidToggle">
+            <button data-on="0" class="active">Off</button>
+            <button data-on="1">On</button>
+          </div>
+        </div>
+        <div class="demo-code pre-wrap tight-top" id="grCode"></div>
+        <p class="demo-caption">Small changes to direction and colour stops can change the feel of the same basic gradient.</p>
+      </div>
+
+      <h2>1. Your colours are fighting each other</h2>
+      <p>The first instinct when a gradient looks wrong is often to start changing percentages. But sometimes the problem starts before the colour stops. It starts with the two colours themselves.</p>
+      <p>Put two colours next to each other and they can look great. Blend them together and the transition between them may feel dull, harsh or unexpectedly grey.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>A gradient doesn't only show your starting and ending colour. It has to create all the colours <strong style="color:var(--white);">between</strong> them, and that middle part matters just as much as the two ends.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Don't judge a gradient from two swatches - judge the transition. Try bringing the colours closer together, adjusting lightness, reducing saturation, or adding a carefully chosen intermediate colour.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Transition comparison</div>
+        <div class="three-pairs">
+          <div class="pair-card">
+            <div class="swatch-pair" style="justify-content:center;"><div class="pair-swatches"><div style="background:#6c3cff;"></div><div style="background:#36d1dc;"></div></div></div>
+            <div class="pair-result" style="background:linear-gradient(90deg,#6c3cff,#36d1dc);"></div>
+            <div class="pair-label">Smoother transition</div>
+          </div>
+          <div class="pair-card">
+            <div class="swatch-pair" style="justify-content:center;"><div class="pair-swatches"><div style="background:#ff6b35;"></div><div style="background:#00695c;"></div></div></div>
+            <div class="pair-result" style="background:linear-gradient(90deg,#ff6b35,#00695c);"></div>
+            <div class="pair-label">Harsher transition</div>
+          </div>
+          <div class="pair-card">
+            <div class="swatch-pair" style="justify-content:center;"><div class="pair-swatches"><div style="background:#ff6b35;"></div><div style="background:#00695c;"></div></div></div>
+            <div class="pair-result" style="background:linear-gradient(90deg,#ff6b35,#f4c95d 50%,#00695c);"></div>
+            <div class="pair-label">Improved with a middle colour</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>2. Your colour stops are doing more than you think</h2>
+      <p>Start with:</p>
+      <pre><code>background: linear-gradient(
+  90deg,
+  #6c3cff,
+  #36d1dc
+);</code></pre>
+      <p>With no explicit stop positions, the browser distributes the colours across the gradient for you. That may be exactly what you want. But sometimes you want one colour to dominate more of the background. That's when the stop positions become useful.</p>
+      <pre><code>background: linear-gradient(
+  90deg,
+  #6c3cff 0%,
+  #36d1dc 70%
+);</code></pre>
+      <p>The transition now behaves differently because the second colour is reaching its full value later in the gradient.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You're changing colours but leaving the browser to decide where the transition should happen.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Move the colour stops intentionally. Ask "where do I want this colour to become dominant?" rather than "what percentage is correct?"</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Stop position comparison</div>
+        <div class="stops-row">
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff 0%,#36d1dc 100%);"></div><div class="pair-label">Even - 0% &rarr; 100%</div></div>
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff 0%,#36d1dc 65%);"></div><div class="pair-label">Earlier - 0% &rarr; 65%</div></div>
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff 0%,#36d1dc 85%);"></div><div class="pair-label">Later - 0% &rarr; 85%</div></div>
+        </div>
+      </div>
+
+      <h2>3. Sometimes two colours are not enough</h2>
+      <p>A two-colour gradient is often all you need. But if the middle of the transition is the part you dislike, adding a third colour can give you more control over the path between the two ends.</p>
+      <pre><code>background: linear-gradient(
+  90deg,
+  #6c3cff 0%,
+  #4f7cff 50%,
+  #36d1dc 100%
+);</code></pre>
+      <p>Now the browser is not making the entire journey from purple to cyan in one step. You've given it a useful point in the middle.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The browser is interpolating directly between two colours that don't create the transition you wanted.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Add an intermediate stop when it genuinely improves the transition. Don't keep adding colours just because you can - every stop should have a reason to be there.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">2 vs 3 vs too many stops</div>
+        <div class="stops-row">
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff,#36d1dc);"></div><div class="pair-label">2 colours - clean but slightly harsh</div></div>
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff,#4f7cff 50%,#36d1dc);"></div><div class="pair-label">3 colours - smoother transition</div></div>
+          <div class="stop-card"><div class="pair-result" style="background:linear-gradient(90deg,#6c3cff,#ec4899,#f97316,#facc15,#36d1dc,#4f7cff);"></div><div class="pair-label">6 colours - deliberately too busy</div></div>
+        </div>
+        <p class="ex-visual-note">More colour stops give you more control. They also give you more opportunities to make the gradient noisy.</p>
+      </div>
+
+      <h2>4. The angle changes more than the direction</h2>
+      <p>This:</p>
+      <pre><code>linear-gradient(90deg, #6c3cff, #36d1dc)</code></pre>
+      <p>and this:</p>
+      <pre><code>linear-gradient(135deg, #6c3cff, #36d1dc)</code></pre>
+      <p>use exactly the same colours. But they can feel surprisingly different once they're sitting behind real content. A horizontal gradient can create a strong left-to-right movement. A diagonal gradient can feel more dynamic. A vertical gradient may work better when you want the top and bottom of a section to feel different.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You're treating the angle as a technical setting rather than part of the composition.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Choose the angle based on where the gradient will actually live - a hero background may need something different from a button, card or badge.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Same colours, same stops, different movement</div>
+        <div class="angle-grid">
+          <div><div class="angle-cell" style="background:linear-gradient(0deg,#6c3cff,#36d1dc);"></div><div class="pair-label" style="text-align:center;">0&deg;</div></div>
+          <div><div class="angle-cell" style="background:linear-gradient(45deg,#6c3cff,#36d1dc);"></div><div class="pair-label" style="text-align:center;">45&deg;</div></div>
+          <div><div class="angle-cell" style="background:linear-gradient(90deg,#6c3cff,#36d1dc);"></div><div class="pair-label" style="text-align:center;">90&deg;</div></div>
+          <div><div class="angle-cell" style="background:linear-gradient(135deg,#6c3cff,#36d1dc);"></div><div class="pair-label" style="text-align:center;">135&deg;</div></div>
+        </div>
+      </div>
+
+      <h2>5. Your gradient may be competing with the content</h2>
+      <p>A gradient can look beautiful on its own and fail completely once you put text on top of it. This is especially common with hero sections. One side of the background may make white text beautifully readable. A few hundred pixels away, the same text almost disappears.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You've designed the gradient as an image rather than as the background to actual content.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Test it with the real content on top. If text sits on one side of the hero, deliberately keep that part of the gradient quieter or darker.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Gradient first vs content first</div>
+        <div class="hero-compare">
+          <div class="mini-hero" style="background:linear-gradient(110deg,#facc15 0%,#f97316 45%,#ec4899 100%);">
+            <h4 style="color:#fff;text-shadow:none;">Build better layouts</h4>
+            <span class="mini-btn" style="color:#fff;">Get started</span>
+            <div class="pair-label" style="margin-top:10px;">Gradient first - text is hard to read</div>
+          </div>
+          <div class="mini-hero" style="background:linear-gradient(110deg,#17192d 0%,#30245f 55%,#7d3cff 100%);">
+            <h4 style="color:#fff;">Build better layouts</h4>
+            <span class="mini-btn" style="color:#fff;">Get started</span>
+            <div class="pair-label" style="margin-top:10px;">Content first - calmer area behind the text</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>6. The middle can become muddy</h2>
+      <p>Sometimes your starting colour looks good. Your ending colour looks good. And the bit halfway between them somehow becomes the least attractive part. This is especially noticeable with certain highly saturated colours.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The browser has to calculate the colours between your stops. Depending on the colours and interpolation method, that journey can pass through a less vibrant or less visually pleasing middle.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Try adjusting one endpoint colour, the lightness, the saturation, or add an intermediate colour stop.</p></div>
+      </div>
+
+      <p>For more advanced work, modern CSS also provides ways to influence the colour space used for interpolation. Where appropriate and supported by your target browsers, gradients can interpolate in perceptual colour spaces such as OKLab - the chosen interpolation space can visibly change the colours produced between the stops.</p>
+      <pre><code>background: linear-gradient(
+  in oklab,
+  #6c3cff,
+  #36d1dc
+);</code></pre>
+      <p>This is an advanced option. You do <strong style="color:var(--white);">not</strong> need it to make a good gradient. The important lesson is that if the middle looks wrong, changing the two end colours is not your only option.</p>
+
+      <h2>Five CSS gradients you can actually use</h2>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#17192d 0%,#30245f 55%,#6c3cff 100%);">Soft hero background</div>
+        <div class="gallery-body">
+          <h4>Soft hero background</h4>
+          <code>background: linear-gradient(135deg, #17192d 0%, #30245f 55%, #6c3cff 100%);</code>
+          <p>Works well when you want colour without making the background compete too heavily with the headline.</p>
+          <a href="../gradient.html" style="font-size:0.82rem;font-weight:600;color:var(--teal);">Edit this gradient &rarr;</a>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="background:linear-gradient(90deg,#7c3aed,#ec4899);">Bright button gradient</div>
+        <div class="gallery-body">
+          <h4>Bright button gradient</h4>
+          <code>background: linear-gradient(90deg, #7c3aed, #ec4899);</code>
+          <p>Keep button text contrast clear.</p>
+          <a href="../gradient.html" style="font-size:0.82rem;font-weight:600;color:var(--teal);">Edit this gradient &rarr;</a>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="background:linear-gradient(120deg,#0f172a,#164e63,#0891b2);">Cool blue background</div>
+        <div class="gallery-body">
+          <h4>Cool blue background</h4>
+          <code>background: linear-gradient(120deg, #0f172a, #164e63, #0891b2);</code>
+          <p>Useful when you want a darker gradient with more visual depth.</p>
+          <a href="../gradient.html" style="font-size:0.82rem;font-weight:600;color:var(--teal);">Edit this gradient &rarr;</a>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#fb7185 0%,#f97316 55%,#facc15 100%);">Warm sunset gradient</div>
+        <div class="gallery-body">
+          <h4>Warm sunset gradient</h4>
+          <code>background: linear-gradient(135deg, #fb7185 0%, #f97316 55%, #facc15 100%);</code>
+          <p>A third stop helps control the transition from pink through orange into yellow.</p>
+          <a href="../gradient.html" style="font-size:0.82rem;font-weight:600;color:var(--teal);">Edit this gradient &rarr;</a>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-preview" style="background:linear-gradient(145deg,rgba(124,58,237,0.5),rgba(54,209,220,0.15));">Subtle card highlight</div>
+        <div class="gallery-body">
+          <h4>Subtle card highlight</h4>
+          <code>background: linear-gradient(145deg, rgba(124,58,237,0.16), rgba(54,209,220,0.04));</code>
+          <p>Not every gradient has to dominate the design. Sometimes the useful version is barely there.</p>
+          <a href="../gradient.html" style="font-size:0.82rem;font-weight:600;color:var(--teal);">Edit this gradient &rarr;</a>
+        </div>
+      </div>
+
+      <h2>Stop trying to find the perfect gradient</h2>
+      <p>There isn't one CSS rule that makes every gradient look good. The same gradient can look completely different depending on the size of the element, the content sitting over it, the surrounding colours, the angle, the position of the stops, and how much attention the background is supposed to attract.</p>
+      <p>The useful habit is to stop changing everything at once. Change one thing. Look at the result. Then decide whether it solved the actual problem.</p>
+
+      <div class="callout">
+        <strong>Why this matters</strong>
+        <p style="margin-top:8px;margin-bottom:0;">A gradient can be technically correct and still be wrong for the design. The browser can tell you whether your CSS is valid. It can't tell you whether your midpoint feels muddy, whether the angle is fighting the composition, or whether the background is making your headline harder to read. That's why gradients are much easier to build when you can see the result while you change the values.</p>
+      </div>
+
+      <p>You don't need to guess percentages and angles in your code editor until something finally looks right. Open the Gridlock Holmes Gradient Tool, move the colours and stops visually, and copy the CSS when you're happy with the result.</p>
+
+      <div class="share-row">
+        <a href="../gradient.html" class="btn btn-primary">Open the Gradient Tool</a>
+        <a href="../index.html" class="btn btn-secondary">CSS Grid Generator</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav">
+        <a href="css-minmax-grid.html" class="post-nav-link prev">
+          <span class="post-nav-label">&larr; Previous post</span>
+          <span class="post-nav-title">How CSS Minmax Stops Your Grid From Falling Apart</span>
+        </a>
+        <a href="why-css-grid-breaks-on-smaller-screens.html" class="post-nav-link next">
+          <span class="post-nav-label">Next post &rarr;</span>
+          <span class="post-nav-title">Why Your CSS Grid Breaks on Smaller Screens</span>
+        </a>
+      </div>
+
+
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">3</span></a>
+      <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">1</span></a>
+    </div>
+
+
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+<script>
+  (function(){
+    var preview = document.getElementById('grPreview');
+    var code = document.getElementById('grCode');
+    var angleBtns = document.getElementById('grAngleBtns');
+    var midRange = document.getElementById('grMid');
+    var midVal = document.getElementById('grMidVal');
+    var midToggle = document.getElementById('grMidToggle');
+
+    var state = { angle: 90, mid: 50, middleOn: false };
+    var c1 = '#ff6b35', c2 = '#6c3cff', cm = '#a13fb0';
+
+    function render(){
+      var stops;
+      if (state.middleOn) {
+        stops = c1 + ' 0%, ' + cm + ' ' + state.mid + '%, ' + c2 + ' 100%';
+      } else {
+        stops = c1 + ' 0%, ' + c2 + ' 100%';
+      }
+      var css = 'linear-gradient(' + state.angle + 'deg, ' + stops + ')';
+      preview.style.background = css;
+      code.textContent = 'background: linear-gradient(\n  ' + state.angle + 'deg,\n  ' +
+        stops.split(', ').join(',\n  ') + '\n);';
+    }
+
+    angleBtns.addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      state.angle = parseInt(btn.dataset.a, 10);
+      angleBtns.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      render();
+    });
+
+    midRange.addEventListener('input', function(){
+      state.mid = midRange.value;
+      midVal.textContent = state.mid + '%';
+      render();
+    });
+
+    midToggle.addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      state.middleOn = btn.dataset.on === '1';
+      midToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      render();
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>

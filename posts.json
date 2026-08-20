@@ -63,5 +63,57 @@
     "excerpt": "A student can copy display: grid without understanding Grid at all. These five exercises reveal what they actually understand and where they are getting stuck.",
     "image": "assets/images/whatsnew.png",
     "image_alt": "5 CSS Grid exercises that show what your students actually understand featured image"
+  },
+  {
+    "slug": "css-minmax-grid",
+    "title": "How CSS Minmax Stops Your Grid From Falling Apart",
+    "category_slug": "tutorials",
+    "badge": "Tutorial",
+    "date": "2026-10-08",
+    "date_display": "8 October 2026",
+    "read_time": "9 min read",
+    "words": "1800",
+    "excerpt": "Copying minmax(220px, 1fr) works until your layout needs something slightly different. Learn what those two values actually control and the three patterns worth remembering.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "How CSS minmax stops your Grid from falling apart featured image"
+  },
+  {
+    "slug": "css-gradients-that-look-good",
+    "title": "How to Make CSS Gradients That Actually Look Good",
+    "category_slug": "gradient-tool",
+    "badge": "Gradient Tool",
+    "date": "2026-10-15",
+    "date_display": "15 October 2026",
+    "read_time": "11 min read",
+    "words": "2100",
+    "excerpt": "If your CSS gradient looks harsh, muddy or somehow slightly wrong, the problem is usually not the syntax. A few small choices can completely change the result.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "How to make CSS gradients that actually look good featured image"
+  },
+  {
+    "slug": "why-css-grid-breaks-on-smaller-screens",
+    "title": "Why Your CSS Grid Breaks on Smaller Screens",
+    "category_slug": "tutorials",
+    "badge": "Tutorial",
+    "date": "2026-10-22",
+    "date_display": "22 October 2026",
+    "read_time": "10 min read",
+    "words": "1950",
+    "excerpt": "Your CSS Grid looks great until you make the browser narrower. Here are six things worth checking before you rewrite the whole layout.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "Why your CSS Grid breaks on smaller screens featured image"
+  },
+  {
+    "slug": "css-grid-overflow",
+    "title": "Why Your CSS Grid Is Overflowing",
+    "category_slug": "grid-detective",
+    "badge": "Grid Detective",
+    "date": "2026-10-29",
+    "date_display": "29 October 2026",
+    "read_time": "9 min read",
+    "words": "1900",
+    "excerpt": "If your CSS Grid is wider than its container, don't start hiding the overflow. Find the element or sizing rule that's actually pushing the layout out.",
+    "image": "assets/images/whatsnew.png",
+    "image_alt": "Why your CSS Grid is overflowing featured image"
   }
 ]

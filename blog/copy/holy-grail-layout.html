@@ -8,7 +8,7 @@
 <link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
 <link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
 
-<meta name="description" content="A step by step guide to building the classic Holy Grail layout (header, footer, nav, content and sidebar) with CSS Grid, including a Tailwind version.">
+<meta name="description" content="A step by step guide to building the classic Holy Grail layout — header, footer, nav, content and sidebar — with CSS Grid, including a Tailwind version.">
 <meta name="keywords" content="Holy Grail layout CSS, CSS Grid tutorial, grid-template-areas, Tailwind grid layout">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://gridlockholmes.com/blog/holy-grail-layout.html">
@@ -18,12 +18,12 @@
 <meta property="og:title" content="How to Build a Holy Grail Layout with CSS Grid">
 <meta property="og:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
 <meta property="og:url" content="https://gridlockholmes.com/blog/holy-grail-layout.html">
-<meta property="og:image" content="https://gridlockholmes.com/assets/images/blog/Holy Grail layout.png">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How to Build a Holy Grail Layout with CSS Grid">
 <meta name="twitter:description" content="A step by step guide to building a common webpage layout with CSS Grid, with examples in CSS and Tailwind.">
-<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/blog/Holy Grail layout.png">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
 
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -62,16 +62,10 @@
   </div>
 </section>
 
-<div class="post-featured-wrap">
-  <div class="featured-image-frame">
-    <img src="../assets/images/blog/Holy Grail layout.png" alt="How to build a Holy Grail layout with CSS Grid featured image" loading="lazy">
-  </div>
-</div>
-
 <div class="blog-main">
   <div>
     <article class="post-content">
-      <p>The "Holy Grail" layout is one of the oldest naming conventions in web design: a header across the top, a footer across the bottom, and three columns in between: navigation on the left, main content in the middle, and a sidebar on the right. It used to require floats, negative margins and a fair amount of hackery. CSS Grid makes it about ten lines of code.</p>
+      <p>The "Holy Grail" layout is one of the oldest naming conventions in web design: a header across the top, a footer across the bottom, and three columns in between &mdash; navigation on the left, main content in the middle, and a sidebar on the right. It used to require floats, negative margins and a fair amount of hackery. CSS Grid makes it about ten lines of code.</p>
 
       <div class="demo-frame">
         <div class="demo-grid">
@@ -111,7 +105,7 @@
   &lt;aside class="aside"&gt;Sidebar&lt;/aside&gt;
   &lt;footer class="footer"&gt;Site footer&lt;/footer&gt;
 &lt;/div&gt;</code></pre>
-      <p>Each element's <code>grid-area</code> name has to match a name used in <code>grid-template-areas</code> exactly, including case. This is the single most common typo in Holy Grail layouts: a mismatched name will silently drop the element into the default flow instead of its area, and Grid Detective is built to catch exactly that.</p>
+      <p>Each element's <code>grid-area</code> name has to match a name used in <code>grid-template-areas</code> exactly, including case. This is the single most common typo in Holy Grail layouts &mdash; a mismatched name will silently drop the element into the default flow instead of its area, and Grid Detective is built to catch exactly that.</p>
 
       <h2>3. Make it responsive</h2>
       <p>Below a certain width, three columns stop making sense. Redefine the areas in a single column and let the grid columns collapse to <code>1fr</code>:</p>
@@ -126,7 +120,7 @@
     grid-template-columns: 1fr;
   }
 }</code></pre>
-      <p>Because every child is already positioned by name, you do not need to reorder any HTML, only the area map changes.</p>
+      <p>Because every child is already positioned by name, you do not need to reorder any HTML &mdash; only the area map changes.</p>
 
       <h2>The same layout in Tailwind</h2>
       <p>If you are working in Tailwind, the equivalent uses <code>grid-cols-[200px_1fr_220px]</code> with arbitrary values, plus a couple of <code>col-start</code> / <code>row-start</code> utilities for the header and footer to span the full width:</p>
@@ -144,7 +138,7 @@
       <ul>
         <li><strong>Mismatched area names</strong> between <code>grid-template-areas</code> and each child's <code>grid-area</code>.</li>
         <li><strong>Forgetting <code>min-height: 100vh</code></strong> on the layout, which leaves the footer floating mid-page on short content.</li>
-        <li><strong>Fixed pixel widths on nav/aside</strong> with no fallback for narrow viewports: use the responsive rewrite above rather than trying to squeeze three columns onto a phone.</li>
+        <li><strong>Fixed pixel widths on nav/aside</strong> with no fallback for narrow viewports &mdash; use the responsive rewrite above rather than trying to squeeze three columns onto a phone.</li>
       </ul>
 
       <p>You can paste any version of this layout straight into the CSS Grid Generator to preview it live, or into Grid Detective if something is not lining up the way you expect.</p>
@@ -157,17 +151,14 @@
   </div>
 
   <div>
-    <!-- BUILD:SIDEBAR_CATEGORIES -->
     <div class="sidebar-card">
       <h3>Categories</h3>
-      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">3</span></a>
-      <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
-      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">2</span></a>
-      <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
-      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Tutorials <span style="float:right;">2</span></a>
+      <a class="cat-link" href="../blog.html">Platform Updates <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Grid Detective <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">For Educators <span style="float:right;">1</span></a>
+      <a class="cat-link" href="../blog.html">Gradient Tool <span style="float:right;">0</span></a>
     </div>
-
-    <!-- /BUILD:SIDEBAR_CATEGORIES -->
     <div class="sidebar-card">
       <h3>Get notified</h3>
       <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>

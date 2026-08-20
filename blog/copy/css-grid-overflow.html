@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Your CSS Grid Is Overflowing | Gridlock Holmes Blog</title>
+<link rel="icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/GH-favicon.png">
+
+<meta name="description" content="CSS Grid spilling outside the page or causing horizontal scrolling? Find the most common causes of Grid overflow and see exactly how to fix them.">
+<meta name="keywords" content="css grid overflow, css grid not working, grid item overflow, css grid horizontal scroll, css grid min-width, minmax css grid, css grid responsive, css grid width">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/blog/css-grid-overflow.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="Why Your CSS Grid Is Overflowing">
+<meta property="og:description" content="CSS Grid spilling outside the page or causing horizontal scrolling? Find the most common causes of Grid overflow and see exactly how to fix them.">
+<meta property="og:url" content="https://gridlockholmes.com/blog/css-grid-overflow.html">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Your CSS Grid Is Overflowing">
+<meta name="twitter:description" content="CSS Grid spilling outside the page or causing horizontal scrolling? Find the most common causes of Grid overflow and see exactly how to fix them.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .post-featured-wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  .featured-image-frame { max-width:900px; margin:0 auto 8px; border-radius:14px; overflow:hidden; border:1px solid var(--border); }
+  .featured-image-frame img { display:block; width:100%; height:auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 16px; }
+  .author-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:0.85rem; }
+  .author-row span:not(:last-child)::after { content:'\2022'; margin-left:10px; color:rgba(148,163,184,0.5); }
+  .post-content { max-width:100%; min-width:0; }
+  .blog-main > div:first-child { min-width:0; }
+  .post-content h2 { font-size:1.4rem; font-weight:800; color:var(--white); margin:36px 0 14px; }
+  .post-content h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin:22px 0 10px; }
+  .post-content p { color:var(--muted); margin-bottom:16px; font-size:0.95rem; line-height:1.75; }
+  .post-content ul, .post-content ol { margin:0 0 20px 22px; color:var(--muted); font-size:0.95rem; line-height:1.75; }
+  .post-content li { margin-bottom:8px; }
+  .post-content li strong { color:var(--white); }
+  .post-content code { background:#0a0f1a; color:#A5B4FC; padding:2px 6px; border-radius:4px; font-family:'Fira Code',Consolas,monospace; font-size:0.85em; }
+  .post-content pre { background:#0a0f1a; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:20px 0; font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; line-height:1.7; color:#A5B4FC; }
+  .post-content pre code { background:none; padding:0; color:inherit; }
+  .callout { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:10px; padding:16px 20px; margin:24px 0; font-size:0.9rem; color:var(--muted); }
+  .callout strong { color:var(--white); }
+  .mini-callout { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--purple); border-radius:0 10px 10px 0; padding:12px 18px; margin:20px 0; font-size:0.85rem; color:var(--muted); }
+  .mini-callout a { color:var(--purple); font-weight:600; }
+  .share-row { display:flex; gap:12px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .cause-fix { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 22px; }
+  .cause-fix > div { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .cause-fix .lbl { font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
+  .cause-fix .cause .lbl { color:#dd6b20; }
+  .cause-fix .fix .lbl { color:var(--teal); }
+  .cause-fix p { margin-bottom:0; font-size:0.87rem; }
+  @media(max-width:600px){ .cause-fix { grid-template-columns:1fr; } }
+
+  .checklist { list-style:none; margin:20px 0; padding:0; }
+  .checklist li { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:0.9rem; color:var(--muted); }
+  .checklist li:last-child { border-bottom:none; }
+  .checklist .num { width:24px; height:24px; border-radius:50%; background:rgba(96,165,250,0.15); color:var(--purple); font-weight:700; font-size:0.75rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  /* Demo - Grid Detective style */
+  .demo-panel { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin:26px 0; }
+  .demo-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--purple); margin-bottom:14px; }
+  .demo-stage-wrap { border:1px dashed var(--border); border-radius:10px; padding:16px; overflow-x:auto; position:relative; }
+  .demo-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  .demo-card { background:#1E3A8A; border-radius:8px; padding:16px 10px; text-align:center; font-size:0.72rem; font-weight:600; color:#fff; white-space:normal; overflow-wrap:break-word; transition:box-shadow 0.2s ease; }
+  .demo-card.culprit-text { white-space:nowrap; }
+  .demo-card.culprit-highlight { box-shadow:0 0 0 2px var(--pink); background:#5b2140; }
+  .demo-card.fixed-item { min-width:0; }
+  .demo-btn-row { display:flex; gap:10px; align-items:center; margin-top:16px; flex-wrap:wrap; }
+  .demo-btn-row button { background:var(--teal); border:none; color:#fff; font-size:0.8rem; font-weight:700; padding:9px 18px; border-radius:8px; cursor:pointer; }
+  .demo-btn-row button.reset-btn { background:transparent; border:1px solid var(--border); color:var(--muted); }
+  .demo-flag { font-size:0.78rem; color:var(--pink); font-weight:700; margin-top:12px; display:none; }
+  .demo-flag.show { display:block; }
+  .demo-code { background:#0a0f1a; border-radius:8px; padding:12px 16px; margin-top:12px; font-family:'Fira Code',Consolas,monospace; font-size:0.76rem; color:#A5B4FC; line-height:1.7; display:none; }
+  .demo-code.show { display:block; }
+  .demo-caption { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+
+  .ex-visual { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin:24px 0; }
+  .ex-visual-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--purple); margin-bottom:14px; }
+  .ex-visual-note { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+  .side-by-side { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:600px){ .side-by-side { grid-template-columns:1fr; } }
+  .sbs-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px; text-align:center; }
+  .sbs-box { border:1px solid var(--border); border-radius:8px; padding:10px; overflow-x:auto; }
+  .shrink-row { display:flex; gap:6px; width:200px; }
+  .shrink-cell { background:#1E3A8A; border-radius:5px; height:34px; flex:1; }
+  .shrink-cell.wide { flex:none; width:130px; background:var(--pink); }
+  .container-edge { position:relative; border:1px dashed rgba(229,62,62,0.6); border-radius:8px; padding:10px; width:180px; }
+  .track-block { background:var(--teal); border-radius:5px; height:34px; }
+  .track-block.overflow { width:210px; background:#dd6b20; }
+  .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; width:140px; }
+  .img-block { background:linear-gradient(135deg,var(--navy),var(--purple)); border-radius:5px; height:60px; }
+  .img-block.wide { width:180px; }
+  .width-math { font-family:'Fira Code',Consolas,monospace; font-size:0.85rem; color:#A5B4FC; background:#0a0f1a; border-radius:8px; padding:14px 18px; margin:14px 0; }
+  .width-math .total { color:var(--pink); font-weight:700; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../learn.html">Learn</a></li>
+      <li><a href="../gradient.html">Gradients</a></li>
+      <li><a href="../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../educators.html">For Educators</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="post-hero">
+  <div class="post-hero-inner">
+    <a href="../blog.html" class="back-link">&larr; Back to blog</a>
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">/</span>
+      <a href="../blog.html">Blog</a><span class="sep">/</span>
+      <a href="category/grid-detective.html">Grid Detective</a><span class="sep">/</span>
+      <span class="current">Why Your CSS Grid Is Overflowing</span>
+    </div>
+    <div class="hero-tag" style="color:var(--purple);">Grid Detective</div>
+    <h1>Why Your CSS Grid Is Overflowing</h1>
+    <div class="author-row">
+      <span>Gridlock Holmes team</span>
+      <span>29 October 2026</span>
+      <span>9 min read</span>
+    </div>
+  </div>
+</section>
+
+<div class="post-featured-wrap">
+  <div class="featured-image-frame">
+    <img src="../assets/images/whatsnew.png" alt="Why your CSS Grid is overflowing featured image" loading="lazy">
+  </div>
+</div>
+
+<div class="blog-main">
+  <div>
+    <article class="post-content">
+
+      <p>Your CSS Grid is wider than the page. You get a horizontal scrollbar. One card is hanging off the edge. Or the layout looks fine until a long URL, an image or one awkward piece of content gets added.</p>
+      <p>So you try:</p>
+      <pre><code>overflow: hidden;</code></pre>
+      <p>The scrollbar disappears. Problem solved? Not necessarily. You've hidden the evidence.</p>
+      <p>When CSS Grid overflows, something is usually telling the browser: <strong style="color:var(--white);">"I need more space than you've given me."</strong> The fastest way to fix it is to find out <strong style="color:var(--white);">what is making that demand.</strong></p>
+
+      <div class="demo-panel">
+        <div class="demo-label">Find the culprit</div>
+        <div class="demo-stage-wrap">
+          <div class="demo-grid" id="ovGrid">
+            <div class="demo-card">Card one</div>
+            <div class="demo-card culprit-text" id="ovCulprit">averyveryveryverylongfilenamewithoutspaces.css</div>
+            <div class="demo-card">Card three</div>
+          </div>
+        </div>
+        <div class="demo-btn-row">
+          <button id="ovShowBtn">Show me what's breaking it</button>
+          <button class="reset-btn" id="ovResetBtn">Reset</button>
+        </div>
+        <div class="demo-flag" id="ovFlag">This item cannot shrink enough</div>
+        <div class="demo-code" id="ovCode">.card {
+  min-width: 0;
+}</div>
+        <p class="demo-caption">The element crossing the boundary is often more useful than the scrollbar itself.</p>
+      </div>
+
+      <h2>1. One Grid item refuses to shrink</h2>
+      <p>This is one of the strangest Grid overflow problems because your column sizing can look completely reasonable. For example:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}</code></pre>
+      <p>Two flexible columns. Nothing is fixed. So why can one column still become too wide? Because the track isn't the only thing involved. A Grid item can have a minimum size based on its content. That means a long URL, an unbroken string or another wide child can effectively say: <strong style="color:var(--white);">I can't get any narrower than this.</strong></p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>Grid items can have an automatic minimum size based on their content, which can prevent an item from shrinking as far as you expect - even with flexible tracks.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Where it makes sense for the design, allow the item to shrink with <code>min-width: 0;</code> then deal with the content, e.g. <code>overflow-wrap: anywhere;</code></p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Before / after</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">Item won't shrink</div>
+            <div class="sbs-box"><div class="shrink-row"><div class="shrink-cell wide"></div><div class="shrink-cell"></div></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">Item can shrink</div>
+            <div class="sbs-box"><div class="shrink-row"><div class="shrink-cell"></div><div class="shrink-cell"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>2. Your 1fr column isn't as shrinkable as you thought</h2>
+      <p>This catches a lot of people. You write <code>grid-template-columns: 1fr 1fr;</code> and assume both columns can shrink as much as they need to. But <code>1fr</code> doesn't always mean "shrink all the way to zero." Content sizing still matters. That's why a common defensive pattern is <code>minmax(0, 1fr) minmax(0, 1fr)</code>.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>A flexible Grid track can still be influenced by the minimum size of the content inside it.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>When you genuinely want the track to shrink below that automatic content-based minimum, make the minimum explicit with <code>minmax(0, 1fr)</code>.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+}</code></pre>
+      <p>This makes the minimum explicit - zero is allowed. The track can then use its fraction of the available space without the automatic minimum unexpectedly making it wider. This is also a recurring solution in Grid overflow troubleshooting.</p>
+
+      <h2>3. Your minmax() minimum is wider than the container</h2>
+      <p>Maybe you've already made the Grid responsive.</p>
+      <pre><code>.grid {
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+}</code></pre>
+      <p>It works beautifully. Until the Grid appears somewhere narrower than 320 pixels. Then one card sticks outside the container.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You explicitly told the browser this track must be at least 320px wide. If its container is only 280px wide, there isn't enough room to satisfy that rule. minmax() isn't failing - it's doing exactly what you asked.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>If the component may become narrower than your preferred minimum, let that minimum respect the available space.</p></div>
+      </div>
+
+      <pre><code>.grid {
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(min(100%, 320px), 1fr)
+    );
+}</code></pre>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">280px container</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">minmax(320px, 1fr)</div>
+            <div class="container-edge"><div class="track-block overflow"></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">minmax(min(100%, 320px), 1fr)</div>
+            <div class="container-edge"><div class="track-block"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-callout">If minmax() still feels unpredictable, read <a href="css-minmax-grid.html">How CSS Minmax Stops Your Grid From Falling Apart</a>.</div>
+
+      <h2>4. An image is wider than its Grid item</h2>
+      <p>Sometimes the offender is much easier to spot. You add an image. The Grid gets wider. Images, videos and other embedded content can bring their own dimensions into the layout.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The media itself is allowed to render wider than the space available inside its Grid item.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>For normal responsive images, a useful default is <code>img { max-width: 100%; height: auto; }</code> so the image scales down instead of forcing its Grid item wider.</p></div>
+      </div>
+
+      <div class="ex-visual">
+        <div class="ex-visual-label">Before / after</div>
+        <div class="side-by-side">
+          <div>
+            <div class="sbs-label">Before</div>
+            <div class="img-card"><div class="img-block wide"></div></div>
+          </div>
+          <div>
+            <div class="sbs-label">After</div>
+            <div class="img-card"><div class="img-block"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>5. Your fixed widths and gaps simply don't fit</h2>
+      <p>Sometimes there isn't a mysterious browser behaviour. The maths just doesn't fit. Imagine:</p>
+      <pre><code>.grid {
+  display: grid;
+  grid-template-columns:
+    280px 280px 280px;
+  gap: 32px;
+}</code></pre>
+
+      <div class="width-math">280 + 280 + 280 = 840px tracks<br>32 + 32 = 64px gaps<br>Grid needs <span class="total">904px</span> total</div>
+      <p>Put it inside an 800-pixel container and it has nowhere to go.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>The total width of the tracks and gaps is larger than the available width.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Decide what should actually be flexible - <code>repeat(3, minmax(0, 1fr))</code>, or <code>repeat(auto-fit, minmax(220px, 1fr))</code> if the number of columns should change.</p></div>
+      </div>
+
+      <h2>6. overflow: hidden may only be hiding the symptom</h2>
+      <p>When a layout is spilling sideways, this is tempting:</p>
+      <pre><code>body {
+  overflow-x: hidden;
+}</code></pre>
+      <p>Now there is no scrollbar. But the element that caused the problem may still be wider than the page. Part of your content may simply be clipped where nobody can see it.</p>
+
+      <div class="cause-fix">
+        <div class="cause"><div class="lbl">Cause</div><p>You've changed how the browser displays the overflow without fixing the thing producing it.</p></div>
+        <div class="fix"><div class="lbl">Fix</div><p>Before hiding overflow, identify why the content is wider than its container - check Grid track widths, minmax() minimums, min-width, images, long text, fixed-width children and nested layouts.</p></div>
+      </div>
+
+      <p>There <strong style="color:var(--white);">are</strong> situations where hiding or scrolling overflow is intentional. Just make sure it is a design decision rather than a way of making a debugging clue disappear.</p>
+
+      <h2>Sometimes horizontal scrolling is the design</h2>
+      <p>Not every overflowing layout is broken. You may deliberately want a horizontal gallery, a row of cards, a timeline, a data table or a carousel-style component. In those cases, the scrollable area should normally be <strong style="color:var(--white);">contained deliberately</strong>, rather than making the entire page wider.</p>
+      <pre><code>.scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 260px;
+  overflow-x: auto;
+  gap: 16px;
+}</code></pre>
+      <p>Now the horizontal scrolling belongs to that component. The whole document doesn't have to scroll sideways. The CSS Grid specification explicitly allows overflow behaviour on Grid containers, so overflow is not inherently an error. The question is: <strong style="color:var(--white);">did you mean for it to happen?</strong></p>
+
+      <div class="mini-callout">Still staring at your Grid wondering what's actually causing it? Grid problems get much easier once you stop changing random values and start isolating the rule that's producing the behaviour. <a href="../grid-detective.html">Open Grid Detective &rarr;</a></div>
+
+      <h2>Check these before you hide the scrollbar</h2>
+      <p>If your CSS Grid is overflowing, work through these in order.</p>
+      <ol class="checklist">
+        <li><span class="num">1</span><div><strong style="color:var(--white);">Find the element crossing the boundary</strong> - don't start with the CSS, start with the visible culprit</div></li>
+        <li><span class="num">2</span><div><strong style="color:var(--white);">Check whether a Grid item can shrink</strong> - try min-width: 0 where appropriate</div></li>
+        <li><span class="num">3</span><div><strong style="color:var(--white);">Check your flexible tracks</strong> - if 1fr is still being pushed wider by content, consider minmax(0, 1fr)</div></li>
+        <li><span class="num">4</span><div><strong style="color:var(--white);">Check your minmax() minimum</strong> - a 320px minimum cannot fit inside a 280px container without compromise</div></li>
+        <li><span class="num">5</span><div><strong style="color:var(--white);">Check images and other embedded content</strong> - make sure the thing inside the card is actually allowed to resize</div></li>
+        <li><span class="num">6</span><div><strong style="color:var(--white);">Add up your fixed widths and gaps</strong> - sometimes the Grid simply needs more pixels than exist</div></li>
+        <li><span class="num">7</span><div><strong style="color:var(--white);">Ask whether the overflow is intentional</strong> - a component can scroll horizontally on purpose; the whole page doing it unexpectedly is usually a clue</div></li>
+      </ol>
+
+      <div class="callout">
+        <strong>Why this matters</strong>
+        <p style="margin-top:8px;margin-bottom:0;">CSS overflow is often treated like a cosmetic problem. But the scrollbar is usually only the symptom. If you can identify which track or item is demanding too much space, the fix becomes much more obvious - and it's a much better debugging habit than adding overflow: hidden until the problem disappears.</p>
+      </div>
+
+      <p>When a Grid breaks, you shouldn't have to rewrite half your layout just to find the bad rule. Find the thing causing the problem. Understand why it cannot shrink. Then fix that. That's exactly the kind of problem Grid Detective is designed to help you practise spotting.</p>
+
+      <div class="share-row">
+        <a href="../grid-detective.html" class="btn btn-primary">Check your code in Grid Detective</a>
+        <a href="../index.html" class="btn btn-secondary">Try the CSS Grid Generator</a>
+      </div>
+
+      <!-- BUILD:POST_NAV -->
+      <div class="post-nav"></div>
+      <!-- /BUILD:POST_NAV -->
+    </article>
+  </div>
+
+  <div>
+    <!-- BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Categories</h3>
+    </div>
+    <!-- /BUILD:SIDEBAR_CATEGORIES -->
+    <div class="sidebar-card">
+      <h3>Get notified</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Enter your email to hear about new posts, features and free resources.</p>
+      <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:0.84rem;color:var(--text);margin-bottom:8px;">
+      <button class="btn btn-primary" style="width:100%;display:block;text-align:center;">Subscribe</button>
+    </div>
+    <div class="sidebar-card">
+      <h3>Quick links</h3>
+      <a class="ql-link" href="../index.html">&#9889; CSS Grid Generator</a>
+      <a class="ql-link" href="../gradient.html">&#127912; Gradient Tool</a>
+      <a class="ql-link" href="../grid-detective.html">&#128269; Grid Detective</a>
+      <a class="ql-link" href="../learn.html">&#128218; Start Learning</a>
+      <a class="ql-link" href="../educators.html">&#127891; For Educators</a>
+      <a class="ql-link" href="archive.html">&#128218; Blog Archive</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Cookie Policy</a>
+      <a href="#">Contact</a><a href="../blog.html">Blog</a>
+      <a href="#">CSS Grid Cheat Sheet</a><a href="#">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/app.js"></script>
+<script>
+  (function(){
+    var showBtn = document.getElementById('ovShowBtn');
+    var resetBtn = document.getElementById('ovResetBtn');
+    var culprit = document.getElementById('ovCulprit');
+    var flag = document.getElementById('ovFlag');
+    var code = document.getElementById('ovCode');
+    var grid = document.getElementById('ovGrid');
+
+    showBtn.addEventListener('click', function(){
+      culprit.classList.add('culprit-highlight');
+      flag.classList.add('show');
+      code.classList.add('show');
+      grid.querySelectorAll('.demo-card').forEach(function(c){ c.classList.add('fixed-item'); });
+      culprit.classList.remove('culprit-text');
+    });
+
+    resetBtn.addEventListener('click', function(){
+      culprit.classList.remove('culprit-highlight');
+      flag.classList.remove('show');
+      code.classList.remove('show');
+      grid.querySelectorAll('.demo-card').forEach(function(c){ c.classList.remove('fixed-item'); });
+      culprit.classList.add('culprit-text');
+    });
+  })();
+</script>
+</body>
+</html>

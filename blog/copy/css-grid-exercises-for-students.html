@@ -18,14 +18,63 @@
 <meta property="og:title" content="5 CSS Grid Exercises That Show What Your Students Actually Understand">
 <meta property="og:description" content="Use these five CSS Grid exercises to test whether students really understand tracks, placement, responsive layouts and Grid structure rather than just copying code.">
 <meta property="og:url" content="https://gridlockholmes.com/blog/css-grid-exercises-for-students.html">
-<meta property="og:image" content="https://gridlockholmes.com/assets/images/blog/CSS Grid Exercises.png">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="5 CSS Grid Exercises That Show What Your Students Actually Understand">
 <meta name="twitter:description" content="Use these five CSS Grid exercises to test whether students really understand tracks, placement, responsive layouts and Grid structure rather than just copying code.">
-<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/blog/CSS Grid Exercises.png">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/whatsnew.png">
 
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .post-hero { padding:70px 24px 40px; background:radial-gradient(ellipse at top, #1e1b4b 0%, var(--bg) 70%); }
+  .post-hero-inner { max-width:820px; margin:0 auto; }
+  .post-featured-wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  .featured-image-frame { max-width:900px; margin:0 auto 8px; border-radius:14px; overflow:hidden; border:1px solid var(--border); }
+  .featured-image-frame img { display:block; width:100%; height:auto; }
+  .back-link { display:inline-flex; align-items:center; gap:6px; font-size:0.83rem; color:var(--muted); margin-bottom:20px; text-decoration:none; }
+  .back-link:hover { color:var(--teal); text-decoration:none; }
+  .post-hero h1 { font-size:clamp(1.9rem,4vw,2.6rem); font-weight:800; color:var(--white); line-height:1.2; margin:14px 0 16px; }
+  .author-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:0.85rem; }
+  .author-row span:not(:last-child)::after { content:'\2022'; margin-left:10px; color:rgba(148,163,184,0.5); }
+  .blog-main > div:first-child { min-width:0; }
+  .post-content { max-width:100%; min-width:0; }
+  .post-content h2 { font-size:1.4rem; font-weight:800; color:var(--white); margin:36px 0 14px; }
+  .post-content h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin:22px 0 10px; }
+  .post-content p { color:var(--muted); margin-bottom:16px; font-size:0.95rem; line-height:1.75; }
+  .post-content ul, .post-content ol { margin:0 0 20px 22px; color:var(--muted); font-size:0.95rem; line-height:1.75; }
+  .post-content li { margin-bottom:8px; }
+  .post-content li strong { color:var(--white); }
+  .post-content code { background:#0a0f1a; color:#A5B4FC; padding:2px 6px; border-radius:4px; font-family:'Fira Code',Consolas,monospace; font-size:0.85em; }
+  .post-content pre { background:#0a0f1a; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:20px 0; font-family:'Fira Code',Consolas,monospace; font-size:0.8rem; line-height:1.7; color:#A5B4FC; }
+  .post-content pre code { background:none; padding:0; color:inherit; }
+  .callout { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:10px; padding:16px 20px; margin:24px 0; font-size:0.9rem; color:var(--muted); }
+  .callout strong { color:var(--white); }
+  .share-row { display:flex; gap:12px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; }
+
+  /* Exercise visuals */
+  .ex-visual { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin:24px 0; }
+  .ex-visual-label { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+  .ex-visual-note { font-size:0.8rem; color:var(--muted); margin-top:14px; }
+  .ex-lines { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--muted); margin-bottom:6px; padding:0 4px; }
+  .ex-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .ex-cell { background:#1E3A8A; border-radius:8px; padding:20px 0; text-align:center; font-size:0.82rem; font-weight:600; color:#fff; }
+  .ex-cell.span2 { grid-column:span 2; background:var(--teal); }
+  .ex-mini-row { display:flex; gap:16px; flex-wrap:wrap; }
+  .ex-mini { flex:1; min-width:130px; }
+  .ex-mini-label { font-size:0.68rem; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px; text-align:center; letter-spacing:0.05em; }
+  .ex-mini-grid { display:grid; gap:6px; }
+  .ex-mini-cell { background:var(--navy); border-radius:5px; height:26px; }
+  .ex-areas { display:grid; grid-template-columns:70px 1fr; grid-template-rows:32px 68px 32px; gap:6px; }
+  .ex-area { border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.68rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#fff; }
+  .ex-area.header, .ex-area.footer { grid-column:1/-1; background:#4338CA; }
+  .ex-area.sidebar { background:var(--purple); }
+  .ex-area.main { background:#1E3A8A; }
+  .ex-broken-wrap { background:#0a0f1a; border:1px dashed rgba(229,62,62,0.55); border-radius:8px; padding:16px; overflow-x:auto; }
+  .ex-broken { display:flex; gap:8px; width:max-content; }
+  .ex-broken-card { width:110px; height:64px; background:#1E3A8A; border-radius:6px; flex-shrink:0; }
+  .ex-broken-card.long { background:var(--pink); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:#fff; padding:0 8px; text-align:center; }
+</style>
 </head>
 <body>
 
@@ -70,7 +119,7 @@
 
 <div class="post-featured-wrap">
   <div class="featured-image-frame">
-    <img src="../assets/images/blog/CSS Grid Exercises.png" alt="5 CSS Grid exercises that show what your students actually understand" loading="lazy">
+    <img src="../assets/images/whatsnew.png" alt="5 CSS Grid exercises that show what your students actually understand" loading="lazy">
   </div>
 </div>
 
@@ -332,13 +381,8 @@ footer { grid-area: footer; }</code></pre>
           <span class="post-nav-label">&larr; Previous post</span>
           <span class="post-nav-title">How to use Gridlock Holmes in a 60-minute CSS lesson</span>
         </a>
-        <a href="css-minmax-grid.html" class="post-nav-link next">
-          <span class="post-nav-label">Next post &rarr;</span>
-          <span class="post-nav-title">How CSS Minmax Stops Your Grid From Falling Apart</span>
-        </a>
+        <span></span>
       </div>
-
-
 
       <!-- /BUILD:POST_NAV -->
     </article>
@@ -348,14 +392,12 @@ footer { grid-area: footer; }</code></pre>
     <!-- BUILD:SIDEBAR_CATEGORIES -->
     <div class="sidebar-card">
       <h3>Categories</h3>
-      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">3</span></a>
+      <a class="cat-link" href="category/tutorials.html">Tutorials <span style="float:right;">1</span></a>
       <a class="cat-link" href="category/platform-updates.html">Platform Updates <span style="float:right;">1</span></a>
-      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">2</span></a>
+      <a class="cat-link" href="category/grid-detective.html">Grid Detective <span style="float:right;">1</span></a>
       <a class="cat-link" href="category/for-educators.html">For Educators <span style="float:right;">2</span></a>
-      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">1</span></a>
+      <a class="cat-link" href="category/gradient-tool.html">Gradient Tool <span style="float:right;">0</span></a>
     </div>
-
-
 
     <!-- /BUILD:SIDEBAR_CATEGORIES -->
     <div class="sidebar-card">
