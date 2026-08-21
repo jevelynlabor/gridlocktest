@@ -48,6 +48,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
   }
   .nav-links.open { display:flex; }
   .nav-links a { padding:11px 14px; font-size:0.93rem; border-radius:8px; display:block; }
+  .paths-grid { grid-template-columns:1fr; }
 }
 
 /* BUTTONS */
