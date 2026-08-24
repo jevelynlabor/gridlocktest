@@ -29,10 +29,26 @@
 <meta name="twitter:description" content="Paste your CSS Grid code and Grid Detective finds errors, warnings and tips instantly, with plain-English explanations of what to fix and why.">
 <meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
 
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
 
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* Small additions specific to the standalone analyzer layout */
+  .detective-tool-section { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:70px 24px 80px; }
+  .detective-tool-inner { max-width:760px; margin:0 auto; }
+  .detective-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px; box-shadow:0 10px 34px rgba(0,0,0,0.35); }
+  .detective-card h2 { font-size:1.3rem; font-weight:800; color:var(--white); margin-bottom:4px; }
+  .detective-card .sub { font-size:0.88rem; color:var(--muted); margin-bottom:20px; }
+  .analyzer-tab { border:none; cursor:pointer; }
+  #analyze-input { font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace; resize:vertical; }
+  #line-nums { font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace; border:1px solid var(--border); border-right:none; }
+  .analyze-btn { background:var(--teal); border:none; color:#fff; font-weight:700; cursor:pointer; transition:background 0.15s; }
+  .analyze-btn:hover { background:var(--teal-d); }
+  .icon2-gridlock { display:block; margin:0 auto 14px; }
+  .btn-row { justify-content:center; }
+</style>
+</head>
+<body class="overflow-x-hidden tool-page">
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo">
@@ -60,7 +76,7 @@
     <h1>Find and fix <em>CSS Grid errors</em></h1>
     <p class="hero-sub">Paste your grid code into Grid Detective, and it will check it for common mistakes, missing properties and problems with how the grid is set up; then it will explain what to fix and why.</p>
     <div class="hero-btns">
-      <a href="css-grid-generator.html" class="btn btn-primary">Check my code now</a>
+      <a href="#tool" class="btn btn-primary">Check my code now</a>
       <a href="learn.html" class="btn btn-outline">Start the learning path</a>
     </div>
     <p class="hero-trust">Free to use &bull; No signup needed &bull; Works with CSS, Tailwind, JS and SCSS</p>
@@ -94,6 +110,35 @@
   </div>
 </section>
 
+<!-- THE TOOL -->
+<section class="detective-tool-section" id="tool">
+  <div class="detective-tool-inner">
+    <div class="detective-card">
+      <h2>🔍 Grid Detective</h2>
+      <p class="sub">Paste your code below and we'll check it for errors, warnings and tips.</p>
+
+      <div class="flex gap-1 mb-2" style="display:flex; gap:4px; margin-bottom:10px;">
+        <button onclick="switchAnalyzerTab('css')" id="analyzer-tab-css" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-brown-600 text-white">CSS</button>
+        <button onclick="switchAnalyzerTab('tailwind')" id="analyzer-tab-tailwind" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">Tailwind</button>
+        <button onclick="switchAnalyzerTab('js')" id="analyzer-tab-js" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">JavaScript</button>
+        <button onclick="switchAnalyzerTab('scss')" id="analyzer-tab-scss" class="analyzer-tab px-3 py-1 text-xs font-medium rounded-t bg-gray-300 text-gray-700">SCSS</button>
+      </div>
+
+      <div class="relative" style="position:relative;">
+        <div id="line-nums" style="position:absolute; left:0; top:0; bottom:0; width:40px; border-radius:8px 0 0 8px; padding:12px 0 12px 0; text-align:center; font-size:0.75rem; overflow:hidden;"></div>
+        <textarea id="analyze-input" rows="10" class="w-full p-3 pl-14 border rounded font-mono text-xs" style="padding-left:56px; width:100%; border-radius:8px;" oninput="updateLineNumbers()" placeholder="Paste your CSS Grid code here..."></textarea>
+      </div>
+
+      <button onclick="analyzeCode()" class="analyze-btn mt-2 w-full py-2 rounded-lg" style="margin-top:12px; width:100%; padding:10px; border-radius:8px;">Analyze Code</button>
+      <div id="analyze-output" class="mt-3 hidden"></div>
+    </div>
+
+    <p style="text-align:center; font-size:0.82rem; color:var(--muted); margin-top:18px;">
+      Building a grid from scratch instead? Try the <a href="css-grid-generator.html">Grid Generator</a>, which includes this same detective tool alongside a live layout builder.
+    </p>
+  </div>
+</section>
+
 <!-- WHAT IT DETECTS -->
 <section class="detect-section">
   <div class="detect-inner">
@@ -111,7 +156,7 @@
     </div>
     <div class="btn-row mt-32">
       <a href="learn.html" class="btn btn-primary">Learn CSS Grid step by step</a>
-      <a href="index.html" class="btn btn-secondary">Open Generator</a>
+      <a href="css-grid-generator.html" class="btn btn-secondary">Open Generator</a>
     </div>
   </div>
 </section>
@@ -122,8 +167,8 @@
   <p>Paste your code above and get a plain-English breakdown in seconds.</p>
   <div class="final-btns">
     <a href="#tool" class="btn btn-primary">Check my code</a>
-    <a href="gradient.html" class="btn btn-secondary">Open Gradient Tool</a>
-    <a href="index.html" class="btn btn-secondary">CSS Grid Generator</a>
+    <a href="css-gradient-generator.html" class="btn btn-secondary">Open Gradient Tool</a>
+    <a href="css-grid-generator.html" class="btn btn-secondary">CSS Grid Generator</a>
   </div>
 </section>
 
@@ -138,5 +183,6 @@
   </div>
 </footer>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/grid-detective-standalone.js"></script>
 </body>
 </html>

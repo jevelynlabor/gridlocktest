@@ -69,7 +69,8 @@
     <p class="hero-sub">The tool has been improved and grabbed from the main website.Fixed errors.</p>
     <div class="hero-btns">
       <a href="#download" class="btn btn-primary" onclick="showHelpModal()" >How to Use</a>
-      <a href="learn.html" class="btn btn-secondary" onclick="showKeyboardHelp()">Shortcut and Tips</a>
+      <button type="button" class="btn btn-secondary" onclick="showKeyboardHelp()">Shortcut and Tips</button>
+      <a href="grid-detective.html" class="btn btn-secondary">Grid Detective</a>
     </div>
   </div>
 </section>
@@ -102,7 +103,7 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-1">Columns</label>
-                    <input type="text" id="columns" value="200px 1fr auto" class="w-full p-3 border rounded" oninput="checkForCommas('columns');debouncedUpdate()">
+                    <input type="text" id="columns" value="1fr 1fr" class="w-full p-3 border rounded" oninput="checkForCommas('columns');debouncedUpdate()">
                     <p class="text-xs text-gray-500 mt-1">How wide each column should be (e.g., 200px = fixed width, 1fr = flexible, auto = fits content)</p>
                 </div>
 
@@ -488,7 +489,8 @@
     </div>
 
     <div id="tutorial-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-xl p-6 sm:p-8 max-w-lg sm:max-w-xl mx-4 w-full max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-xl p-6 sm:p-8 max-w-lg sm:max-w-xl mx-4 w-full max-h-[90vh] overflow-y-auto relative">
+            <button type="button" onclick="document.getElementById('tutorial-modal').classList.add('hidden')" aria-label="Close" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl leading-none font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">&times;</button>
             <div id="tutorial-content"></div>
             <div class="flex justify-between mt-6 pt-4 border-t">
                 <button id="tutorial-prev" onclick="prevTutorialStep()" class="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg font-medium">← Previous</button>
@@ -499,7 +501,8 @@
     </div>
 
     <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-xl p-6 max-w-md mx-4 w-full">
+        <div class="bg-white rounded-xl p-6 max-w-md mx-4 w-full relative">
+            <button type="button" onclick="closeShareModal()" aria-label="Close" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl leading-none font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">&times;</button>
             <h2 class="text-xl font-bold mb-4">📤 Share</h2>
             <div class="space-y-2">
                 <button onclick="copyShareLink()" class="w-full bg-gray-100 py-2 rounded">Copy Link</button>
@@ -510,6 +513,28 @@
             <button onclick="closeShareModal()" class="mt-2 w-full bg-gray-300 py-2 rounded">Close</button>
         </div>
     </div>
+    <div id="shortcuts-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl p-6 sm:p-8 max-w-lg sm:max-w-xl mx-4 w-full max-h-[90vh] overflow-y-auto relative">
+            <button type="button" onclick="document.getElementById('shortcuts-modal').classList.add('hidden')" aria-label="Close" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl leading-none font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">&times;</button>
+            <h2 class="text-xl font-bold mb-4">⌨️ Shortcuts &amp; Tips</h2>
+            <ul class="space-y-3 text-sm text-gray-700">
+                <li><strong>Fast unit entry:</strong> type values like <code class="bg-gray-100 px-1 rounded">1fr</code>, <code class="bg-gray-100 px-1 rounded">auto</code>, or <code class="bg-gray-100 px-1 rounded">200px</code> directly into Columns/Rows, separated by spaces.</li>
+                <li><strong>Tab through fields:</strong> use <code class="bg-gray-100 px-1 rounded">Tab</code> to jump between Columns, Rows, and Gap without touching the mouse.</li>
+                <li><strong>Live preview:</strong> every change updates the grid preview and generated code instantly — no need to click a refresh button.</li>
+                <li><strong>Named areas:</strong> use the grid-template-areas field to lay out sections like "header" or "sidebar" by name instead of by column/row numbers.</li>
+                <li><strong>Copy in one click:</strong> use the Copy Code button to grab whichever tab (CSS, Tailwind, JS, or SCSS) is currently active.</li>
+                <li><strong>Save your work:</strong> give a layout a name and click Save so you can come back to it later.</li>
+                <li><strong>Check your code:</strong> paste existing CSS/Tailwind/JS/SCSS into Grid Detective to catch common grid mistakes.</li>
+            </ul>
+            <button type="button" onclick="document.getElementById('shortcuts-modal').classList.add('hidden')" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        function showKeyboardHelp() {
+            document.getElementById('shortcuts-modal').classList.remove('hidden');
+        }
+    </script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/app.js"></script>
     <footer class="bg-gray-800 text-gray-400 py-8 mt-8">
