@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Grid Layout - The Complete Guide | Gridlock Holmes</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
+
+<!-- SEO -->
+<meta name="description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
+<meta name="keywords" content="css grid layout, css grid layout examples, css grid layout tutorial, responsive css grid layout">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlockholmes.com/css-grid-layout/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gridlock Holmes">
+<meta property="og:title" content="CSS Grid Layout - The Complete Guide | Gridlock Holmes">
+<meta property="og:description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
+<meta property="og:url" content="https://gridlockholmes.com/css-grid-layout/">
+<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CSS Grid Layout - The Complete Guide | Gridlock Holmes">
+<meta name="twitter:description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
+<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is CSS Grid layout?", "acceptedAnswer": { "@type": "Answer", "text": "CSS Grid layout is a two-dimensional layout system built into CSS, letting you define rows and columns and place items within them." } },
+    { "@type": "Question", "name": "CSS Grid vs Flexbox - which should I use?", "acceptedAnswer": { "@type": "Answer", "text": "Use Grid for two-dimensional layouts and Flexbox for one-dimensional alignment. Most real projects use both together." } },
+    { "@type": "Question", "name": "Is CSS Grid supported in all browsers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, CSS Grid is supported in all modern browsers." } },
+    { "@type": "Question", "name": "How do I make a responsive CSS Grid layout?", "acceptedAnswer": { "@type": "Answer", "text": "Use repeat(auto-fill, minmax(min, max)) on grid-template-columns to create a responsive layout without media queries." } },
+    { "@type": "Question", "name": "What are CSS Grid named areas?", "acceptedAnswer": { "@type": "Answer", "text": "Named areas are a way to define a layout by naming regions with grid-template-areas and assigning items to them with grid-area." } },
+    { "@type": "Question", "name": "Is there a visual CSS Grid layout generator?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, Gridlock Holmes offers a free visual CSS Grid layout generator." } },
+    { "@type": "Question", "name": "What does fr mean in CSS Grid?", "acceptedAnswer": { "@type": "Answer", "text": "fr stands for fraction - it represents a share of the available space in a grid track." } }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="gradient.html">Gradients</a></li>
+      <li><a href="grid-detective.html">Grid Detective</a></li>
+      <li><a href="educators.html">For Educators</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-learn">
+  <div class="hero-inner">
+    <div class="hero-tag">Complete Guide</div>
+    <h1><em>CSS Grid layout:</em> the complete guide</h1>
+    <p class="hero-sub">This guide covers every part of CSS Grid layout with visual examples. Includes responsive patterns, 4-language code and a free interactive generator.</p>
+    <div class="hero-btns">
+      <a href="css-grid-generator.html" class="btn btn-primary">Open the CSS Grid Generator</a>
+      <a href="learn.html" class="btn btn-outline">Learn CSS Grid</a>
+    </div>
+    <div class="cheat-jump">
+      <a href="#what-is-it">What is it</a>
+      <a href="#container">Grid container</a>
+      <a href="#placing-items">Placing items</a>
+      <a href="#responsive">Responsive layout</a>
+      <a href="#patterns">Layout patterns</a>
+      <a href="#languages">4 languages</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: WHAT IS CSS GRID LAYOUT -->
+<section class="content-section" id="what-is-it">
+  <div class="content-inner">
+    <div class="content-narrow">
+      <div class="section-label text-center">Definition</div>
+      <h2 class="section-title mb-12 text-center">What is CSS Grid layout?</h2>
+      <p>CSS Grid is a two-dimensional layout system built into CSS. It lets you define rows, columns and gaps, then place items anywhere within that structure.</p>
+      <p>Grid handles two dimensions - rows and columns together. Flexbox handles one dimension at a time. Grid doesn't replace Flexbox - use both.</p>
+      <p>CSS Grid is supported in all modern browsers. No polyfills needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: SETTING UP A GRID CONTAINER -->
+<section class="content-section alt-bg2" id="container">
+  <div class="content-inner">
+    <div class="content-narrow">
+      <div class="section-label text-center">Getting Started</div>
+      <h2 class="section-title mb-12 text-center">Setting up a CSS Grid container</h2>
+      <p>Apply display:grid to any element. All direct children become grid items automatically.</p>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">CSS</span>
+        </div>
+        <pre class="cheat-code-pre">.container {
+  display: grid;
+}</pre>
+      </div>
+      <p class="code-caption">One line to activate the grid.</p>
+
+      <p class="mt-32">grid-template-columns defines how many columns your grid has and how wide each one is. Use fixed widths, fr units for flexible space, or repeat() to avoid writing the same value many times.</p>
+      <div class="mini-code-grid">
+        <div>
+          <div class="mini-code-label">Fixed widths</div>
+          <div class="code-block">grid-template-columns:<br>200px 200px 200px;</div>
+        </div>
+        <div>
+          <div class="mini-code-label">fr units</div>
+          <div class="code-block">grid-template-columns:<br>1fr 1fr 1fr;</div>
+        </div>
+        <div>
+          <div class="mini-code-label">repeat()</div>
+          <div class="code-block">grid-template-columns:<br>repeat(3, 1fr);</div>
+        </div>
+      </div>
+
+      <p>grid-template-rows defines row heights the same way. Without it, rows size automatically to fit their content.</p>
+      <p>gap sets the spacing between rows and columns in one property.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PLACING ITEMS -->
+<section class="content-section" id="placing-items">
+  <div class="content-inner">
+    <div class="content-narrow">
+      <div class="section-label text-center">Core Skill</div>
+      <h2 class="section-title mb-12 text-center">Placing items in CSS Grid</h2>
+      <p>By default, CSS Grid places items in sequence from left to right, row by row.</p>
+      <p>You can place any item precisely using grid-column and grid-row with line numbers or span.</p>
+      <div class="side-by-side">
+        <div class="sbs-box">
+          <div class="sbs-label">By line numbers</div>
+          <div class="code-block">grid-column: 1 / 3;</div>
+        </div>
+        <div class="sbs-box">
+          <div class="sbs-label">By span</div>
+          <div class="code-block">grid-column: span 2;</div>
+        </div>
+      </div>
+      <p class="mt-32">grid-template-areas lets you name regions and assign items to them - the most visual way to define a layout.</p>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">CSS</span>
+        </div>
+        <pre class="cheat-code-pre">.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-areas:
+    'header header header'
+    'left main right'
+    'footer footer footer';
+}
+.left   { grid-area: left; }
+.main   { grid-area: main; }
+.right  { grid-area: right; }</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: RESPONSIVE GRID LAYOUT -->
+<section class="content-section alt-bg2" id="responsive">
+  <div class="content-inner">
+    <div class="content-narrow">
+      <div class="section-label text-center">Responsive</div>
+      <h2 class="section-title mb-12 text-center">Responsive CSS Grid layout</h2>
+      <p>repeat(auto-fill, minmax(min, max)) creates responsive card grids without media queries. The browser fits as many columns as will comfortably hold the minimum width, then stretches them to fill the row.</p>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">CSS</span>
+        </div>
+        <pre class="cheat-code-pre">grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));</pre>
+      </div>
+      <p class="code-caption">The responsive card grid pattern.</p>
+      <p class="mt-32">auto-fit collapses empty tracks, while auto-fill preserves them. In most layouts, auto-fill is the safer default.</p>
+      <p>For more complex breakpoint control, redefine grid-template-columns at each breakpoint.</p>
+    </div>
+    <div class="text-center mt-32">
+      <a href="css-grid-generator.html" class="btn btn-primary">Build a responsive grid in seconds</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: COMMON CSS GRID LAYOUT PATTERNS -->
+<section class="content-section" id="patterns">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Examples</div>
+      <h2 class="section-title mb-12">Common CSS Grid layout patterns</h2>
+    </div>
+    <div class="routes-grid">
+      <div class="route-card">
+        <h3>Card Grid</h3>
+        <p>Three-column responsive card grid.</p>
+        <a href="css-grid-generator.html?preset=card-grid">Open in generator &rarr;</a>
+      </div>
+      <div class="route-card">
+        <h3>Page Shell</h3>
+        <p>Header, sidebar, main content, footer. The standard web page shell.</p>
+        <a href="css-grid-generator.html?preset=holy-grail">Open in generator &rarr;</a>
+      </div>
+      <div class="route-card">
+        <h3>Dashboard</h3>
+        <p>Top bar, left nav, main content area. Common for app dashboards.</p>
+        <a href="css-grid-generator.html?preset=dashboard">Open in generator &rarr;</a>
+      </div>
+      <div class="route-card">
+        <h3>Magazine</h3>
+        <p>Asymmetric multi-column editorial layout. Mix of wide and narrow areas.</p>
+        <a href="css-grid-generator.html?preset=magazine">Open in generator &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 4-LANGUAGE CODE -->
+<section class="content-section alt-bg2" id="languages">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Syntax Comparison</div>
+      <h2 class="section-title mb-12">CSS Grid layout in 4 languages</h2>
+      <p>The same two-column, two-row layout in CSS, Tailwind, JavaScript and SCSS.</p>
+    </div>
+    <div class="lang-grid">
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">CSS</span>
+        </div>
+        <pre class="cheat-code-pre">.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">Tailwind</span>
+        </div>
+        <pre class="cheat-code-pre">&lt;div class="grid grid-cols-[200px_1fr]
+  grid-rows-[auto_1fr] gap-4"&gt;</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">JavaScript</span>
+        </div>
+        <pre class="cheat-code-pre">const g = document.querySelector('.grid');
+g.style.display = 'grid';
+g.style.gridTemplateColumns = '200px 1fr';
+g.style.gap = '1rem';</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">SCSS</span>
+        </div>
+        <pre class="cheat-code-pre">$sidebar: 200px;
+.grid {
+  display: grid;
+  grid-template-columns: $sidebar 1fr;
+  gap: 1rem;
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT -->
+<div class="ad-band ad-band-alt2">
+  <div class="ad-slot">[ AdSense Unit &mdash; 728&times;90 &mdash; After syntax comparison, before FAQ ]</div>
+  <p class="ad-label">Advertisement</p>
+</div>
+
+<!-- SECTION 7: FAQ -->
+<section class="content-section" id="faq">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title mb-12">Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What is CSS Grid layout?</summary>
+        <div class="faq-answer">CSS Grid layout is a two-dimensional layout system built into CSS, letting you define rows and columns and place items within them.</div>
+      </details>
+      <details class="faq-item">
+        <summary>CSS Grid vs Flexbox - which should I use?</summary>
+        <div class="faq-answer">Use Grid for two-dimensional layouts and Flexbox for one-dimensional alignment. Most real projects use both together.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is CSS Grid supported in all browsers?</summary>
+        <div class="faq-answer">Yes, CSS Grid is supported in all modern browsers.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I make a responsive CSS Grid layout?</summary>
+        <div class="faq-answer">Use repeat(auto-fill, minmax(min, max)) on grid-template-columns to create a responsive layout without media queries.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What are CSS Grid named areas?</summary>
+        <div class="faq-answer">Named areas are a way to define a layout by naming regions with grid-template-areas and assigning items to them with grid-area.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a visual CSS Grid layout generator?</summary>
+        <div class="faq-answer">Yes, Gridlock Holmes offers a free visual CSS Grid layout generator.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does fr mean in CSS Grid?</summary>
+        <div class="faq-answer">fr stands for fraction - it represents a share of the available space in a grid track.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Build your CSS Grid layout now</h2>
+  <p>Visual generator. Free, no signup. CSS, Tailwind, JS and SCSS.</p>
+  <div class="final-btns">
+    <a href="css-grid-generator.html" class="btn btn-primary">Open the CSS Grid Generator</a>
+    <a href="learn.html" class="btn btn-secondary">Start the Learning Path</a>
+    <a href="css-grid-cheat-sheet.html" class="btn btn-secondary">CSS Grid Cheat Sheet</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookie Policy</a>
+      <a href="contact.html">Contact</a><a href="blog.html">Blog</a>
+      <a href="css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
