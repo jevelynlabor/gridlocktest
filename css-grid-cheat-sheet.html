@@ -1,32 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free CSS Grid Classroom Resources | Gridlock Holmes</title>
+<title>CSS Grid Cheat Sheet - Every Property, Explained | Gridlock Holmes</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
 
 <!-- SEO -->
-<meta name="description" content="Free CSS Grid classroom resources: editable teaching slides, lesson plans and student exercises. No signup required for teachers or students.">
-<meta name="keywords" content="CSS Grid classroom resources, teach CSS Grid, CSS Grid lesson plan, CSS Grid slides">
+<meta name="description" content="The complete CSS Grid cheat sheet. Every container and item property with syntax examples, the fr unit explained, common layout patterns and 4-language code comparisons. Free.">
+<meta name="keywords" content="CSS Grid cheat sheet, CSS Grid properties, grid-template-columns, fr unit, CSS Grid reference">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://gridlockholmes.com/educators.html">
+<link rel="canonical" href="https://gridlockholmes.com/css-grid-cheat-sheet/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gridlock Holmes">
-<meta property="og:title" content="Free CSS Grid Classroom Resources | Gridlock Holmes">
-<meta property="og:description" content="Free CSS Grid classroom resources: editable teaching slides, lesson plans and student exercises. No signup required for teachers or students.">
-<meta property="og:url" content="https://gridlockholmes.com/educators.html">
+<meta property="og:title" content="CSS Grid Cheat Sheet - Every Property, Explained | Gridlock Holmes">
+<meta property="og:description" content="The complete CSS Grid cheat sheet. Every container and item property with syntax examples, the fr unit explained, common layout patterns and 4-language code comparisons. Free.">
+<meta property="og:url" content="https://gridlockholmes.com/css-grid-cheat-sheet/">
 <meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free CSS Grid Classroom Resources | Gridlock Holmes">
-<meta name="twitter:description" content="Free CSS Grid classroom resources: editable teaching slides, lesson plans and student exercises. No signup required for teachers or students.">
+<meta name="twitter:title" content="CSS Grid Cheat Sheet - Every Property, Explained | Gridlock Holmes">
+<meta name="twitter:description" content="The complete CSS Grid cheat sheet. Every container and item property with syntax examples, the fr unit explained, common layout patterns and 4-language code comparisons. Free.">
 <meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
 
 <link rel="stylesheet" href="assets/css/style.css">
@@ -43,7 +43,7 @@
       <li><a href="learn.html">Learn</a></li>
       <li><a href="gradient.html">Gradients</a></li>
       <li><a href="grid-detective.html">Grid Detective</a></li>
-      <li><a href="educators.html" class="active">For Educators</a></li>
+      <li><a href="educators.html">For Educators</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
@@ -54,98 +54,311 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero-learn">
   <div class="hero-inner">
-    <div class="hero-tag">For Educators</div>
-    <h1>Needs <em>Copy</em></h1>
-    <p class="hero-sub">Use the free slide deck, interactive tools and student exercises to teach CSS Grid layouts visually. No signup required for you or your students.</p>
+    <div class="hero-tag">Free Reference</div>
+    <h1><em>CSS Grid cheat sheet:</em> every property, explained</h1>
+    <p class="hero-sub">All CSS Grid container properties, item properties and alignment shortcuts in one reference. Includes the fr unit explained, common layout patterns and a 4-language syntax comparison.</p>
     <div class="hero-btns">
-      <a href="#download" class="btn btn-primary">Download free slides</a>
-      <a href="learn.html" class="btn btn-secondary">Preview the learning path</a>
+      <a href="css-grid-generator.html" class="btn btn-primary">Try it in the CSS Grid generator</a>
+      <a href="learn.html" class="btn btn-outline">Learn CSS Grid</a>
     </div>
-    <p class="hero-trust">Free forever &bull; No signup &bull; Editable PowerPoint slides</p>
-  </div>
-</section>
-
-<!-- WHAT'S INCLUDED -->
-<section class="educator-section" id="download">
-  <div class="educator-inner">
-    <div>
-      <div class="section-label">What is included</div>
-      <h2 class="section-title">Everything you need to run a CSS Grid lesson</h2>
-      <ul class="feature-list">
-        <li>Teaching slide deck - 30 slides, editable PowerPoint</li>
-        <li>Visual examples - diagram plus code plus live demo for each concept</li>
-        <li>Grid Detective exercises - ready-made grid examples with mistakes for students to find and fix</li>
-        <li>Lesson plan notes - speaker notes and timings on every slide</li>
-        <li>No account needed for students - works immediately in any browser</li>
-        <li>More resources coming - Tailwind slides and SCSS exercises in development</li>
-      </ul>
-    </div>
-    <div class="download-card">
-      <img src="assets/images/Teaching Slides.png" class="icon2-gridlock" alt="Teaching Slides">
-      <h3>Free CSS Grid Teaching Slides</h3>
-      <div class="badge-row">
-        <span class="badge">PowerPoint (.pptx)</span>
-        <span class="badge">30+ slides</span>
-        <span class="badge">Free forever</span>
-        <span class="badge">No signup</span>
-      </div>
-      <a href="#" class="btn btn-primary btn-block mb-12">Download Slides</a>
-      <p class="fine-print">Direct download &bull; No email required</p>
+    <div class="cheat-jump">
+      <a href="#container-properties">Container properties</a>
+      <a href="#item-properties">Item properties</a>
+      <a href="#fr-unit">The fr unit</a>
+      <a href="#patterns">Common patterns</a>
+      <a href="#languages">4 languages</a>
+      <a href="#faq">FAQ</a>
     </div>
   </div>
 </section>
 
-<!-- CLASSROOM GUIDE -->
-<section class="steps-section">
-  <div class="steps-inner">
-    <div class="section-label">Classroom Guide</div>
-    <h2 class="section-title">A suggested classroom approach</h2>
-    <p class="text-muted">These steps work for a 60 to 90 minute session. Adjust to suit your class.</p>
-    <ol class="step-list">
-      <li><div class="step-num">1</div><div><strong class="step-title">Open the slides</strong> - introduce CSS Grid and session goals</div></li>
-      <li><div class="step-num">2</div><div><strong class="step-title">Live demo the CSS generator</strong> - demonstrate columns, gaps and alignment on screen</div></li>
-      <li><div class="step-num">3</div><div><strong class="step-title">Run a build challenge</strong> - students recreate a common webpage layout (like Holy Grail) using the generator.</div></li>
-      <li><div class="step-num">4</div><div><strong class="step-title">Grid Detective exercise</strong> - students fix a broken grid in pairs</div></li>
-      <li><div class="step-num">5</div><div><strong class="step-title">Export the code</strong> - students copy their finished grid code into a real project.</div></li>
-      <li><div class="step-num">6</div><div><strong class="step-title">Homework</strong> - direct students to /learn/ to continue at their own pace</div></li>
-    </ol>
-    <div class="btn-row mt-24">
-      <a href="#download" class="btn btn-primary">Download free slides</a>
-      <a href="grid-detective.html" class="btn btn-outline">Grid Detective for students</a>
-      <a href="learn.html" class="btn btn-outline">Learning path for students</a>
+<!-- SECTION 1: CONTAINER PROPERTIES -->
+<section class="content-section" id="container-properties">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Reference</div>
+      <h2 class="section-title mb-12">CSS Grid container properties</h2>
+      <p>Apply <code>display:grid</code> to any element to activate it as a grid container and unlock all grid properties.</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Property</th><th>Values</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>display</td><td>grid or inline-grid</td><td>Activates the grid formatting context. All direct children become grid items.</td></tr>
+          <tr><td>grid-template-columns</td><td>1fr 2fr, repeat(3, 1fr), repeat(auto-fill, minmax(200px, 1fr)), 200px 1fr</td><td>Defines column track sizes. fr divides remaining space after gaps.</td></tr>
+          <tr><td>grid-template-rows</td><td>auto, 100px 1fr, repeat(3, 200px)</td><td>Defines row track sizes. auto lets content determine the height.</td></tr>
+          <tr><td>grid-template-areas</td><td>Named area strings in quotes, one per row. Use . for empty cells.</td><td>Defines named template regions assigned to items via grid-area.</td></tr>
+          <tr><td>grid-template</td><td>&mdash;</td><td>Shorthand combining grid-template-rows / grid-template-columns. Rarely used alone &ndash; prefer the longhand properties for clarity.</td></tr>
+          <tr><td>column-gap / row-gap</td><td>Any length value (px, rem, %)</td><td>Sets the gutter between columns and rows. Replaces the deprecated grid-column-gap and grid-row-gap.</td></tr>
+          <tr><td>gap</td><td>row-gap column-gap, or a single value for both</td><td>Shorthand. gap: 1rem sets equal gaps. gap: 1rem 2rem sets rows then columns.</td></tr>
+          <tr><td>justify-items</td><td>start | end | center | stretch (default)</td><td>Aligns grid items along the inline (horizontal) axis inside their cell.</td></tr>
+          <tr><td>align-items</td><td>start | end | center | stretch (default) | baseline</td><td>Aligns grid items along the block (vertical) axis inside their cell.</td></tr>
+          <tr><td>place-items</td><td>align-items justify-items</td><td>Shorthand. place-items: center centers items in both axes. Very useful for centering.</td></tr>
+          <tr><td>justify-content</td><td>start | end | center | space-between | space-around | space-evenly</td><td>Distributes grid tracks horizontally when total track width is less than the container.</td></tr>
+          <tr><td>align-content</td><td>start | end | center | space-between | space-around | space-evenly</td><td>Distributes grid tracks vertically when total track height is less than the container.</td></tr>
+          <tr><td>grid-auto-columns</td><td>Any track size value</td><td>Sets the size of columns created outside the explicit grid &ndash; when items are placed beyond defined columns.</td></tr>
+          <tr><td>grid-auto-rows</td><td>Any track size value</td><td>Sets the size of automatically created rows. Common use: grid-auto-rows: minmax(100px, auto) for equal-minimum card rows.</td></tr>
+          <tr><td>grid-auto-flow</td><td>row (default) | column | dense</td><td>Controls how auto-placed items fill the grid. dense fills gaps with smaller items &ndash; useful for photo galleries.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- WHO USES IT -->
-<section class="audience-section">
-  <div class="audience-inner">
-    <div class="section-label">Who uses it</div>
-    <h2 class="section-title">Who uses Gridlock Holmes in the classroom</h2>
-    <div class="audience-grid">
-      <div class="card audience-card">
-        <h3>Secondary Schools</h3>
-        <p>GCSE and A-level computer science, web design and digital media</p>
+<!-- SECTION 2: ITEM PROPERTIES -->
+<section class="content-section alt-bg2" id="item-properties">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Reference</div>
+      <h2 class="section-title mb-12">CSS Grid item properties</h2>
+      <p>Apply these to direct children of a grid container to control their placement, spanning and alignment.</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Property</th><th>Values</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>grid-column-start</td><td>Line number or named line</td><td>Defines which vertical grid line the item starts on. 1 = the first line.</td></tr>
+          <tr><td>grid-column-end</td><td>Line number, named line, or span N</td><td>Defines where the item ends. span 2 means span across two columns.</td></tr>
+          <tr><td>grid-column</td><td>start / end</td><td>Eg: grid-column: 1 / 3 spans from line 1 to line 3. grid-column: 1 / span 2 does the same thing.</td></tr>
+          <tr><td>grid-row-start</td><td>Line number or named line</td><td>Defines which horizontal grid line the item starts on.</td></tr>
+          <tr><td>grid-row-end</td><td>Line number, named line, or span N</td><td>Defines where the item ends on the row axis.</td></tr>
+          <tr><td>grid-row</td><td>start / end</td><td>Eg: grid-row: 1 / 3 or grid-row: 1 / span 2. Same shorthand pattern as grid-column.</td></tr>
+          <tr><td>grid-area</td><td>Named area from grid-template-areas, or row-start / col-start / row-end / col-end</td><td>The most powerful placement shorthand.</td></tr>
+          <tr><td>justify-self</td><td>start | end | center | stretch</td><td>Overrides justify-items for a single grid item along the inline axis.</td></tr>
+          <tr><td>align-self</td><td>start | end | center | stretch</td><td>Overrides align-items for a single grid item along the block axis.</td></tr>
+          <tr><td>place-self</td><td>align-self justify-self</td><td>Shorthand for both axes on a single item.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: FR UNIT EXPLAINED -->
+<section class="content-section" id="fr-unit">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Concept</div>
+      <h2 class="section-title mb-12">The fr unit explained</h2>
+    </div>
+    <div class="content-narrow">
+      <p>fr stands for fraction. 1fr means one equal share of the available space after fixed widths and gaps are subtracted. Think of it as slicing the remaining space like a pizza &ndash; 3 equal slices is 1fr 1fr 1fr.</p>
+      <div class="fr-demo">
+        <div class="ex-grid-3">
+          <div class="ex-cell">1fr</div>
+          <div class="ex-cell">1fr</div>
+          <div class="ex-cell">1fr</div>
+        </div>
+        <p class="fr-demo-caption">grid-template-columns: 1fr 1fr 1fr</p>
       </div>
-      <div class="card audience-card">
-        <h3>Colleges and Universities</h3>
-        <p>Web development, UX design and software engineering programmes</p>
+      <p>Example 1: grid-template-columns: 1fr 1fr 1fr &ndash; three equal columns. Example 2: grid-template-columns: 2fr 1fr &ndash; left column is twice as wide. Example 3: grid-template-columns: 200px 1fr &ndash; fixed sidebar, flexible content.</p>
+      <p>Percentage widths include the gap in their calculation, so 3 x 33.33% will overflow if there is a gap. fr excludes gaps &ndash; it divides only what is left after them. This makes fr simpler and more predictable.</p>
+    </div>
+    <div class="text-center mt-32">
+      <a href="css-grid-generator.html" class="btn btn-primary">Try fr in the generator</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: COMMON PATTERNS -->
+<section class="content-section alt-bg3" id="patterns">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Patterns</div>
+      <h2 class="section-title mb-12">Common CSS Grid patterns</h2>
+    </div>
+    <div class="pattern-grid">
+      <div class="pattern-card">
+        <h3>Equal responsive columns</h3>
+        <div class="code-panel">
+          <div class="code-panel-bar">
+            <div class="code-panel-dots"><span></span><span></span><span></span></div>
+            <span class="cheat-code-label">CSS</span>
+          </div>
+          <pre class="cheat-code-pre">.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}</pre>
+        </div>
+        <p>Auto-wraps cards at any width without media queries.</p>
       </div>
-      <div class="card audience-card">
-        <h3>Coding Bootcamps</h3>
-        <p>Fast-paced instruction with live visual feedback for students</p>
+      <div class="pattern-card">
+        <h3>Holy Grail layout</h3>
+        <div class="code-panel">
+          <div class="code-panel-bar">
+            <div class="code-panel-dots"><span></span><span></span><span></span></div>
+            <span class="cheat-code-label">CSS</span>
+          </div>
+          <pre class="cheat-code-pre">.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'header header header'
+    'left main right'
+    'footer footer footer';
+}</pre>
+        </div>
+        <p>Header, footer, main and two sidebars.</p>
       </div>
-      <div class="card audience-card">
-        <h3>Online Courses</h3>
-        <p>Interactive supplement to video-based CSS Grid content</p>
+      <div class="pattern-card">
+        <h3>Named areas</h3>
+        <div class="code-panel">
+          <div class="code-panel-bar">
+            <div class="code-panel-dots"><span></span><span></span><span></span></div>
+            <span class="cheat-code-label">CSS</span>
+          </div>
+          <pre class="cheat-code-pre">.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+    'sidebar content'
+    'sidebar content';
+}
+.sidebar { grid-area: sidebar; }
+.content { grid-area: content; }</pre>
+        </div>
+        <p>Names make layout intent clear.</p>
+      </div>
+      <div class="pattern-card">
+        <h3>Dense packing</h3>
+        <div class="code-panel">
+          <div class="code-panel-bar">
+            <div class="code-panel-dots"><span></span><span></span><span></span></div>
+            <span class="cheat-code-label">CSS</span>
+          </div>
+          <pre class="cheat-code-pre">.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-auto-flow: dense;
+  gap: 0.5rem;
+}</pre>
+        </div>
+        <p>dense fills gaps left by items of different sizes, useful for masonry-style galleries.</p>
       </div>
     </div>
-    <div class="btn-row mt-24">
-      <a href="#download" class="btn btn-primary">Download free slides</a>
-      <a href="about.html" class="btn btn-secondary">About Gridlock Holmes</a>
+    <div class="text-center mt-32">
+      <a href="css-grid-generator.html" class="btn btn-primary">Build this layout in the generator</a>
     </div>
+  </div>
+</section>
+
+<!-- SECTION 5: 4-LANGUAGE SYNTAX -->
+<section class="content-section" id="languages">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">Syntax Comparison</div>
+      <h2 class="section-title mb-12">CSS Grid in 4 languages</h2>
+      <p>The same 3-column responsive grid expressed in CSS, Tailwind, JavaScript and SCSS.</p>
+    </div>
+    <div class="lang-grid">
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">CSS</span>
+        </div>
+        <pre class="cheat-code-pre">.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">Tailwind</span>
+        </div>
+        <pre class="cheat-code-pre">&lt;div class="grid grid-cols-3 gap-4"&gt;</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">JavaScript</span>
+        </div>
+        <pre class="cheat-code-pre">const el = document.querySelector('.grid');
+el.style.display = 'grid';
+el.style.gridTemplateColumns = 'repeat(3, 1fr)';
+el.style.gap = '1rem';</pre>
+      </div>
+      <div class="code-panel">
+        <div class="code-panel-bar">
+          <div class="code-panel-dots"><span></span><span></span><span></span></div>
+          <span class="cheat-code-label">SCSS</span>
+        </div>
+        <pre class="cheat-code-pre">$cols: 3;
+.grid {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: 1rem;
+}</pre>
+      </div>
+    </div>
+    <div class="text-center mt-32">
+      <a href="css-grid-generator.html" class="btn btn-primary">Generate all four outputs at once</a>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT -->
+<div class="ad-band ad-band-alt2">
+  <div class="ad-slot">[ AdSense Unit &mdash; 728&times;90 &mdash; After syntax comparison, before FAQ ]</div>
+  <p class="ad-label">Advertisement</p>
+</div>
+
+<!-- SECTION 6: FAQ -->
+<section class="content-section alt-bg3" id="faq">
+  <div class="content-inner">
+    <div class="content-narrow text-center">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title mb-12">Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What is the most important CSS Grid property to learn first?</summary>
+        <div class="faq-answer">grid-template-columns. It defines how many columns your grid has and how wide they are. Once you understand track sizing and the fr unit, the rest of CSS Grid becomes much easier.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does fr mean in CSS Grid?</summary>
+        <div class="faq-answer">fr stands for fraction. 1fr means one equal share of the remaining space after fixed widths and gaps are subtracted. 2fr gets twice as much space as 1fr.</div>
+      </details>
+      <details class="faq-item">
+        <summary>When should I use CSS Grid instead of Flexbox?</summary>
+        <div class="faq-answer">Use CSS Grid for two-dimensional layouts &ndash; when you need to control both rows and columns. Use Flexbox for one-dimensional layouts &ndash; a row of buttons or a vertical stack of items.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I make a responsive CSS Grid without media queries?</summary>
+        <div class="faq-answer">Use repeat(auto-fill, minmax(minWidth, 1fr)). This creates as many columns as will fit at the minimum width, and they grow to fill the rest. No media queries needed.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do grid-template-areas work?</summary>
+        <div class="faq-answer">Define named regions in the container as quoted strings &ndash; one string per row. Then assign each grid item to a region using grid-area: name. The visual layout in the CSS matches the actual layout on screen.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I make a grid item span multiple columns?</summary>
+        <div class="faq-answer">Use grid-column: span N (eg: grid-column: span 2 to span two columns) or use grid-column: start / end (eg: grid-column: 1 / 3 to run from line 1 to line 3).</div>
+      </details>
+      <details class="faq-item">
+        <summary>What are the Tailwind CSS Grid utility classes?</summary>
+        <div class="faq-answer">grid (sets display:grid), grid-cols-N (sets column count), col-span-N (item spanning), gap-N (gap size), and place-items-* for alignment. Generate the exact classes in Gridlock Holmes.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Build a CSS Grid layout now</h2>
+  <p>Visual, free, no signup. CSS, Tailwind, JavaScript and SCSS output.</p>
+  <div class="final-btns">
+    <a href="css-grid-generator.html" class="btn btn-primary">Open the CSS Grid Generator</a>
+    <a href="learn.html" class="btn btn-secondary">Start the Learning Path</a>
+    <a href="grid-detective.html" class="btn btn-secondary">Use Grid Detective</a>
   </div>
 </section>
 
