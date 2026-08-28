@@ -60,7 +60,7 @@
     "date_display": "1 October 2026",
     "read_time": "9 min read",
     "words": "2000",
-    "excerpt": "A student can copy display: grid without understanding Grid at all. These five exercises reveal what they actually understand and where they are getting stuck.",
+    "excerpt": "A student can copy <code>display: grid</code> without understanding Grid at all. These five exercises reveal what they actually understand and where they are getting stuck.",
     "image": "assets/images/whatsnew.png",
     "image_alt": "5 CSS Grid exercises that show what your students actually understand featured image"
   },

@@ -3,31 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS display:grid - What It Does and How to Use It | Gridlock Holmes</title>
+<title>CSS display: grid - What It Does and How to Use It | Gridlock Holmes</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
 
 <!-- SEO -->
-<meta name="description" content="Complete guide to display:grid in CSS. Explains what it does, how it differs from display:flex and display:inline-grid, and how to start using it.">
+<meta name="description" content="Complete guide to display: grid in CSS. Explains what it does, how it differs from display:flex and display: inline-grid, and how to start using it.">
 <meta name="keywords" content="display grid css, css display grid, display grid vs flex, display inline-grid">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://gridlockholmes.com/css-display-grid/">
+<link rel="canonical" href="https://gridlock-holmes.com/css-display-grid/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gridlock Holmes">
-<meta property="og:title" content="CSS display:grid - What It Does and How to Use It | Gridlock Holmes">
-<meta property="og:description" content="Complete guide to display:grid in CSS. Explains what it does, how it differs from display:flex and display:inline-grid, and how to start using it.">
-<meta property="og:url" content="https://gridlockholmes.com/css-display-grid/">
-<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+<meta property="og:title" content="CSS display: grid - What It Does and How to Use It | Gridlock Holmes">
+<meta property="og:description" content="Complete guide to display: grid in CSS. Explains what it does, how it differs from display:flex and display: inline-grid, and how to start using it.">
+<meta property="og:url" content="https://gridlock-holmes.com/css-display-grid/">
+<meta property="og:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CSS display:grid - What It Does and How to Use It | Gridlock Holmes">
-<meta name="twitter:description" content="Complete guide to display:grid in CSS. Explains what it does, how it differs from display:flex and display:inline-grid, and how to start using it.">
-<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+<meta name="twitter:title" content="CSS display: grid - What It Does and How to Use It | Gridlock Holmes">
+<meta name="twitter:description" content="Complete guide to display: grid in CSS. Explains what it does, how it differs from display:flex and display: inline-grid, and how to start using it.">
+<meta name="twitter:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <!-- FAQ Schema -->
 <script type="application/ld+json">
@@ -35,18 +35,26 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What does display:grid do in CSS?", "acceptedAnswer": { "@type": "Answer", "text": "display:grid activates the CSS Grid formatting context on an element, turning its direct children into grid items arranged on rows and columns." } },
-    { "@type": "Question", "name": "What is the difference between display:grid and display:flex?", "acceptedAnswer": { "@type": "Answer", "text": "display:grid is a two-dimensional layout system that controls rows and columns together. display:flex is one-dimensional, aligning items along a single row or column." } },
-    { "@type": "Question", "name": "When should I use display:inline-grid instead of display:grid?", "acceptedAnswer": { "@type": "Answer", "text": "Use inline-grid when the container should sit inline with text or other elements, like a badge or small widget, instead of spanning the full width." } },
-    { "@type": "Question", "name": "Why is my display:grid not working?", "acceptedAnswer": { "@type": "Answer", "text": "Check that display:grid is applied to the parent element, not the children, and that grid-template-columns is defined." } },
-    { "@type": "Question", "name": "Does display:grid work in all browsers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, display:grid is supported in all modern browsers." } },
-    { "@type": "Question", "name": "What are grid items?", "acceptedAnswer": { "@type": "Answer", "text": "Grid items are the direct children of an element that has display:grid applied." } },
+    { "@type": "Question", "name": "What does display: grid do in CSS?", "acceptedAnswer": { "@type": "Answer", "text": "display: grid activates the CSS Grid formatting context on an element, turning its direct children into grid items arranged on rows and columns." } },
+    { "@type": "Question", "name": "What is the difference between display: grid and display:flex?", "acceptedAnswer": { "@type": "Answer", "text": "display: grid is a two-dimensional layout system that controls rows and columns together. display:flex is one-dimensional, aligning items along a single row or column." } },
+    { "@type": "Question", "name": "When should I use display: inline-grid instead of display: grid?", "acceptedAnswer": { "@type": "Answer", "text": "Use inline-grid when the container should sit inline with text or other elements, like a badge or small widget, instead of spanning the full width." } },
+    { "@type": "Question", "name": "Why is my display: grid not working?", "acceptedAnswer": { "@type": "Answer", "text": "Check that display: grid is applied to the parent element, not the children, and that grid-template-columns is defined." } },
+    { "@type": "Question", "name": "Does display: grid work in all browsers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, display: grid is supported in all modern browsers." } },
+    { "@type": "Question", "name": "What are grid items?", "acceptedAnswer": { "@type": "Answer", "text": "Grid items are the direct children of an element that has display: grid applied." } },
     { "@type": "Question", "name": "Is there a visual tool for building CSS Grid layouts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, Gridlock Holmes offers a free visual CSS Grid generator." } }
   ]
 }
 </script>
 
 <link rel="stylesheet" href="assets/css/style.css">
+<style> code {
+            background: #0a0f1a;
+    color: #A5B4FC;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 0.85em;}
+    </style>
 </head>
 <body>
 
@@ -75,15 +83,16 @@
 <section class="hero-learn">
   <div class="hero-inner">
     <div class="hero-tag">CSS Property Guide</div>
-    <h1><em>CSS display:grid</em> - what it does and how to use it</h1>
-    <p class="hero-sub">The complete explainer for the display:grid CSS property - including what it activates, how it compares to display:flex, and how to use it.</p>
+    <h1><em>CSS <code>display: grid</code></em> - what it does and how to use it</h1>
+    <p class="hero-sub"><br>The complete guide to the <code>display: grid</code> CSS property, including what it does, how it compares with <code>display: flex</code>, and how to use it.</p>
+
     <div class="hero-btns">
       <a href="css-grid-generator.html" class="btn btn-primary">Open the CSS Grid Generator</a>
       <a href="learn.html" class="btn btn-outline">Learn CSS Grid</a>
     </div>
     <div class="cheat-jump">
       <a href="#what-it-does">What it does</a>
-      <a href="#vs-flex">vs display:flex</a>
+      <a href="#vs-flex">vs <code>display:flex</code></a>
       <a href="#vs-inline-grid">vs inline-grid</a>
       <a href="#first-grid">Your first grid</a>
       <a href="#mistakes">Common mistakes</a>
@@ -93,14 +102,14 @@
   </div>
 </section>
 
-<!-- SECTION 1: WHAT DOES DISPLAY:GRID DO -->
+<!-- SECTION 1: WHAT DOES display: grid DO -->
 <section class="content-section" id="what-it-does">
   <div class="content-inner">
     <div class="content-narrow">
       <div class="section-label text-center">Core Definition</div>
-      <h2 class="section-title mb-12 text-center">What does display:grid do?</h2>
-      <p>display:grid applied to an element activates the CSS Grid formatting context on that element. Its direct children become grid items, and the container takes control of how they're sized and positioned.</p>
-      <p>Without display:grid, children stack in normal document flow. With it, they become grid items laid out on rows and column tracks.</p>
+      <h2 class="section-title mb-12 text-center">What does <code>display: grid</code> do?</h2>
+      <p>Applying <code>display: grid</code> to an element turns it into a CSS Grid container. Its direct children become grid items, and the container controls how they are sized and positioned.</p>
+      <p>Without <code>display: grid</code>, children follow the normal page layout. With it, they can be arranged in rows and columns.</p>
       <div class="code-panel">
         <div class="code-panel-bar">
           <div class="code-panel-dots"><span></span><span></span><span></span></div>
@@ -110,24 +119,25 @@
   display: grid;
 }</pre>
       </div>
-      <p class="code-caption">That's genuinely all it takes to activate a grid container.</p>
-      <p>Once display:grid is applied, all grid properties become available: grid-template-columns, grid-template-rows, gap, justify-items, align-items, grid-template-areas.</p>
+      <p class="code-caption">That is all it takes to create a grid container.</p>
+      <p>Once <code>display: grid</code> is applied, you can use properties such as <code>grid-template-columns</code>, <code>grid-template-rows</code>, <code>gap</code>, <code>justify-items</code>, <code>align-items</code>, <code>grid-template-areas</code>.</p>
     </div>
   </div>
 </section>
 
-<!-- SECTION 2: DISPLAY:GRID VS DISPLAY:FLEX -->
+<!-- SECTION 2: display: grid VS DISPLAY:FLEX -->
 <section class="content-section alt-bg2" id="vs-flex">
   <div class="content-inner">
     <div class="content-narrow text-center">
       <div class="section-label">Comparison</div>
-      <h2 class="section-title mb-12">display:grid vs display:flex</h2>
-      <p>Neither is better - they solve different problems. Grid is a two-dimensional layout system. Flex is a one-dimensional alignment tool.</p>
+      <h2 class="section-title mb-12"><code>display: grid</code> vs <code>display: flex</code></h2>
+      <p>Neither is better. They solve different layout problems. Grid works in two dimensions, rows and columns. Flexbox works in one dimension at a time.</p>
+      <p>Most projects use both. Grid is often used for the main layout, while Flexbox handles alignment within individual components.</p>
     </div>
     <div class="compare-table-wrap">
       <table class="compare-table">
         <thead>
-          <tr><th>Aspect</th><th>display:grid</th><th>display:flex</th></tr>
+          <tr><th>Aspect</th><th><code>display: grid</code></th><th><code>display:flex</code></th></tr>
         </thead>
         <tbody>
           <tr><td>Dimensions</td><td>Handles 2D layout - rows and columns together</td><td>Handles 1D layout - a single row or column</td></tr>
@@ -141,13 +151,13 @@
   </div>
 </section>
 
-<!-- SECTION 3: DISPLAY:GRID VS DISPLAY:INLINE-GRID -->
+<!-- SECTION 3: display: grid VS display: inline-grid -->
 <section class="content-section" id="vs-inline-grid">
   <div class="content-inner">
     <div class="content-narrow">
       <div class="section-label text-center">Comparison</div>
-      <h2 class="section-title mb-12 text-center">display:grid vs display:inline-grid</h2>
-      <p>display:grid creates a block-level grid container that takes up the full width. display:inline-grid creates an inline-level container that sizes to its content.</p>
+      <h2 class="section-title mb-12 text-center"><code>display: grid</code> vs <code>display: inline-grid</code></h2>
+      <p><code>display: grid</code> creates a block-level grid container that takes up the full width. <code>display: inline-grid</code> creates an inline-level container that sizes to its content.</p>
       <p>Use inline-grid when the container needs to sit inline with text or other elements, like a badge or a small widget.</p>
       <div class="code-panel">
         <div class="code-panel-bar">
@@ -173,23 +183,23 @@
     <div class="steps-grid-4">
       <div class="step-card">
         <div class="step-num">1</div>
-        <h3>Add display:grid</h3>
-        <p>Apply display:grid to a parent element. All children become grid items.</p>
+        <h3>Add <code>display: grid</code></h3>
+        <p>Apply <code>display: grid</code> to a parent element. All children become grid items.</p>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <h3>Add columns</h3>
-        <p>Set grid-template-columns to define how many columns and how wide they are.</p>
+        <p>Set <code>grid-template-columns</code> to define how many columns and how wide they are.</p>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <h3>Add a gap</h3>
-        <p>Add gap to set the space between items.</p>
+        <p>Add <code>gap</code> to set the space between items.</p>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
         <h3>Control placement</h3>
-        <p>Place items manually with grid-column and grid-row, or use auto-placement.</p>
+        <p>Place items manually with <code>grid-column</code> and <code>grid-row</code>, or use auto-placement.</p>
       </div>
     </div>
     <div class="content-narrow mt-32">
@@ -205,7 +215,7 @@
 }
 .item { background: #4F46E5; }</pre>
       </div>
-      <p class="code-caption">A complete first grid: a container with display:grid, 3 columns, a gap, and 6 items that auto-place themselves.</p>
+      <p class="code-caption">A complete first grid: a container with <code>display: grid</code>, 3 columns, a gap, and 6 items that auto-place themselves.</p>
     </div>
     <div class="text-center mt-32">
       <a href="css-grid-generator.html" class="btn btn-primary">Try it in the visual generator</a>
@@ -218,35 +228,35 @@
   <div class="content-inner">
     <div class="content-narrow text-center">
       <div class="section-label">Troubleshooting</div>
-      <h2 class="section-title mb-12">Common display:grid mistakes</h2>
+      <h2 class="section-title mb-12">Common <code>display: grid</code> mistakes</h2>
     </div>
     <div class="mistake-grid">
       <div class="mistake-card">
         <div class="mistake-num">1</div>
         <div class="mistake-card-body">
           <h3>Wrong element</h3>
-          <p>Applying grid properties to items instead of the container. display:grid goes on the parent, not the children.</p>
+          <p>Applying grid properties to items instead of the container. <code>display: grid</code> goes on the parent, not the children.</p>
         </div>
       </div>
       <div class="mistake-card">
         <div class="mistake-num">2</div>
         <div class="mistake-card-body">
           <h3>Not enough columns</h3>
-          <p>Adding display:grid but no columns - items stack in one column. Add grid-template-columns to define the layout.</p>
+          <p>Adding <code>display: grid</code> but no columns - items stack in one column. Add <code>grid-template-columns</code> to define the layout.</p>
         </div>
       </div>
       <div class="mistake-card">
         <div class="mistake-num">3</div>
         <div class="mistake-card-body">
           <h3>fr vs %</h3>
-          <p>Using percentages with gap. Percentages include the gap in calculations and can cause overflow. Use fr instead.</p>
+          <p>Using percentages with <code>gap</code>. Percentages include the gap in calculations and can cause overflow. Use <code>fr</code> instead.</p>
         </div>
       </div>
       <div class="mistake-card">
         <div class="mistake-num">4</div>
         <div class="mistake-card-body">
           <h3>Implicit grid confusion</h3>
-          <p>Placing items beyond defined columns or rows creates implicit tracks that may be very small. Define grid-auto-columns or grid-auto-rows.</p>
+          <p>Placing items beyond defined columns or rows creates implicit tracks that may be very small. Define <code>grid-auto-columns</code> or <code>grid-auto-rows</code>.</p>
         </div>
       </div>
     </div>
@@ -261,7 +271,7 @@
   <div class="content-inner">
     <div class="content-narrow text-center">
       <div class="section-label">Syntax Comparison</div>
-      <h2 class="section-title mb-12">display:grid in 4 languages</h2>
+      <h2 class="section-title mb-12"><code>display: grid</code> in 4 languages</h2>
       <p>The same 3-column equal-width grid in CSS, Tailwind, JavaScript and SCSS.</p>
     </div>
     <div class="lang-grid">
@@ -309,7 +319,7 @@ el.style.gap = '1rem';</pre>
 
 <!-- AD SLOT -->
 <div class="ad-band ad-band-alt2">
-  <div class="ad-slot">[ AdSense Unit &mdash; 728&times;90 &mdash; After syntax comparison, before FAQ ]</div>
+  <div class="ad-slot">[ AdSense Unit - 728&times;90 - After syntax comparison, before FAQ ]</div>
   <p class="ad-label">Advertisement</p>
 </div>
 
@@ -322,28 +332,28 @@ el.style.gap = '1rem';</pre>
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary>What does display:grid do in CSS?</summary>
-        <div class="faq-answer">display:grid activates the CSS Grid formatting context on an element, turning its direct children into grid items arranged on rows and columns.</div>
+        <summary>What does display: grid do in CSS?</summary>
+        <div class="faq-answer"><code>display: grid</code> activates the CSS Grid formatting context on an element, turning its direct children into grid items arranged on rows and columns.</div>
       </details>
       <details class="faq-item">
-        <summary>What is the difference between display:grid and display:flex?</summary>
-        <div class="faq-answer">display:grid is a two-dimensional layout system that controls rows and columns together. display:flex is one-dimensional, aligning items along a single row or column.</div>
+        <summary>What is the difference between display: grid and display:flex?</summary>
+        <div class="faq-answer"><code>display: grid</code> is a two-dimensional layout system that controls rows and columns together. <code>display:flex</code> is one-dimensional, aligning items along a single row or column.</div>
       </details>
       <details class="faq-item">
-        <summary>When should I use display:inline-grid instead of display:grid?</summary>
-        <div class="faq-answer">Use inline-grid when the container should sit inline with text or other elements, like a badge or small widget, instead of spanning the full width.</div>
+        <summary>When should I use display: inline-grid instead of display: grid?</summary>
+        <div class="faq-answer">Use <code>inline-grid</code> when the container should sit inline with text or other elements, like a badge or small widget, instead of spanning the full width.</div>
       </details>
       <details class="faq-item">
-        <summary>Why is my display:grid not working?</summary>
-        <div class="faq-answer">Check that display:grid is applied to the parent element, not the children, and that grid-template-columns is defined.</div>
+        <summary>Why is my display: grid not working?</summary>
+        <div class="faq-answer">Check that <code>display: grid</code> is applied to the parent element, not the children, and that <code>grid-template-columns</code> is defined.</div>
       </details>
       <details class="faq-item">
-        <summary>Does display:grid work in all browsers?</summary>
-        <div class="faq-answer">Yes, display:grid is supported in all modern browsers.</div>
+        <summary>Does display: grid work in all browsers?</summary>
+        <div class="faq-answer">Yes, <code>display: grid</code> is supported in all modern browsers.</div>
       </details>
       <details class="faq-item">
         <summary>What are grid items?</summary>
-        <div class="faq-answer">Grid items are the direct children of an element that has display:grid applied.</div>
+        <div class="faq-answer">Grid items are the direct children of an element that has <code>display: grid</code> applied.</div>
       </details>
       <details class="faq-item">
         <summary>Is there a visual tool for building CSS Grid layouts?</summary>

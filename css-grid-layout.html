@@ -13,21 +13,21 @@
 <meta name="description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
 <meta name="keywords" content="css grid layout, css grid layout examples, css grid layout tutorial, responsive css grid layout">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://gridlockholmes.com/css-grid-layout/">
+<link rel="canonical" href="https://gridlock-holmes.com/css-grid-layout/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gridlock Holmes">
 <meta property="og:title" content="CSS Grid Layout - The Complete Guide | Gridlock Holmes">
 <meta property="og:description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
-<meta property="og:url" content="https://gridlockholmes.com/css-grid-layout/">
-<meta property="og:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+<meta property="og:url" content="https://gridlock-holmes.com/css-grid-layout/">
+<meta property="og:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CSS Grid Layout - The Complete Guide | Gridlock Holmes">
 <meta name="twitter:description" content="Complete guide to CSS Grid layout. Covers containers, tracks, placement, responsive patterns and 4-language code. Visual examples included.">
-<meta name="twitter:image" content="https://gridlockholmes.com/assets/images/gholmes.png">
+<meta name="twitter:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <!-- FAQ Schema -->
 <script type="application/ld+json">
@@ -78,7 +78,7 @@
     <h1><em>CSS Grid layout:</em> the complete guide</h1>
     <p class="hero-sub">This guide covers every part of CSS Grid layout with visual examples. Includes responsive patterns, 4-language code and a free interactive generator.</p>
     <div class="hero-btns">
-      <a href="css-grid-generator.html" class="btn btn-primary">Open the CSS Grid Generator</a>
+      <a href="css-grid-generator.html" class="btn btn-primary">Unlock the Generator</a>
       <a href="learn.html" class="btn btn-outline">Learn CSS Grid</a>
     </div>
     <div class="cheat-jump">
@@ -100,7 +100,7 @@
       <div class="section-label text-center">Definition</div>
       <h2 class="section-title mb-12 text-center">What is CSS Grid layout?</h2>
       <p>CSS Grid is a two-dimensional layout system built into CSS. It lets you define rows, columns and gaps, then place items anywhere within that structure.</p>
-      <p>Grid handles two dimensions - rows and columns together. Flexbox handles one dimension at a time. Grid doesn't replace Flexbox - use both.</p>
+      <p>Grid handles two dimensions at once: rows and columns. Flexbox handles one dimension at a time. They work well together, so you can use both.</p>
       <p>CSS Grid is supported in all modern browsers. No polyfills needed.</p>
     </div>
   </div>
@@ -112,7 +112,7 @@
     <div class="content-narrow">
       <div class="section-label text-center">Getting Started</div>
       <h2 class="section-title mb-12 text-center">Setting up a CSS Grid container</h2>
-      <p>Apply display:grid to any element. All direct children become grid items automatically.</p>
+      <p>Apply <code>display: grid</code> to any element. All direct children become grid items automatically.</p>
       <div class="code-panel">
         <div class="code-panel-bar">
           <div class="code-panel-dots"><span></span><span></span><span></span></div>
@@ -124,7 +124,7 @@
       </div>
       <p class="code-caption">One line to activate the grid.</p>
 
-      <p class="mt-32">grid-template-columns defines how many columns your grid has and how wide each one is. Use fixed widths, fr units for flexible space, or repeat() to avoid writing the same value many times.</p>
+      <p class="mt-32">→ grid-template-columns defines how many columns your grid has and how wide each one is. Use fixed widths, fr units for flexible space, or repeat() to avoid writing the same value many times.</p>
       <div class="mini-code-grid">
         <div>
           <div class="mini-code-label">Fixed widths</div>
@@ -140,8 +140,8 @@
         </div>
       </div>
 
-      <p>grid-template-rows defines row heights the same way. Without it, rows size automatically to fit their content.</p>
-      <p>gap sets the spacing between rows and columns in one property.</p>
+      <p>→ grid-template-rows defines row heights the same way. Without it, rows size automatically to fit their content.</p>
+      <p>→ gap sets the spacing between rows and columns in one property.</p>
     </div>
   </div>
 </section>
@@ -164,7 +164,7 @@
           <div class="code-block">grid-column: span 2;</div>
         </div>
       </div>
-      <p class="mt-32">grid-template-areas lets you name regions and assign items to them - the most visual way to define a layout.</p>
+      <p class="mt-32">→ grid-template-areas lets you name regions and assign items to them - the most visual way to define a layout.</p>
       <div class="code-panel">
         <div class="code-panel-bar">
           <div class="code-panel-dots"><span></span><span></span><span></span></div>
@@ -181,7 +181,7 @@
 .left   { grid-area: left; }
 .main   { grid-area: main; }
 .right  { grid-area: right; }</pre>
-      </div>
+      </div><br><p>New to CSS Grid? Don’t worry if this looks technical. Start with the basics above or head to our <a href="learn.html">free step by step learning centre</a> and come back to this section later.</p>
     </div>
   </div>
 </section>
@@ -192,7 +192,7 @@
     <div class="content-narrow">
       <div class="section-label text-center">Responsive</div>
       <h2 class="section-title mb-12 text-center">Responsive CSS Grid layout</h2>
-      <p>repeat(auto-fill, minmax(min, max)) creates responsive card grids without media queries. The browser fits as many columns as will comfortably hold the minimum width, then stretches them to fill the row.</p>
+      <p>→ repeat(auto-fill, minmax(min, max)) creates responsive card grids without media queries. The browser fits as many columns as will comfortably hold the minimum width, then stretches them to fill the row.</p>
       <div class="code-panel">
         <div class="code-panel-bar">
           <div class="code-panel-dots"><span></span><span></span><span></span></div>
@@ -201,7 +201,7 @@
         <pre class="cheat-code-pre">grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));</pre>
       </div>
       <p class="code-caption">The responsive card grid pattern.</p>
-      <p class="mt-32">auto-fit collapses empty tracks, while auto-fill preserves them. In most layouts, auto-fill is the safer default.</p>
+      <p class="mt-32">→ auto-fit collapses empty tracks, while auto-fill preserves them. In most layouts, auto-fill is the safer default.</p>
       <p>For more complex breakpoint control, redefine grid-template-columns at each breakpoint.</p>
     </div>
     <div class="text-center mt-32">
@@ -299,7 +299,7 @@ g.style.gap = '1rem';</pre>
 
 <!-- AD SLOT -->
 <div class="ad-band ad-band-alt2">
-  <div class="ad-slot">[ AdSense Unit &mdash; 728&times;90 &mdash; After syntax comparison, before FAQ ]</div>
+  <div class="ad-slot">[ AdSense Unit - 728&times;90 - After syntax comparison, before FAQ ]</div>
   <p class="ad-label">Advertisement</p>
 </div>
 

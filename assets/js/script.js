@@ -16,9 +16,10 @@ const tutorialSteps=[
 {title:'The Example Gallery',content:'The <strong>Example Gallery</strong> at the top contains pre-built layouts you can learn from.<br><br>Try selecting "Two Columns" or "Holy Grail" to see common layout patterns. Each example shows how professionals structure their grids!'},
 {title:'Live Preview',content:'The <strong>Preview</strong> section shows your grid in real-time. Each box (A, B, C...) represents a grid item.<br><br>Notice how they automatically position themselves based on your column and row settings. This is the power of CSS Grid!'},
 {title:'Generated CSS Code',content:'Below the preview, you\'ll see the actual <strong>CSS code</strong> that creates your grid.<br><br>This is the code you can copy and use in your own projects. Click the "Copy" button to grab it!'},
-{title:'Pro Features',content:'Upgrade to <strong>Pro</strong> to unlock:<br><br><strong>🎨 Layout Tools:</strong><br>• Auto-Responsive Columns<br>• Named Layout Areas<br>• Item Positioning<br><br><strong>📚 Content:</strong><br>• 20+ Advanced Examples<br>• Professional Templates<br><br><strong>💎 Experience:</strong><br>• No Advertisements<br>• Priority Support<br>• Cloud Save (coming)<br><br><strong>💰 Choose Your Plan:</strong><br>📆 <strong>Monthly - £4.99/month</strong><br>📅 <strong>Annual - £14.99/year</strong> (SAVE 75%) ⭐<br>💎 <strong>Lifetime - £29.99</strong> (one-time) 🏆 BEST VALUE'},
+// Pro Features step hidden for now - restore by uncommenting and moving back into tutorialSteps:
+// {title:'Pro Features',content:'Upgrade to <strong>Pro</strong> to unlock:<br><br><strong>🎨 Layout Tools:</strong><br>• Auto-Responsive Columns<br>• Named Layout Areas<br>• Item Positioning<br><br><strong>📚 Content:</strong><br>• 20+ Advanced Examples<br>• Professional Templates<br><br><strong>💎 Experience:</strong><br>• No Advertisements<br>• Priority Support<br>• Cloud Save (coming)<br><br><strong>💰 Choose Your Plan:</strong><br>📆 <strong>Monthly - £4.99/month</strong><br>📅 <strong>Annual - £14.99/year</strong> (SAVE 75%) ⭐<br>💎 <strong>Lifetime - £29.99</strong> (one-time) 🏆 BEST VALUE'},
 {title:'Grid Detective',content:'<strong>Grid Detective</strong> is your CSS error checker!<br><br>Paste any CSS Grid code and it will:<br>• Catch typos and mistakes<br>• Give you helpful tips<br>• Help you learn proper syntax<br><br>Perfect for debugging!'},
-{title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉<br><br><div class="mt-6 pt-4 border-t"><p class="text-xs text-gray-600 mb-3">This free tutorial is supported by:</p><div id="adsense-tutorial" class="bg-gray-100 border border-gray-300 rounded p-4 text-center"><p class="text-xs text-gray-500">📢 Ad Space 3 - Tutorial Completion</p><p class="text-xs text-gray-400 mt-1">Add your third AdSense code here</p></div></div>'}
+{title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉<br><br><div class="mt-6 pt-4 border-t" style="display:none"><p class="text-xs text-gray-600 mb-3">This free tutorial is supported by:</p><div id="adsense-tutorial" class="bg-gray-100 border border-gray-300 rounded p-4 text-center"><p class="text-xs text-gray-500">📢 Ad Space 3 - Tutorial Completion</p><p class="text-xs text-gray-400 mt-1">Add your third AdSense code here</p></div></div>'}
 ];
 
 function init(){
@@ -72,18 +73,11 @@ function setupKeys(){
 document.addEventListener('keydown',e=>{
 if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();if(document.getElementById('save-name').value.trim())saveLayout();}
 if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();copyCode();}
-if(e.key==='Escape'){closeShareModal();closeTutorial();}
+if(e.key==='Escape'){closeShareModal();closeTutorial();document.getElementById('shortcuts-modal').classList.add('hidden');}
 if(e.shiftKey&&e.key==='?'&&!e.target.matches('input,textarea')){e.preventDefault();showKeyboardHelp();}
 });
 }
 
-function showKeyboardHelp(){
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if(isMobile){
-alert('📱 MOBILE TIPS:\n\n• Tap buttons to interact\n• Use dropdown menus to select values\n• Scroll within each section\n• Copy code with "Copy Code" button\n• Save layouts with "Save" button\n\nKeyboard shortcuts are only available on desktop.');
-}else{
-alert('⌨️ KEYBOARD SHORTCUTS:\n\nCtrl/Cmd+S: Save current layout\nCtrl/Cmd+K: Copy CSS code\nEsc: Close modals\nShift+/: Show this help\n\n💡 These shortcuts only work on desktop/laptop computers.');
-}}
 function showHelpModal(){
 tutorialStep=0;
 showTutorialStep();
@@ -722,8 +716,8 @@ function invalidUnitMessage(token, { allowFr = true } = {}) {
     const [, num, unit] = m;
     if (parseFloat(num) === 0) return null; // "0" is valid without a unit in CSS
     const validList = allowFr ? VALID_LENGTH_UNITS : VALID_LENGTH_UNITS.filter(u => u !== 'fr');
-    if (!unit) return `is missing a unit — try "${token}px"${allowFr ? ` or "${token}fr"` : ''}`;
-    if (!validList.includes(unit.toLowerCase())) return `has an invalid unit "${unit}" — valid units: ${validList.join(', ')}`;
+    if (!unit) return `is missing a unit, try "${token}px"${allowFr ? ` or "${token}fr"` : ''}`;
+    if (!validList.includes(unit.toLowerCase())) return `has an invalid unit "${unit}" - valid units: ${validList.join(', ')}`;
     return null;
 }
 
@@ -799,7 +793,7 @@ if (colMatch) {
     
     // Check for missing spaces between values (e.g. "200px1frauto", "1fr1fr", "autoauto")
     if (new RegExp(`\\d+(${UNIT_ALTERNATION})\\d`).test(maskedColValue) || new RegExp(`\\d+(${UNIT_ALTERNATION})(auto|min-content|max-content|fit-content)`).test(maskedColValue) || /(auto|min-content|max-content)\d/.test(maskedColValue) || /(auto)(auto|min-content|max-content|\d)/.test(maskedColValue)) {
-        errors.push(`❌ Missing spaces between values in grid-template-columns${colLineInfo} — separate each value with a space (e.g. "200px 1fr auto")`);
+        errors.push(`❌ Missing spaces between values in grid-template-columns${colLineInfo} - separate each value with a space (e.g. "200px 1fr auto")`);
     }
     
     const values = maskedColValue.split(/\s+/).filter(v => v && v !== ',').map(unmaskGridToken);
@@ -814,7 +808,7 @@ if (colMatch) {
         }
         // Check for concatenated values that didn't split (e.g. "200px1frauto" as a single token)
         if (new RegExp(`\\d+(${UNIT_ALTERNATION}).+`).test(v) && v.length > 6) {
-            errors.push(`❌ Multiple values joined together "${v}"${colLineInfo} — add spaces between each value`);
+            errors.push(`❌ Multiple values joined together "${v}"${colLineInfo} - add spaces between each value`);
         }
 
     });
@@ -822,7 +816,7 @@ if (colMatch) {
     // Tip: all-fixed-px tracks with no fr/auto/minmax — suggest responsive units
     const isAllFixedPx = values.length > 0 && values.every(v => /^\d+(\.\d+)?px$/.test(v));
     if (isAllFixedPx) {
-        tips.push(`💡 Try minmax() for responsive tracks${colLineInfo} — e.g. "minmax(200px, 1fr)" instead of fixed pixel widths`);
+        tips.push(`💡 Try minmax() for responsive tracks${colLineInfo}, e.g. "minmax(200px, 1fr)" instead of fixed pixel widths`);
     }
 }
 
@@ -842,7 +836,7 @@ if (rowMatch) {
     
     // Check for missing spaces between values (e.g. "autoauto", "100pxauto")
     if (new RegExp(`\\d+(${UNIT_ALTERNATION})(auto|min-content|max-content|\\d)`).test(maskedRowValue) || /(auto)(auto|min-content|max-content|\d)/.test(maskedRowValue)) {
-        errors.push(`❌ Missing spaces between values in grid-template-rows${rowLineInfo} — separate each value with a space (e.g. "auto auto")`);
+        errors.push(`❌ Missing spaces between values in grid-template-rows${rowLineInfo} - separate each value with a space (e.g. "auto auto")`);
     }
     
     const values = maskedRowValue.split(/\s+/).filter(v => v && v !== ',').map(unmaskGridToken);
@@ -856,7 +850,7 @@ if (rowMatch) {
         }
         // Catch concatenated values
         if (/(auto|min-content|max-content).+/.test(v) && v !== 'auto' && v !== 'min-content' && v !== 'max-content') {
-            errors.push(`❌ Multiple values joined together "${v}"${rowLineInfo} — add spaces between each value`);
+            errors.push(`❌ Multiple values joined together "${v}"${rowLineInfo} - add spaces between each value`);
         }
     });
 }
@@ -906,14 +900,14 @@ if (areasDeclMatch) {
     if (rows.length > 1) {
         const counts = rows.map(r => r.replace(/"/g, '').trim().split(/\s+/).filter(Boolean).length);
         if (!counts.every(c => c === counts[0])) {
-            warnings.push(`⚠️ Uneven columns in grid-template-areas${areasLineInfo} — every row should name the same number of cells`);
+            warnings.push(`⚠️ Uneven columns in grid-template-areas${areasLineInfo} - every row should name the same number of cells`);
         }
         const namedAreas = new Set();
         rows.forEach(r => r.replace(/"/g, '').trim().split(/\s+/).forEach(cell => { if (cell && cell !== '.') namedAreas.add(cell); }));
         namedAreas.forEach(name => {
             const usedElsewhere = new RegExp(`grid-area\\s*:\\s*${name}\\b`).test(code);
             if (!usedElsewhere) {
-                warnings.push(`⚠️ Unused grid-area name "${name}"${areasLineInfo} — no element has "grid-area: ${name}"`);
+                warnings.push(`⚠️ Unused grid-area name "${name}"${areasLineInfo} - no element has "grid-area: ${name}"`);
             }
         });
     }
@@ -982,13 +976,13 @@ if(/background\s*:/.test(code)){
             var hexCodes=bgValue.match(/#[^\s,;)]+/g)||[];
             hexCodes.forEach(function(hex){
                 if(!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(hex)){
-                    errors.push('❌ Invalid hex colour "'+hex+'"'+bgInfo+' — hex codes must be 3, 4, 6, or 8 valid hex digits (0-9, a-f)');
+                    errors.push('❌ Invalid hex colour "'+hex+'"'+bgInfo+' - hex codes must be 3, 4, 6, or 8 valid hex digits (0-9, a-f)');
                 }
             });
             
             // Check for missing comma between colour stops
             if(/#[0-9a-fA-F]+\s+#/.test(bgValue)){
-                errors.push('❌ Missing comma between colour stops'+bgInfo+' — separate colours with commas');
+                errors.push('❌ Missing comma between colour stops'+bgInfo+' - separate colours with commas');
             }
             
             // Check for invalid direction keywords
@@ -998,7 +992,7 @@ if(/background\s*:/.test(code)){
                 var validDirs2=['to right','to left','to top','to bottom','to top right','to top left','to bottom right','to bottom left'];
                 // Only check if it starts with "to " (angle values like 45deg are also valid)
                 if(dir2.startsWith('to ')&&validDirs2.indexOf(dir2)===-1){
-                    errors.push('❌ Invalid gradient direction "'+dir2+'"'+bgInfo+' — valid: to right, to left, to top, to bottom, to top right, to bottom left, etc.');
+                    errors.push('❌ Invalid gradient direction "'+dir2+'"'+bgInfo+' - valid: to right, to left, to top, to bottom, to top right, to bottom left, etc.');
                 }
                 // Check for angle values
                 if(/^\d+$/.test(dir2)){
@@ -1142,7 +1136,7 @@ if(/linear-gradient|radial-gradient/.test(code)){
     // Check gradient values are wrapped in quotes
     var gradVal=code.match(/background\s*:\s*(linear|radial)-gradient/);
     if(gradVal){
-        errors.push('❌ Gradient value must be a string in JS — wrap in quotes: \'linear-gradient(...)\'');
+        errors.push('❌ Gradient value must be a string in JS - wrap in quotes: \'linear-gradient(...)\'');
     }
 }
 }
