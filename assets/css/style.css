@@ -147,6 +147,7 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
 /* GRADIENT */
 .gradient-section { background:var(--bg3); padding:80px 24px; }
 .gradient-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 380px; gap:56px; align-items:center; }
+#tool .gradient-inner { grid-template-columns:1fr 1fr; }
 .grad-preview { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
 .grad-canvas { height:140px; background:linear-gradient(135deg,#4F46E5 0%,#3B82F6 55%,#F97316 100%); }
 .grad-controls { padding:14px 18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; border-top:1px solid var(--border); }
