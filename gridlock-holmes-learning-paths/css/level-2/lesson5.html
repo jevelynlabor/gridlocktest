@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 5: Avoiding Common Mistakes | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #3236C1;
+    --lesson-accent-d: #262995;
+    --lesson-accent-soft: rgba(50,54,193,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/css/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/css.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Level 2 &bull; Lesson 5 of 6</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 2 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 5: Avoiding Common Mistakes</h1>
+    <p>Learn to recognize and fix the most common Grid errors.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>Common Grid Mistakes</h2>
+    <p>Even experienced developers make these mistakes. Learning to spot and fix them will save you hours of debugging.</p>
+
+    <h2>Mistake 1: Forgetting display: grid</h2>
+    <p>The most common mistake is forgetting to actually enable Grid.</p>
+
+    <div class="lesson-callout bad">
+      <span class="lesson-callout-label">Wrong</span>
+      <pre><code>.container {
+  grid-template-columns: 1fr 1fr 1fr;
+  /* Missing display: grid! */
+}</code></pre>
+    </div>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Correct</span>
+      <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}</code></pre>
+    </div>
+
+    <h2>Mistake 2: Using Commas in grid-template-columns</h2>
+    <p>Grid values are space-separated, not comma-separated.</p>
+
+    <div class="lesson-callout bad">
+      <span class="lesson-callout-label">Wrong</span>
+      <pre><code>grid-template-columns: 1fr, 1fr, 1fr;</code></pre>
+    </div>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Correct</span>
+      <pre><code>grid-template-columns: 1fr 1fr 1fr;</code></pre>
+    </div>
+
+    <h2>Mistake 3: Mixing Up grid-column and grid-template-columns</h2>
+    <p>These are different properties with different purposes.</p>
+
+    <ul>
+      <li><code>grid-template-columns</code> - Defines columns on the <strong>container</strong></li>
+      <li><code>grid-column</code> - Places an <strong>item</strong> within the grid</li>
+    </ul>
+
+    <pre><code>/* Container */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Item */
+.item {
+  grid-column: span 2; /* Item spans 2 columns */
+}</code></pre>
+
+    <h2>Mistake 4: Percentages with Gap</h2>
+    <p>Percentages do not account for gap space, so use FR units instead.</p>
+
+    <div class="lesson-callout bad">
+      <span class="lesson-callout-label">Wrong (columns overflow)</span>
+      <pre><code>grid-template-columns: 33.33% 33.33% 33.33%;
+gap: 20px; /* Gap breaks the layout */</code></pre>
+    </div>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Correct</span>
+      <pre><code>grid-template-columns: 1fr 1fr 1fr;
+gap: 20px; /* Gap is automatically accounted for */</code></pre>
+    </div>
+
+    <h2>Mistake 5: Using Old Syntax</h2>
+    <p>The old <code>grid-gap</code> property still works, but use the modern <code>gap</code> instead.</p>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Old (still works)</span>
+      <pre><code>grid-gap: 20px;</code></pre>
+    </div>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Modern</span>
+      <pre><code>gap: 20px;</code></pre>
+    </div>
+
+    <h2>Mistake 6: Not Planning for Mobile</h2>
+    <p>Always test on mobile. Many columns do not work on small screens.</p>
+
+    <pre><code>/* Desktop: 4 columns */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Mobile: 1 column */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+
+    <h2>Mistake 7: Overthinking Alignment</h2>
+    <p>Do not use Grid for centering a single item; Flexbox is simpler.</p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Better with Flexbox</span>
+      <pre><code>.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}</code></pre>
+    </div>
+
+    <h2>Debugging Tips</h2>
+    <ul>
+      <li>Use browser DevTools to visualize the grid (Firefox has excellent Grid tools)</li>
+      <li>Add a border to items to see their actual size</li>
+      <li>Check that <code>display: grid</code> is actually applied</li>
+      <li>Verify there are no commas in column or row definitions</li>
+      <li>Test on mobile early and often</li>
+    </ul>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      When something does not work, first check: is <code>display: grid</code> set, and are there any commas?
+      These two issues cause most Grid problems.
+    </div>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Try the generator and intentionally make a mistake, like using commas, and see what happens.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What is wrong with: <code>grid-template-columns: 1fr, 2fr, 1fr;</code></p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Nothing, it is correct</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Should use spaces, not commas</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Missing semicolon</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. Why is using percentages with gap problematic?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Percentages are slower</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Percentages do not account for gap space, causing overflow</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> It is not problematic</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What is the modern property name for spacing?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> grid-gap</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> gap</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> spacing</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/css/level-2/lesson4.html">&larr; Previous: Lesson 4</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 6 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-2')) || '{"completed": 0}');
+    const progress = Math.round((level2.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-2')) || '{"completed": 0, "unlocked": true}');
+      if (level2.completed < 2) {
+        level2.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-level-2'), JSON.stringify(level2));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-2/lesson6.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-2')) || '{"completed": 0}');
+    if (level2.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-2/lesson6.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

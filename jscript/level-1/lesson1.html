@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: Grid in JavaScript | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #f59e0b;
+    --lesson-accent-d: #D97706;
+    --lesson-accent-soft: rgba(245,158,11,0.08);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/jscript.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">JavaScript &bull; Level 1 &bull; Lesson 1 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 1: Grid in JavaScript</h1>
+    <p>Learn how to create CSS Grid layouts using JavaScript inline styles.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is Grid in JavaScript?</h2>
+    <p>
+      Instead of writing CSS Grid properties in a stylesheet, you can apply them directly through JavaScript
+      using inline styles. This is useful for dynamic layouts, React components, and when you need to
+      calculate or change grid properties programmatically.
+    </p>
+    <p>
+      In JavaScript, you access an element and set its <code>style</code> properties. For CSS Grid, you will use
+      properties like <code>display</code>, <code>gridTemplateColumns</code>, <code>gridTemplateRows</code>,
+      and <code>gap</code>.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Difference</span>
+      CSS properties with hyphens (like <code>grid-template-columns</code>) become camelCase in JavaScript
+      (<code>gridTemplateColumns</code>). This is standard for all CSS-in-JS.
+    </div>
+
+    <h2>Enabling Grid Display</h2>
+    <p>First, you need to set <code>display: 'grid'</code> on an element:</p>
+    <pre><code>// Get the element
+const container = document.getElementById('myGrid');
+
+// Enable grid display
+container.style.display = 'grid';</code></pre>
+    <p>That is it. The element is now a grid container. Items inside will follow grid rules.</p>
+
+    <h2>Setting Grid Columns</h2>
+    <p>Use <code>gridTemplateColumns</code> to define columns:</p>
+    <pre><code>// Create 3 equal columns
+container.style.gridTemplateColumns = '1fr 1fr 1fr';
+
+// Or use repeat()
+container.style.gridTemplateColumns = 'repeat(3, 1fr)';</code></pre>
+    <p>Both create the same result: 3 columns that equally share available space.</p>
+
+    <h2>Complete Example</h2>
+    <p>Here is a full example creating a 3-column grid:</p>
+    <pre><code>const container = document.getElementById('myGrid');
+
+// Set grid properties
+container.style.display = 'grid';
+container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+container.style.gap = '1rem';</code></pre>
+
+    <h2>Values Must Be Strings</h2>
+    <p>Important: all style values in JavaScript must be strings (in quotes):</p>
+    <pre><code>// Correct
+container.style.display = 'grid';
+container.style.gap = '20px';
+
+// Wrong
+container.style.display = grid;  // Error!
+container.style.gap = 20px;      // Error!</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Common Mistake</span>
+      Forgetting quotes is the number one mistake. Always wrap values in quotes.
+    </div>
+
+    <h2>CSS vs JavaScript Property Names</h2>
+    <ul>
+      <li><code>display: grid</code> becomes <code>display = 'grid'</code></li>
+      <li><code>grid-template-columns</code> becomes <code>gridTemplateColumns</code></li>
+      <li><code>gap</code> stays <code>gap</code></li>
+    </ul>
+    <p>Pattern: remove hyphens, capitalize the letter after each hyphen.</p>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. How do you enable grid display in JavaScript?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>element.style.display = grid</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>element.style.display = 'grid'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>element.display = 'grid'</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the JavaScript equivalent of <code>grid-template-columns</code>?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>grid-template-columns</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>gridTemplateColumns</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>GridTemplateColumns</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. Why must style values be wrapped in quotes?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> For better performance</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Because JavaScript requires string values for style properties</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> They do not need quotes</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link disabled" href="#">&larr; Previous</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 2 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 1) {
+        level1.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-js-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-1/lesson2.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-1/lesson2.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

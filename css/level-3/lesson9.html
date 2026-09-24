@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 9: Auto-Placement | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #3236C1;
+    --lesson-accent-d: #262995;
+    --lesson-accent-soft: rgba(50,54,193,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/css/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/css.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Level 3 &bull; Lesson 9 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 9: Auto-Placement</h1>
+    <p>Understand how Grid automatically places items and how to control the algorithm.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>How Grid Places Items</h2>
+    <p>
+      When you do not explicitly place grid items, CSS Grid has an algorithm that automatically
+      positions them. Understanding this algorithm helps you predict layouts and control item flow.
+    </p>
+
+    <h2>The Default Behavior</h2>
+    <p>By default, Grid places items:</p>
+    <ul>
+      <li>One per cell</li>
+      <li>Left to right (in rows)</li>
+      <li>Top to bottom</li>
+      <li>In source order (HTML order)</li>
+    </ul>
+
+    <pre><code>/* Simple grid - items flow left to right, top to bottom */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Items 1, 2, 3 in first row */
+/* Items 4, 5, 6 in second row */
+/* And so on... */</code></pre>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Concept</span>
+      Auto-placement only affects items you have not explicitly positioned.
+      If you use <code>grid-column</code> or <code>grid-area</code>, that item is placed
+      and auto-placement works around it.
+    </div>
+
+    <h2>grid-auto-flow: Changing Direction</h2>
+    <p>Control whether Grid fills rows or columns first:</p>
+
+    <h3>row (default)</h3>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;  /* Default */
+}
+
+/* Result: Fills rows left to right
+   1  2  3
+   4  5  6
+   7  8  9  */</code></pre>
+
+    <h3>column</h3>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-auto-flow: column;
+}
+
+/* Result: Fills columns top to bottom
+   1  4  7
+   2  5  8
+   3  6  9  */</code></pre>
+
+    <h2>grid-auto-rows and grid-auto-columns</h2>
+    <p>
+      What happens when you have more items than defined rows or columns?
+      Grid creates <em>implicit</em> tracks automatically.
+    </p>
+
+    <h3>Controlling Implicit Row Heights</h3>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px 100px;  /* Only 2 explicit rows */
+  grid-auto-rows: 150px;            /* Any extra rows are 150px */
+}
+
+/* Result:
+   Row 1: 100px (explicit)
+   Row 2: 100px (explicit)
+   Row 3: 150px (implicit, auto-created)
+   Row 4: 150px (implicit, auto-created)
+   ... */</code></pre>
+
+    <h3>Flexible Implicit Rows</h3>
+    <pre><code>grid-auto-rows: minmax(100px, auto);</code></pre>
+    <p>Creates rows that are at least 100px but grow to fit content.</p>
+
+    <h2>Dense Packing</h2>
+    <p>
+      When some items span multiple cells, Grid can leave gaps. The <code>dense</code> keyword
+      fills these holes by placing smaller items in them.
+    </p>
+
+    <h3>Without dense (default)</h3>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;
+}
+
+.item-wide {
+  grid-column: span 2;  /* Spans 2 columns */
+}
+
+/* Result (with gaps):
+   1  1  2
+   3  4  4
+   _  5  6  <- Gap left by item 4 */</code></pre>
+
+    <h3>With dense</h3>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row dense;
+}
+
+/* Result (no gaps):
+   1  1  2
+   3  4  4
+   5  5  6  <- Item 5 moved up to fill gap */</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Warning</span>
+      Dense packing can change the visual order of items so they no longer match HTML order.
+      This can confuse keyboard and screen reader users. Use it carefully.
+    </div>
+
+    <h2>Practical Examples</h2>
+
+    <h3>Pinterest-Style Masonry (Approximation)</h3>
+    <pre><code>.masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 20px;  /* Small incremental rows */
+  gap: 16px;
+}
+
+.item-tall {
+  grid-row: span 10;  /* Spans 200px (10 x 20px rows) */
+}
+
+.item-medium {
+  grid-row: span 7;   /* Spans 140px */
+}
+
+.item-short {
+  grid-row: span 5;   /* Spans 100px */
+}</code></pre>
+
+    <h3>Dynamic Card Grid</h3>
+    <pre><code>.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-auto-rows: minmax(200px, auto);
+  gap: 24px;
+}
+
+/* Featured cards span 2 columns */
+.card.featured {
+  grid-column: span 2;
+}</code></pre>
+
+    <h3>Vertical Timeline</h3>
+    <pre><code>.timeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: row;
+  grid-auto-rows: minmax(80px, auto);
+  gap: 16px;
+}</code></pre>
+
+    <h2>Combining Explicit and Implicit Grids</h2>
+    <p>You can define some tracks explicitly and let Grid create the rest:</p>
+    <pre><code>.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;  /* 3 explicit columns */
+  grid-auto-rows: 100px;                   /* Any rows auto-created at 100px */
+  gap: 20px;
+}
+
+/* If you have 9 items:
+   - All go in the 3 defined columns
+   - Grid auto-creates 3 rows (each 100px tall) */</code></pre>
+
+    <h2>Real-World Use Case: Blog Archive</h2>
+    <pre><code>.blog-archive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: minmax(250px, auto);
+  grid-auto-flow: row dense;
+  gap: 32px;
+}
+
+/* Featured posts span 2 columns */
+.post.featured {
+  grid-column: span 2;
+}
+
+/* Long posts take more vertical space */
+.post.long {
+  grid-row: span 2;
+}</code></pre>
+
+    <h2>Understanding the Algorithm</h2>
+    <p>Grid's auto-placement follows this logic:</p>
+    <ol>
+      <li>Place explicitly positioned items first</li>
+      <li>Fill remaining cells with auto-placed items</li>
+      <li>Follow the grid-auto-flow direction (row or column)</li>
+      <li>Create implicit tracks as needed</li>
+      <li>If using dense, backfill gaps with smaller items</li>
+    </ol>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      For most layouts, the defaults work great. Only reach for <code>grid-auto-flow</code> and
+      <code>dense</code> when you have a specific layout challenge.
+    </div>
+
+    <h2>Common Patterns</h2>
+
+    <h3>Pattern 1: Infinite Scrolling Grid</h3>
+    <pre><code>/* Automatically adds rows as content loads */
+.infinite-grid {
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+}</code></pre>
+
+    <h3>Pattern 2: Newspaper Layout</h3>
+    <pre><code>/* Mix of different sized articles */
+.newspaper {
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 100px;
+  grid-auto-flow: row dense;
+}</code></pre>
+
+    <h3>Pattern 3: Vertical Feed</h3>
+    <pre><code>/* Single column, variable height items */
+.feed {
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-flow: row;
+}</code></pre>
+
+    <h2>Debugging Auto-Placement</h2>
+    <p>If items are not appearing where you expect:</p>
+    <ul>
+      <li>Check: did you explicitly place some items? They anchor the auto-placement.</li>
+      <li>Check: is <code>grid-auto-flow</code> set to row or column?</li>
+      <li>Check: are there enough explicit tracks, or is Grid creating implicit ones?</li>
+      <li>Check: browser DevTools shows both explicit and implicit grid lines.</li>
+    </ul>
+
+    <h2>You Have Completed All 9 Lessons</h2>
+    <p>
+      Congratulations. You have gone from CSS Grid basics to advanced techniques and now know
+      how to build almost any layout with Grid.
+    </p>
+
+    <p><strong>What you have learned:</strong></p>
+    <ul>
+      <li>Grid fundamentals (Lessons 1-3)</li>
+      <li>Real-world patterns (Lessons 4-6)</li>
+      <li>Advanced techniques (Lessons 7-9)</li>
+    </ul>
+
+    <p>Keep practicing, experiment with the generator, and remember: the best way to learn Grid is to use it in real projects.</p>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Keep Practicing</h2>
+    <p>
+      Now that you have completed all lessons, use the generator to build real layouts.
+      The more you practice, the more natural Grid becomes.
+    </p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Final Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before finishing the learning path. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What does <code>grid-auto-flow: column</code> do?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates columns automatically</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Places items in columns (top to bottom) instead of rows</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Adds automatic gaps between columns</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is <code>grid-auto-rows</code> used for?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Automatically counting rows</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Setting the size of implicitly created rows</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Making rows resize automatically</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What does the <code>dense</code> keyword do?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Makes the grid more compact</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Fills gaps by placing smaller items in holes left by larger items</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Increases grid density</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Complete Final Lesson</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div id="all-complete" class="lesson-complete-banner hidden">
+    <h2>All Lessons Complete</h2>
+    <p>Congratulations. You have mastered CSS Grid from beginner to advanced, and you are ready to build any layout you can imagine.</p>
+    <ul class="achievement-grid">
+      <li>Grid Fundamentals</li>
+      <li>Real Layouts</li>
+      <li>Advanced Techniques</li>
+      <li>Responsive Design</li>
+      <li>Template Areas</li>
+      <li>Auto-Placement</li>
+    </ul>
+    <a href="/learn/css.html">View Learning Hub</a>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/css/level-3/lesson8.html">&larr; Previous: Lesson 8</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Finish Learning Path &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! All lessons complete.</p>
+          <p class="result-sub">You have mastered CSS Grid.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0, "unlocked": true}');
+      level3.completed = 3;
+      localStorage.setItem(getStorageKey('gridlock-level-3'), JSON.stringify(level3));
+
+      document.getElementById('all-complete').classList.remove('hidden');
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/css.html';
+
+      updateProgressBar();
+      document.getElementById('all-complete').scrollIntoView({ behavior: 'smooth' });
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 3) {
+      document.getElementById('all-complete').classList.remove('hidden');
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/css.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

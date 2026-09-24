@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2: Template Columns | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #f59e0b;
+    --lesson-accent-d: #D97706;
+    --lesson-accent-soft: rgba(245,158,11,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-js-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/jscript.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">JavaScript &bull; Level 1 &bull; Lesson 2 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 2: Template Columns</h1>
+    <p>Master gridTemplateColumns to create any column layout.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is gridTemplateColumns?</h2>
+    <p>
+      The <code>gridTemplateColumns</code> property defines how many columns your grid has and how wide each
+      should be. You can use <code>fr</code> units, pixels, percentages, <code>auto</code>,
+      <code>minmax()</code>, and <code>repeat()</code>.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Remember</span>
+      The value must be a string. Use template literals (backticks) when inserting variables:
+      <code>`repeat(${num}, 1fr)`</code>
+    </div>
+
+    <h2>Equal Columns with fr Units</h2>
+    <pre><code>// 3 equal columns
+container.style.gridTemplateColumns = '1fr 1fr 1fr';
+
+// 4 equal columns using repeat()
+container.style.gridTemplateColumns = 'repeat(4, 1fr)';</code></pre>
+
+    <h2>Fixed-Width Columns</h2>
+    <pre><code>// 3 columns, each 200px wide
+container.style.gridTemplateColumns = 'repeat(3, 200px)';</code></pre>
+
+    <h2>Mixed Sizing</h2>
+    <pre><code>// Sidebar layout
+container.style.gridTemplateColumns = '250px 1fr';
+
+// Holy Grail
+container.style.gridTemplateColumns = '200px 1fr 200px';
+
+// Different proportions
+container.style.gridTemplateColumns = '2fr 1fr'; // 2/3 and 1/3</code></pre>
+
+    <h2>Dynamic Columns with Template Literals</h2>
+    <pre><code>const numColumns = 5;
+
+// Use backticks for variables
+container.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
+
+// Based on array length
+const items = ['a', 'b', 'c'];
+container.style.gridTemplateColumns = `repeat(${items.length}, 1fr)`;</code></pre>
+
+    <h2>Auto-Fit for Responsive Grids</h2>
+    <pre><code>// Fit as many 250px columns as possible
+container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))';</code></pre>
+    <p>This creates a truly responsive grid, columns wrap automatically.</p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      Store common layouts in objects for easy reuse:
+      <code>const layouts = { sidebar: '250px 1fr' }</code>
+    </div>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. How do you create 3 equal columns?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>gridTemplateColumns = '3 columns'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>gridTemplateColumns = 'repeat(3, 1fr)'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>gridTemplateColumns = 3</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. When should you use template literals (backticks)?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Only in React</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> When you need to insert variables or expressions in the string</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> They are optional</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What does <code>'2fr 1fr'</code> mean?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> 2 pixels and 1 pixel</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> First column gets 2/3 of space, second gets 1/3</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> 2 columns and 1 row</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/jscript/level-1/lesson1.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 3 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 2) {
+        level1.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-js-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-1/lesson3.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-1/lesson3.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

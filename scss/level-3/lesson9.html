@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 9: Final Project & Best Practices | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #EC4899;
+    --lesson-accent-d: #DB2777;
+    --lesson-accent-soft: rgba(236,72,153,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-scss-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/scss/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">SCSS &bull; Level 3 &bull; Lesson 9 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 9: Final Project & Best Practices</h1>
+    <p>Build a complete, production-ready grid system and learn professional workflows.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>Your Final Project</h2>
+    <p>
+      You are going to build a complete grid framework that you can use in real projects. This combines everything
+      you have learned across all 9 lessons.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Project Goal</span>
+      Create a lightweight, optimized grid system with containers, columns, gaps, responsive utilities,
+      and common layout patterns. Keep it under 15KB minified.
+    </div>
+
+    <h2>Project Structure</h2>
+    <pre><code>your-grid-system/
+├── scss/
+│   ├── _config.scss          # Configuration & variables
+│   ├── _functions.scss       # Helper functions
+│   ├── _mixins.scss          # Reusable mixins
+│   ├── _container.scss       # Container utilities
+│   ├── _grid.scss            # Grid utilities
+│   ├── _columns.scss         # Column utilities
+│   ├── _gaps.scss            # Gap utilities
+│   ├── _responsive.scss      # Responsive utilities
+│   └── grid-system.scss      # Main import file
+├── dist/
+│   └── grid-system.css       # Compiled CSS
+└── package.json</code></pre>
+
+    <h2>Step 1: Configuration</h2>
+    <pre><code>// _config.scss
+// =============
+
+// Grid Settings
+$grid-columns: 12 !default;
+$container-padding: 16px !default;
+
+// Breakpoints
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+) !default;
+
+// Spacing Scale
+$spacing: (
+  0: 0,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  8: 32px,
+  10: 40px,
+  12: 48px
+) !default;
+
+// Container Max Widths
+$containers: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+) !default;
+
+// Features to Enable/Disable
+$enable-container: true !default;
+$enable-grid: true !default;
+$enable-columns: true !default;
+$enable-gaps: true !default;
+$enable-responsive: true !default;</code></pre>
+
+    <h2>Step 2: Helper Functions</h2>
+    <pre><code>// _functions.scss
+// ===============
+
+@function breakpoint($name) {
+  @return map-get($breakpoints, $name);
+}
+
+@function spacing($key) {
+  @return map-get($spacing, $key);
+}
+
+@function container($name) {
+  @return map-get($containers, $name);
+}</code></pre>
+
+    <h2>Step 3: Essential Mixins</h2>
+    <pre><code>// _mixins.scss
+// ============
+
+@mixin container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+@mixin grid($columns: 1, $gap: 0) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+@mixin responsive($breakpoint-name) {
+  @media (min-width: breakpoint($breakpoint-name)) {
+    @content;
+  }
+}</code></pre>
+
+    <h2>Step 4: Core Components</h2>
+    <pre><code>// _container.scss
+// ===============
+
+@if $enable-container {
+  .container {
+    @include container;
+    
+    @each $name, $width in $containers {
+      @include responsive($name) {
+        max-width: $width;
+      }
+    }
+  }
+  
+  .container-fluid {
+    @include container;
+  }
+}
+
+// _grid.scss
+// ==========
+
+@if $enable-grid {
+  .grid {
+    display: grid;
+  }
+  
+  // Generate grid-cols-* classes
+  @each $cols in (1, 2, 3, 4, 6, 12) {
+    .grid-cols-#{$cols} {
+      grid-template-columns: repeat($cols, 1fr);
+    }
+  }
+  
+  .grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+// _columns.scss
+// =============
+
+@if $enable-columns {
+  @for $i from 1 through $grid-columns {
+    .col-span-#{$i} {
+      grid-column: span $i / span $i;
+    }
+  }
+  
+  .col-span-full {
+    grid-column: 1 / -1;
+  }
+}
+
+// _gaps.scss
+// ==========
+
+@if $enable-gaps {
+  @each $name, $size in $spacing {
+    .gap-#{$name} {
+      gap: $size;
+    }
+  }
+}
+
+// _responsive.scss
+// ================
+
+@if $enable-responsive {
+  @each $bp-name, $bp-value in $breakpoints {
+    @media (min-width: $bp-value) {
+      @each $cols in (1, 2, 3, 4) {
+        .#{$bp-name}\:grid-cols-#{$cols} {
+          grid-template-columns: repeat($cols, 1fr);
+        }
+      }
+      
+      .#{$bp-name}\:hidden {
+        display: none;
+      }
+    }
+  }
+}</code></pre>
+
+    <h2>Step 5: Main Import File</h2>
+    <pre><code>// grid-system.scss
+// ================
+
+@import 'config';
+@import 'functions';
+@import 'mixins';
+@import 'container';
+@import 'grid';
+@import 'columns';
+@import 'gaps';
+@import 'responsive';</code></pre>
+
+    <h2>Step 6: Build Scripts</h2>
+    <pre><code>// package.json
+{
+  "name": "my-grid-system",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "sass --watch scss:dist",
+    "build": "sass --style=compressed scss/grid-system.scss:dist/grid-system.min.css",
+    "size": "ls -lh dist/grid-system.min.css"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
+  }
+}</code></pre>
+
+    <h2>Professional Best Practices</h2>
+
+    <h3>1. File Organization</h3>
+    <ul>
+      <li>Separate concerns into different files</li>
+      <li>Use underscore prefix for partials (_file.scss)</li>
+      <li>Group related utilities together</li>
+      <li>Keep configuration separate from logic</li>
+    </ul>
+
+    <h3>2. Naming Conventions</h3>
+    <ul>
+      <li>Use <code>$variable-names</code> in kebab-case</li>
+      <li>Prefix mixins with action: <code>@mixin create-grid</code></li>
+      <li>Function names describe what they return: <code>@function get-spacing</code></li>
+      <li>Class names follow BEM or utility pattern</li>
+    </ul>
+
+    <h3>3. Documentation</h3>
+    <pre><code>// Good documentation example
+/// Creates a responsive grid container
+/// @param {Number} $columns - Number of columns
+/// @param {String} $gap - Gap size from spacing scale
+/// @example
+///   .gallery {
+///     @include responsive-grid(3, 'md');
+///   }
+@mixin responsive-grid($columns, $gap: 4) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: spacing($gap);
+}</code></pre>
+
+    <h3>4. Default Values</h3>
+    <pre><code>// Always use !default for config variables
+$grid-columns: 12 !default;
+$enable-responsive: true !default;
+
+// This allows users to override:
+// _my-overrides.scss
+$grid-columns: 16;
+@import 'grid-system';</code></pre>
+
+    <h3>5. Performance Checklist</h3>
+    <ul>
+      <li>Generate only needed utilities</li>
+      <li>Use compression in production</li>
+      <li>Limit responsive breakpoints</li>
+      <li>Keep compiled CSS under 50KB</li>
+      <li>Use PurgeCSS if needed</li>
+    </ul>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Production Checklist</span>
+      <ul>
+        <li>All SCSS files use consistent indentation</li>
+        <li>Variables have !default flags</li>
+        <li>Mixins are documented</li>
+        <li>Build script generates minified CSS</li>
+        <li>File size is reasonable (under 50KB)</li>
+        <li>Tested in real HTML examples</li>
+      </ul>
+    </div>
+
+    <h2>Testing Your Grid System</h2>
+    <pre><code>&lt;!-- test.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="dist/grid-system.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;
+      &lt;div class="col-span-1"&gt;Column 1&lt;/div&gt;
+      &lt;div class="col-span-1"&gt;Column 2&lt;/div&gt;
+      &lt;div class="col-span-1"&gt;Column 3&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h2>Next Steps</h2>
+    <p>You have completed the SCSS Grid course. Here is what to do next:</p>
+    <ol>
+      <li>Build the project from this lesson</li>
+      <li>Test it in a real website</li>
+      <li>Share it on GitHub</li>
+      <li>Try the Gridlock Holmes generator with the SCSS format</li>
+      <li>Explore advanced SCSS features (maps, modules, partials)</li>
+      <li>Join the community and share your work</li>
+    </ol>
+
+    <h2>Resources for Continued Learning</h2>
+    <ul>
+      <li>Sass documentation (sass-lang.com)</li>
+      <li>CSS Grid reference on MDN</li>
+      <li>Grid by Example, a library of CSS Grid patterns</li>
+      <li>Can I Use, for checking browser support</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">You Did It</span>
+      You have mastered SCSS Grid from basics to advanced patterns. You can now build production-ready
+      grid systems and write maintainable, scalable CSS. Keep practicing and building.
+    </div>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Final Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before finishing the learning path. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What should you use !default for?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Every variable</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Configuration variables that users might want to override</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> !default is not necessary</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is a good target file size for a production grid system?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> As large as possible</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Under 50KB minified, lean and optimized</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> File size does not matter</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What have you learned in this SCSS Grid course?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Just basic CSS Grid</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Variables, nesting, mixins, functions, loops, optimization, and building complete grid systems</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> How to use Flexbox</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Complete Course</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div id="all-complete" class="lesson-complete-banner hidden">
+    <h2>Course Complete</h2>
+    <p>You have mastered SCSS Grid from beginner to advanced, and you are ready to build any layout you can imagine.</p>
+    <ul class="achievement-grid">
+      <li>Variables</li>
+      <li>Nesting</li>
+      <li>Mixins</li>
+      <li>Functions</li>
+      <li>Loops</li>
+      <li>Grid Systems</li>
+      <li>Advanced Patterns</li>
+      <li>Optimization</li>
+    </ul>
+    <a href="/learn/scss.html">View Learning Hub</a>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/scss/level-3/lesson8.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Finish Learning Path &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! Course complete.</p>
+          <p class="result-sub">You have mastered SCSS Grid.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0, "unlocked": true}');
+      level3.completed = 3;
+      localStorage.setItem(getStorageKey('gridlock-scss-level-3'), JSON.stringify(level3));
+
+      document.getElementById('all-complete').classList.remove('hidden');
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/scss.html';
+
+      updateProgressBar();
+      document.getElementById('all-complete').scrollIntoView({ behavior: 'smooth' });
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 3) {
+      document.getElementById('all-complete').classList.remove('hidden');
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/scss.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

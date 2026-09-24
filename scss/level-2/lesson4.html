@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4: Dynamic Grids with Functions | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #EC4899;
+    --lesson-accent-d: #DB2777;
+    --lesson-accent-soft: rgba(236,72,153,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-scss-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/scss/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">SCSS &bull; Level 2 &bull; Lesson 4 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 2 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 4: Dynamic Grids with Functions</h1>
+    <p>Use SCSS functions to calculate grid values dynamically. Make your grids smarter.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What are SCSS Functions?</h2>
+    <p>
+      Functions in SCSS take input, perform calculations, and return a value. Unlike mixins which output CSS code,
+      functions return values you can use in your properties. Think of them as math helpers for your grids.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Functions vs Mixins</span>
+      <strong>Mixins</strong> output CSS code.<br>
+      <strong>Functions</strong> return values (numbers, colors, strings).
+    </div>
+
+    <h2>Creating Your First Function</h2>
+    <p>Let's create a function to calculate grid column width:</p>
+    <pre><code>// Define the function
+@function grid-width($columns, $gap, $total-columns: 12) {
+  $gap-total: $gap * ($total-columns - 1);
+  @return calc((100% - #{$gap-total}) / $total-columns * $columns);
+}
+
+// Use it
+.sidebar {
+  width: grid-width(3, 20px);  // 3 columns wide
+}
+
+.main {
+  width: grid-width(9, 20px);  // 9 columns wide
+}</code></pre>
+
+    <h2>Built-in SCSS Functions</h2>
+    <p>SCSS comes with useful built-in functions:</p>
+
+    <h3>Math Functions:</h3>
+    <pre><code>// Calculate responsive gap
+@function responsive-gap($base-gap) {
+  @return clamp(#{$base-gap * 0.5}, 2vw, #{$base-gap * 1.5});
+}
+
+.grid {
+  gap: responsive-gap(20px);  // Scales between 10px and 30px
+}</code></pre>
+
+    <h3>Percentage Calculations:</h3>
+    <pre><code>@function columns-to-percent($columns, $total: 12) {
+  @return percentage($columns / $total);
+}
+
+.col-4 {
+  width: columns-to-percent(4);  // Returns 33.33333%
+}
+
+.col-8 {
+  width: columns-to-percent(8);  // Returns 66.66667%
+}</code></pre>
+
+    <h2>Dynamic Grid Functions</h2>
+    <p>Create smart functions for common grid calculations:</p>
+    <pre><code>// Calculate optimal column count based on container width
+@function auto-columns($min-width, $container-width: 1200px, $gap: 20px) {
+  $columns: floor(($container-width + $gap) / ($min-width + $gap));
+  @return max(1, $columns);  // At least 1 column
+}
+
+// Calculate fr values
+@function fr-value($ratio) {
+  @return $ratio + fr;
+}
+
+// Use them
+.auto-grid {
+  grid-template-columns: repeat(auto-columns(250px), 1fr);
+}
+
+.asymmetric-grid {
+  grid-template-columns: fr-value(2) fr-value(1);  // 2fr 1fr
+}</code></pre>
+
+    <h2>Spacing Scale Function</h2>
+    <p>Create a spacing system with a function:</p>
+    <pre><code>// Base spacing unit
+$base-spacing: 8px;
+
+// Spacing scale function
+@function spacing($multiplier) {
+  @return $base-spacing * $multiplier;
+}
+
+.grid-tight {
+  gap: spacing(1);   // 8px
+}
+
+.grid-normal {
+  gap: spacing(2);   // 16px
+}
+
+.grid-loose {
+  gap: spacing(4);   // 32px
+}
+
+.grid-xl {
+  gap: spacing(8);   // 64px
+}</code></pre>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Design System Tip</span>
+      Use a spacing scale function to ensure all gaps in your project use consistent values.
+      This creates visual harmony and makes your design feel professional.
+    </div>
+
+    <h2>Combining Functions and Mixins</h2>
+    <p>Functions and mixins work great together:</p>
+    <pre><code>// Function to calculate columns
+@function calculate-columns($screen-width) {
+  @if $screen-width < 768px {
+    @return 1;
+  } @else if $screen-width < 1024px {
+    @return 2;
+  } @else {
+    @return 4;
+  }
+}
+
+// Mixin that uses the function
+@mixin responsive-grid($gap: 20px) {
+  display: grid;
+  gap: $gap;
+
+  grid-template-columns: repeat(calculate-columns(320px), 1fr);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(calculate-columns(768px), 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(calculate-columns(1024px), 1fr);
+  }
+}
+
+.products {
+  @include responsive-grid(24px);
+}</code></pre>
+
+    <h2>Grid Track Sizing Function</h2>
+    <p>Calculate the perfect minmax values:</p>
+    <pre><code>@function track-size($min, $max: 1fr) {
+  @return minmax($min, $max);
+}
+
+.flexible-grid {
+  grid-template-columns: repeat(auto-fit, track-size(200px));
+}
+
+.controlled-grid {
+  grid-template-columns: 
+    track-size(150px, 200px)
+    track-size(250px)
+    track-size(100px, 300px);
+}</code></pre>
+
+    <h2>Real-World Example: Complete Grid System</h2>
+    <pre><code>// Configuration
+$base-spacing: 8px;
+$grid-columns: 12;
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+// Spacing function
+@function space($multiplier) {
+  @return $base-spacing * $multiplier;
+}
+
+// Column width function
+@function col-width($span) {
+  @return calc(#{percentage($span / $grid-columns)} - #{space(2)});
+}
+
+// Breakpoint function
+@function bp($name) {
+  @return map-get($breakpoints, $name);
+}
+
+// Responsive grid mixin using functions
+@mixin container-grid {
+  display: grid;
+  grid-template-columns: repeat($grid-columns, 1fr);
+  gap: space(2);
+
+  @media (min-width: bp(md)) {
+    gap: space(3);
+  }
+
+  @media (min-width: bp(lg)) {
+    gap: space(4);
+  }
+}
+
+// Use it
+.page-layout {
+  @include container-grid;
+
+  .header {
+    grid-column: span $grid-columns;
+  }
+
+  .sidebar {
+    grid-column: span 3;
+
+    @media (min-width: bp(md)) {
+      grid-column: span 4;
+    }
+  }
+
+  .content {
+    grid-column: span 9;
+
+    @media (min-width: bp(md)) {
+      grid-column: span 8;
+    }
+  }
+}</code></pre>
+
+    <h2>Advanced: Map Functions for Grids</h2>
+    <p>Store grid configurations in maps and access them with functions:</p>
+    <pre><code>// Grid presets map
+$grid-presets: (
+  compact: (columns: 2, gap: 12px),
+  normal: (columns: 3, gap: 20px),
+  spacious: (columns: 4, gap: 32px)
+);
+
+// Function to get preset values
+@function grid-preset($name, $property) {
+  @return map-get(map-get($grid-presets, $name), $property);
+}
+
+// Use presets
+.grid-compact {
+  display: grid;
+  grid-template-columns: repeat(grid-preset(compact, columns), 1fr);
+  gap: grid-preset(compact, gap);
+}
+
+.grid-normal {
+  display: grid;
+  grid-template-columns: repeat(grid-preset(normal, columns), 1fr);
+  gap: grid-preset(normal, gap);
+}</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Learning Path</span>
+      Functions might seem complex at first, but they are incredibly powerful for maintaining consistent grids.
+      Start simple with spacing functions, then gradually add more advanced calculations as you need them.
+    </div>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What is the main difference between functions and mixins?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Functions are faster</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Functions return values, mixins output CSS code</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> There is no difference</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. How do you define a function in SCSS?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>@include function-name() { }</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>@function function-name() { @return value; }</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>function function-name() { }</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What is a good use case for SCSS functions in grids?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Functions cannot be used with grids</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Creating spacing scales and calculating dynamic values like column widths</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only for color calculations</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 5 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-2')) || '{"completed": 0}');
+    const progress = Math.round((level2.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-2')) || '{"completed": 0, "unlocked": true}');
+      if (level2.completed < 1) {
+        level2.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-scss-level-2'), JSON.stringify(level2));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-2/lesson5.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-2')) || '{"completed": 0}');
+    if (level2.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-2/lesson5.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

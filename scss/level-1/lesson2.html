@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2: Nesting Grid Styles | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #EC4899;
+    --lesson-accent-d: #DB2777;
+    --lesson-accent-soft: rgba(236,72,153,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-scss-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/scss/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">SCSS &bull; Level 1 &bull; Lesson 2 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 2: Nesting Grid Styles</h1>
+    <p>Use SCSS nesting to organize your grid code and keep related styles together.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is Nesting?</h2>
+    <p>
+      One of SCSS's most popular features is <strong>nesting</strong>. Instead of writing separate selectors for parent
+      and child elements, you can nest child selectors inside the parent. This mirrors your HTML structure and keeps
+      related code together.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Benefit</span>
+      Nesting makes your code easier to read and maintain. All styles for a component stay together,
+      just like your HTML structure.
+    </div>
+
+    <h2>CSS vs SCSS Nesting</h2>
+
+    <h3>Regular CSS (Without Nesting):</h3>
+    <pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card-grid .card {
+  background: white;
+  padding: 20px;
+}
+
+.card-grid .card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card-grid .card p {
+  color: gray;
+}</code></pre>
+
+    <h3>SCSS (With Nesting):</h3>
+    <pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  .card {
+    background: white;
+    padding: 20px;
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: gray;
+    }
+  }
+}</code></pre>
+    <p>Much cleaner. All the <code>.card-grid</code> styles are in one place, and the nesting shows the structure clearly.</p>
+
+    <h2>Nesting Grid Items</h2>
+    <p>Here is a practical example with a grid container and its items:</p>
+    <pre><code>$grid-gap: 24px;
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $grid-gap;
+
+  .product-card {
+    // Styles for each grid item
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+
+    img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    h4 {
+      margin: 12px 0;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      color: green;
+      font-weight: bold;
+    }
+  }
+}</code></pre>
+    <p>This compiles to separate CSS selectors, but your source code stays organized.</p>
+
+    <h2>Using the & (Parent Selector)</h2>
+    <p>The <code>&amp;</code> symbol represents the parent selector. This is useful for hover states and modifiers:</p>
+    <pre><code>.grid-item {
+  background: lightgray;
+  padding: 20px;
+
+  &:hover {
+    // Compiles to: .grid-item:hover
+    background: darkgray;
+  }
+
+  &.featured {
+    // Compiles to: .grid-item.featured
+    border: 2px solid gold;
+  }
+
+  &.large {
+    // Compiles to: .grid-item.large
+    grid-column: span 2;
+  }
+}</code></pre>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      The <code>&amp;</code> is your friend. Use it for hover states, active states, and modifier classes.
+      It keeps all variations of an element together.
+    </div>
+
+    <h2>Nesting Media Queries</h2>
+    <p>You can even nest media queries inside your selectors, which is huge for responsive grids:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr;  // Mobile: 1 column
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    // Tablet: 2 columns
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    // Desktop: 3 columns
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .item {
+    background: white;
+    padding: 20px;
+  }
+}</code></pre>
+    <p>All your responsive behavior for <code>.container</code> is right there in one place. No hunting through your CSS file for media queries.</p>
+
+    <h2>Real-World Example: Complete Grid Component</h2>
+    <pre><code>$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 40px;
+  }
+
+  .blog-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 20px;
+
+      h3 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      p {
+        color: #666;
+        line-height: 1.6;
+      }
+    }
+
+    .meta {
+      padding: 10px 20px;
+      background: #f5f5f5;
+      font-size: 0.875rem;
+      color: #999;
+    }
+  }
+}</code></pre>
+    <p>Everything for the blog grid component, layout, responsive behavior, and child styles, is organized in one logical block.</p>
+
+    <h2>Best Practices for Nesting</h2>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Do Not Nest Too Deep</span>
+      Avoid nesting more than 3-4 levels deep. It makes CSS specificity too high and your code harder to override.<br>
+      <strong>Good:</strong> <code>.grid &rarr; .item &rarr; h3</code><br>
+      <strong>Bad:</strong> <code>.page &rarr; .section &rarr; .grid &rarr; .item &rarr; .content &rarr; h3</code>
+    </div>
+
+    <h3>Good Nesting:</h3>
+    <pre><code>.grid {
+  display: grid;
+
+  .item {
+    padding: 20px;
+
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
+}</code></pre>
+
+    <h3>Too Much Nesting:</h3>
+    <pre><code>// Avoid this
+.page {
+  .container {
+    .section {
+      .grid {
+        .item {
+          .header {
+            h3 {
+              // Way too deep
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What does the &amp; symbol represent in SCSS?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> A special character for variables</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> The parent selector</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> A comment marker</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the main benefit of nesting in SCSS?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Makes CSS files smaller</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Keeps related code together and mirrors HTML structure for better organization</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Required for CSS Grid to work</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. How deep should you nest selectors in SCSS?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> As deep as possible, more nesting is always better</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Avoid nesting more than 3-4 levels to keep specificity manageable</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Never nest, always use separate selectors</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/scss/level-1/lesson1.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 3 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 2) {
+        level1.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-scss-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-1/lesson3.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-1/lesson3.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

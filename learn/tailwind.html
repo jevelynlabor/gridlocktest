@@ -13,14 +13,14 @@
 <meta name="description" content="Learn CSS Grid with Tailwind CSS classes. Three guided levels from grid utility basics to advanced, responsive layouts. Free, beginner friendly, no signup needed.">
 <meta name="keywords" content="learn CSS Grid Tailwind, Tailwind CSS grid tutorial, Tailwind grid classes, Tailwind CSS grid course">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://gridlock-holmes.com/learn/start-tailwind">
+<link rel="canonical" href="https://gridlock-holmes.com/learn/tailwind/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gridlock Holmes">
 <meta property="og:title" content="Tailwind Path - Learn CSS Grid | Gridlock Holmes">
 <meta property="og:description" content="Learn CSS Grid with Tailwind CSS classes. Three guided levels from grid utility basics to advanced, responsive layouts.">
-<meta property="og:url" content="https://gridlock-holmes.com/learn/start-tailwind">
+<meta property="og:url" content="https://gridlock-holmes.com/learn/tailwind/">
 <meta property="og:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <!-- Twitter Card -->
@@ -30,8 +30,39 @@
 <meta name="twitter:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+    --lesson-accent-border: rgba(46,102,213,0.35);
+  }
+</style>
 </head>
 <body>
+
+<!-- Student login modal (shown once per browser until the learner signs in or skips) -->
+<div id="student-login-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h2>Save Your Progress</h2>
+    <p>Using a shared or public computer? Enter a username so your lesson progress is saved and waiting for you next time.</p>
+
+    <div class="modal-field">
+      <label for="student-username">Username</label>
+      <input type="text" id="student-username" placeholder="Enter your username" autocomplete="username">
+    </div>
+
+    <div class="modal-field">
+      <label for="student-password">Password (optional)</label>
+      <input type="password" id="student-password" placeholder="Create a password (optional)" autocomplete="current-password">
+      <p class="modal-hint">Only needed if you want to protect your progress on this device.</p>
+    </div>
+
+    <button class="modal-btn-primary" onclick="studentLogin()">Start Learning</button>
+    <button class="modal-btn-secondary" onclick="skipLogin()">Skip (progress will not be saved)</button>
+  </div>
+</div>
 
 <nav>
   <div class="nav-inner">
@@ -60,20 +91,42 @@
     <div class="hero-tag">Tailwind</div>
     <h1>Learn CSS Grid <em>with Tailwind</em></h1>
     <p class="hero-sub">Use Tailwind's grid utility classes to build the same CSS Grid layouts, explained step by step, with hands-on practice at every stage.</p>
+
+    <div id="student-info" class="student-bar hidden">
+      <span>Logged in as: <strong id="student-name"></strong></span>
+      <div class="student-bar-actions">
+        <button class="student-bar-btn primary" onclick="saveProgressToFile()">Save Progress to File</button>
+        <button class="student-bar-btn" onclick="document.getElementById('load-progress-file').click()">Load Progress from File</button>
+        <button class="student-bar-btn" onclick="logoutStudent()">Log out</button>
+      </div>
+      <input type="file" id="load-progress-file" accept=".json" onchange="loadProgressFromFile(event)" class="hidden">
+    </div>
   </div>
 </section>
+
+<!-- OVERALL PROGRESS -->
+<div class="overall-progress-card">
+  <div class="overall-progress-top">
+    <h3>Your Overall Progress</h3>
+    <span class="overall-progress-value"><span id="progress-percentage">0</span>%</span>
+  </div>
+  <div class="overall-progress-track">
+    <div id="overall-progress-fill" class="overall-progress-fill"></div>
+  </div>
+  <p class="overall-progress-sub"><span id="lessons-completed">0</span> of 9 lessons completed</p>
+</div>
 
 <!-- LEVELS -->
 <section class="learning-section" id="levels">
   <div class="learning-inner">
     <div class="section-label">Tailwind Path</div>
     <h2 class="section-title mb-8">Three levels, ground up</h2>
-    <p class="section-description mb-8">Each level builds on the last: start with the grid utility fundamentals, move on to real layouts, then finish with advanced, responsive techniques. Level 1 is being finished right now, so hang tight.</p>
+    <p class="section-description mb-8">Each level builds on the last: start with the grid utility fundamentals, move on to real layouts, then finish with advanced, responsive techniques. All three levels are ready, start with Lesson 1 below.</p>
 
     <div class="level-list">
 
       <!-- Level 1 -->
-      <div class="level-item">
+      <div class="level-item accent">
         <div class="level-item-head">
           <div class="level-item-num">1</div>
           <div class="level-item-info">
@@ -81,81 +134,67 @@
             <p>What Tailwind's grid system is, how the grid-cols and grid-rows utilities work, and your first simple layouts.</p>
             <span class="level-item-meta">3 lessons &bull; Beginner friendly</span>
           </div>
-          <div class="level-item-status status-soon">Coming Soon</div>
+          <div id="level-1-status" class="level-item-status status-available">Available Now</div>
         </div>
         <div class="lesson-panel level-lessons">
-          <div class="lesson-row"><div class="lesson-num">1</div><div class="lesson-title">What is Tailwind's Grid System?</div></div>
-          <div class="lesson-row"><div class="lesson-num">2</div><div class="lesson-title">grid-cols and grid-rows</div></div>
-          <div class="lesson-row"><div class="lesson-num">3</div><div class="lesson-title">Gap Utilities</div></div>
+          <a class="lesson-row" href="../tailwind/level-1/lesson1.html"><div class="lesson-num">1</div><div class="lesson-title">What is Tailwind's Grid System?</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-1/lesson2.html"><div class="lesson-num">2</div><div class="lesson-title">grid-cols and grid-rows</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-1/lesson3.html"><div class="lesson-num">3</div><div class="lesson-title">Gap Utilities</div><span class="lesson-row-arrow">&rarr;</span></a>
         </div>
       </div>
 
       <!-- Level 2 -->
-      <div class="level-item locked">
+      <div id="level-item-2" class="level-item locked accent">
         <div class="level-item-head">
           <div class="level-item-num">2</div>
           <div class="level-item-info">
             <h3>Real Layouts</h3>
             <p>Build actual page layouts with Tailwind's grid classes and learn to spot and fix common mistakes.</p>
-            <span class="level-item-meta">3 lessons &bull; Unlocks after Level 1</span>
+            <span class="level-item-meta">3 lessons &bull; Real-world practice</span>
           </div>
-          <div class="level-item-status status-locked">Locked</div>
+          <div id="level-2-status" class="level-item-status status-locked">Locked</div>
+        </div>
+        <div id="level-2-locked" class="level-locked-note">
+          <strong>Locked:</strong> complete Level 1 to unlock this level.
+        </div>
+        <div id="level-2-unlocked" class="lesson-panel level-lessons hidden">
+          <a class="lesson-row" href="../tailwind/level-2/lesson4.html"><div class="lesson-num">4</div><div class="lesson-title">Common Layout Patterns</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-2/lesson5.html"><div class="lesson-num">5</div><div class="lesson-title">Avoiding Common Mistakes</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-2/lesson6.html"><div class="lesson-num">6</div><div class="lesson-title">Grid vs Flexbox</div><span class="lesson-row-arrow">&rarr;</span></a>
         </div>
       </div>
 
       <!-- Level 3 -->
-      <div class="level-item locked">
+      <div id="level-item-3" class="level-item locked accent">
         <div class="level-item-head">
           <div class="level-item-num">3</div>
           <div class="level-item-info">
             <h3>Advanced Techniques</h3>
             <p>Responsive grid utilities, arbitrary values and auto-placement.</p>
-            <span class="level-item-meta">3 lessons &bull; Unlocks after Level 2</span>
+            <span class="level-item-meta">3 lessons &bull; Advanced concepts</span>
           </div>
-          <div class="level-item-status status-locked">Locked</div>
+          <div id="level-3-status" class="level-item-status status-locked">Locked</div>
+        </div>
+        <div id="level-3-locked" class="level-locked-note">
+          <strong>Locked:</strong> complete Level 2 to unlock this level.
+        </div>
+        <div id="level-3-unlocked" class="lesson-panel level-lessons hidden">
+          <a class="lesson-row" href="../tailwind/level-3/lesson7.html"><div class="lesson-num">7</div><div class="lesson-title">Responsive Grids</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-3/lesson8.html"><div class="lesson-num">8</div><div class="lesson-title">Auto Columns &amp; Rows</div><span class="lesson-row-arrow">&rarr;</span></a>
+          <a class="lesson-row" href="../tailwind/level-3/lesson9.html"><div class="lesson-num">9</div><div class="lesson-title">Arbitrary Values</div><span class="lesson-row-arrow">&rarr;</span></a>
         </div>
       </div>
-
-      <!-- Level 4 / Bonus -->
-      <div class="level-item locked">
-        <div class="level-item-head">
-          <div class="level-item-num">4</div>
-          <div class="level-item-info">
-            <h3>Grid Detective Challenge</h3>
-            <p>Put everything together and debug broken grid layouts in a final challenge.</p>
-            <span class="level-item-meta">Unlocks after Level 3</span>
-          </div>
-          <div class="level-item-status status-locked">Locked</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- DETECTIVE CTA -->
-<div>
-  <div class="detective-cta">
-    <img src="../assets/images/grid-detective-results.png" class="icon3-gridlock" alt="Learn Css Grid Detective">
-    <div>
-      <h3>Not ready to wait? Try Grid Detective now</h3>
-      <p>Paste your CSS, Tailwind, JavaScript or SCSS and Grid Detective checks for common mistakes while the Tailwind Path lessons are being finished.</p>
-      <div class="cta-actions">
-        <a href="../grid-detective.html" class="btn btn-purple">Use Grid Detective</a>
-        <a href="../index.html" class="btn btn-outline">Open Generator</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- FINAL CTA -->
 <section class="final-cta">
-  <h2>Level 1 is on its way</h2>
-  <p>Check back soon for the first lessons, or explore the tools while you wait.</p>
+  <h2>The full Tailwind Path is ready</h2>
+  <p>Start with Lesson 1, or explore the tools first if you would rather experiment.</p>
   <div class="final-btns">
-    <a href="../learn.html" class="btn btn-primary">Back to all learning paths</a>
-    <a href="../grid-detective.html" class="btn btn-secondary">Try Grid Detective</a>
-    <a href="../index.html" class="btn btn-secondary">CSS Grid Generator</a>
+    <a href="../tailwind/level-1/lesson1.html" class="btn btn-primary">Start Lesson 1</a>
+    <a href="../css-grid-generator.html" class="btn btn-secondary">CSS Grid Generator</a>
   </div>
 </section>
 
@@ -171,5 +210,219 @@
   </div>
 </footer>
 <script src="../assets/js/app.js"></script>
+<script>
+  // ===========================================================
+  // STUDENT ACCOUNT SYSTEM (mirrors the lesson pages' storage)
+  // ===========================================================
+  let currentStudent = null;
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function checkStudentLogin() {
+    const savedStudent = localStorage.getItem('gridlock-current-student');
+    if (savedStudent) {
+      currentStudent = JSON.parse(savedStudent);
+      showStudentInfo();
+    } else {
+      document.getElementById('student-login-modal').classList.remove('hidden');
+    }
+    renderProgress();
+  }
+
+  function studentLogin() {
+    const username = document.getElementById('student-username').value.trim();
+    const password = document.getElementById('student-password').value;
+
+    if (!username) {
+      alert('Please enter a username.');
+      return;
+    }
+
+    currentStudent = {
+      username: username,
+      password: password || null,
+      loginTime: new Date().toISOString()
+    };
+
+    localStorage.setItem('gridlock-current-student', JSON.stringify(currentStudent));
+    document.getElementById('student-login-modal').classList.add('hidden');
+    showStudentInfo();
+    renderProgress();
+  }
+
+  function skipLogin() {
+    document.getElementById('student-login-modal').classList.add('hidden');
+    renderProgress();
+  }
+
+  function logoutStudent() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.reload();
+    }
+  }
+
+  function showStudentInfo() {
+    if (currentStudent) {
+      document.getElementById('student-name').textContent = currentStudent.username;
+      document.getElementById('student-info').classList.remove('hidden');
+    }
+  }
+
+  // ===========================================================
+  // SAVE / LOAD PROGRESS TO FILE (for switching computers)
+  // ===========================================================
+  function saveProgressToFile() {
+    if (!currentStudent) {
+      alert('Please log in first to save your progress.');
+      return;
+    }
+
+    const progress = readProgress();
+    const progressData = {
+      username: currentStudent.username,
+      level1: progress.level1,
+      level2: progress.level2,
+      level3: progress.level3,
+      savedDate: new Date().toISOString(),
+      version: '1.0'
+    };
+
+    const blob = new Blob([JSON.stringify(progressData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${currentStudent.username}-gridlock-progress.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    alert(`Progress saved.\n\nFile: ${currentStudent.username}-gridlock-progress.json\n\nKeep this file safe, and load it next time you use a different computer.`);
+  }
+
+  function loadProgressFromFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.json')) {
+      alert('Please select a valid progress file (.json).');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      try {
+        const data = JSON.parse(e.target.result);
+
+        if (!data.username || !data.version) {
+          alert('Invalid progress file. Please select a valid Gridlock Holmes progress file.');
+          return;
+        }
+
+        const confirmMsg = `Load progress for "${data.username}"?\n\nThis will replace your current progress.\n\nSaved on: ${new Date(data.savedDate).toLocaleString()}`;
+        if (!confirm(confirmMsg)) return;
+
+        if (!currentStudent || currentStudent.username !== data.username) {
+          currentStudent = {
+            username: data.username,
+            password: null,
+            loginTime: new Date().toISOString()
+          };
+          localStorage.setItem('gridlock-current-student', JSON.stringify(currentStudent));
+        }
+
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-1'), JSON.stringify(data.level1));
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-2'), JSON.stringify(data.level2));
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-3'), JSON.stringify(data.level3));
+
+        alert(`Progress loaded successfully.\n\nWelcome back, ${data.username}.`);
+        location.reload();
+
+      } catch (error) {
+        alert('Error loading progress file. The file may be corrupted.\n\n' + error.message);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  // ===========================================================
+  // PROGRESS TRACKING AND LEVEL LOCKING
+  // ===========================================================
+  function readProgress() {
+    return {
+      level1: JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-1')) || '{"completed": 0, "unlocked": true}'),
+      level2: JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0, "unlocked": false}'),
+      level3: JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0, "unlocked": false}')
+    };
+  }
+
+  function renderProgress() {
+    const progress = readProgress();
+
+    // Overall progress (9 lessons total)
+    const totalCompleted = progress.level1.completed + progress.level2.completed + progress.level3.completed;
+    const percentage = Math.round((totalCompleted / 9) * 100);
+    document.getElementById('overall-progress-fill').style.width = percentage + '%';
+    document.getElementById('progress-percentage').textContent = percentage;
+    document.getElementById('lessons-completed').textContent = totalCompleted;
+
+    // Level 1 is always open. Level 2 opens once Level 1 is fully complete,
+    // and Level 3 opens once Level 2 is fully complete.
+    setLevel1Status(progress.level1.completed >= 3);
+    setLevelLockState(2, progress.level1.completed >= 3, progress.level2.completed >= 3);
+    setLevelLockState(3, progress.level2.completed >= 3, progress.level3.completed >= 3);
+  }
+
+  function setLevel1Status(completed) {
+    const statusEl = document.getElementById('level-1-status');
+    if (!statusEl) return;
+
+    if (completed) {
+      statusEl.textContent = 'Level Completed';
+      statusEl.classList.remove('status-available');
+      statusEl.classList.add('status-completed');
+    } else {
+      statusEl.textContent = 'Available Now';
+      statusEl.classList.remove('status-completed');
+      statusEl.classList.add('status-available');
+    }
+  }
+
+  function setLevelLockState(levelNum, unlocked, completed) {
+    const cardEl = document.getElementById('level-item-' + levelNum);
+    const statusEl = document.getElementById('level-' + levelNum + '-status');
+    const lockedEl = document.getElementById('level-' + levelNum + '-locked');
+    const unlockedEl = document.getElementById('level-' + levelNum + '-unlocked');
+    if (!cardEl || !statusEl || !lockedEl || !unlockedEl) return;
+
+    if (unlocked) {
+      cardEl.classList.remove('locked');
+      statusEl.classList.remove('status-locked');
+      lockedEl.classList.add('hidden');
+      unlockedEl.classList.remove('hidden');
+
+      if (completed) {
+        statusEl.textContent = 'Level Completed';
+        statusEl.classList.remove('status-available');
+        statusEl.classList.add('status-completed');
+      } else {
+        statusEl.textContent = 'Available Now';
+        statusEl.classList.remove('status-completed');
+        statusEl.classList.add('status-available');
+      }
+    } else {
+      cardEl.classList.add('locked');
+      statusEl.textContent = 'Locked';
+      statusEl.classList.remove('status-available', 'status-completed');
+      statusEl.classList.add('status-locked');
+      lockedEl.classList.remove('hidden');
+      unlockedEl.classList.add('hidden');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', checkStudentLogin);
+</script>
 </body>
 </html>

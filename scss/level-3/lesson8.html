@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8: Performance & Optimization | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #EC4899;
+    --lesson-accent-d: #DB2777;
+    --lesson-accent-soft: rgba(236,72,153,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-scss-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/scss/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">SCSS &bull; Level 3 &bull; Lesson 8 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 8: Performance & Optimization</h1>
+    <p>Make your SCSS grid systems fast, lean, and production-ready.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>Why Optimization Matters</h2>
+    <p>
+      SCSS is powerful, but with great power comes great responsibility. Loops and mixins can generate huge CSS files
+      if you are not careful. A full 12-column responsive grid system can create 10,000+ lines of CSS.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Performance Impact</span>
+      Every KB of CSS delays page load. A 500KB CSS file takes about 3 seconds to download on 3G.
+      Optimization is not optional, it is essential.
+    </div>
+
+    <h2>Strategy 1: Generate Only What You Need</h2>
+    <p>Do not generate utilities you will not use:</p>
+    <pre><code>// Overly broad: generates 12 classes you might not need
+@for $i from 1 through 12 {
+  .grid-cols-#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+// Better: only generate what you use
+$grid-variations: 1, 2, 3, 4, 6, 12;
+
+@each $cols in $grid-variations {
+  .grid-cols-#{$cols} {
+    grid-template-columns: repeat($cols, 1fr);
+  }
+}</code></pre>
+
+    <h2>Strategy 2: Use PurgeCSS</h2>
+    <p>PurgeCSS removes unused CSS from your compiled files:</p>
+    <pre><code>// package.json
+{
+  "scripts": {
+    "build:css": "sass styles.scss styles.css",
+    "purge:css": "purgecss --css styles.css --content index.html --output styles.min.css"
+  }
+}
+
+// purgecss.config.js
+module.exports = {
+  content: [
+    './src/**/*.html',
+    './src/**/*.js'
+  ],
+  css: ['./dist/styles.css'],
+  safelist: [
+    // Classes to never remove
+    'grid',
+    'grid-cols-1',
+    'gap-4'
+  ]
+}</code></pre>
+
+    <h2>Strategy 3: Conditional Compilation</h2>
+    <pre><code>// _config.scss
+$enable-responsive: true !default;
+$enable-gaps: true !default;
+$enable-row-utilities: false !default;
+
+// _grid.scss
+@if $enable-responsive {
+  @each $bp-name, $bp-value in $breakpoints {
+    @media (min-width: $bp-value) {
+      // Generate responsive classes
+    }
+  }
+}
+
+@if $enable-gaps {
+  @each $name, $size in $spacing {
+    .gap-#{$name} {
+      gap: $size;
+    }
+  }
+}
+
+@if $enable-row-utilities {
+  // Only compile if needed
+  @for $i from 1 through 6 {
+    .row-span-#{$i} {
+      grid-row: span $i;
+    }
+  }
+}</code></pre>
+
+    <h2>Strategy 4: Extend Instead of Duplicate</h2>
+    <pre><code>// Duplicates styles
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+// Better: share styles with @extend
+%grid-base {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card-grid {
+  @extend %grid-base;
+}
+
+.product-grid {
+  @extend %grid-base;
+}
+
+// Compiles to:
+// .card-grid, .product-grid {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   gap: 20px;
+// }</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">@extend Warning</span>
+      Use @extend sparingly. It can create unexpected selector combinations.
+      For utility classes, duplication might be better than complex extends.
+    </div>
+
+    <h2>Strategy 5: Minification</h2>
+    <pre><code>// Install sass with compression
+npm install sass --save-dev
+
+// package.json
+{
+  "scripts": {
+    "build": "sass --style=compressed styles.scss styles.min.css"
+  }
+}
+
+// Or use PostCSS
+{
+  "scripts": {
+    "build": "sass styles.scss | postcss -u cssnano > styles.min.css"
+  }
+}</code></pre>
+
+    <h2>Strategy 6: Smart Breakpoint Generation</h2>
+    <pre><code>// Overly broad: every utility at every breakpoint
+@each $bp in (sm, md, lg, xl) {
+  @for $i from 1 through 12 {
+    .#{$bp}\:col-#{$i} { /* ... */ }
+    .#{$bp}\:grid-cols-#{$i} { /* ... */ }
+    .#{$bp}\:gap-#{$i} { /* ... */ }
+  }
+}
+// Result: 144+ classes per breakpoint = 576+ classes!
+
+// Better: only common breakpoint utilities
+$responsive-columns: 1, 2, 3, 4;
+$responsive-gaps: 2, 4, 6, 8;
+
+@each $bp-name, $bp-value in $breakpoints {
+  @media (min-width: $bp-value) {
+    @each $col in $responsive-columns {
+      .#{$bp-name}\:grid-cols-#{$col} {
+        grid-template-columns: repeat($col, 1fr);
+      }
+    }
+    
+    @each $gap in $responsive-gaps {
+      .#{$bp-name}\:gap-#{$gap} {
+        gap: #{$gap * 4}px;
+      }
+    }
+  }
+}
+// Result: 32 classes total</code></pre>
+
+    <h2>Strategy 7: Use CSS Custom Properties</h2>
+    <pre><code>// Instead of generating classes for every value
+// Use CSS variables for dynamic values
+
+:root {
+  --grid-gap: 20px;
+  --grid-columns: 3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gap);
+}
+
+// Change via inline styles or JavaScript
+// &lt;div class="grid" style="--grid-columns: 4"&gt;
+
+// No need for .grid-cols-1, .grid-cols-2, etc.</code></pre>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Best Practice</span>
+      Use SCSS variables for compile-time values (breakpoints, spacing scale).
+      Use CSS custom properties for runtime values (theme colors, dynamic spacing).
+    </div>
+
+    <h2>Strategy 8: Code Splitting</h2>
+    <pre><code>// Split your grid system into modules
+// Import only what each page needs
+
+// critical.scss - Inline in &lt;head&gt;
+@import 'config';
+@import 'grid-base';        // .grid, basic utilities
+@import 'grid-responsive';  // Mobile-first responsive
+
+// non-critical.scss - Load async
+@import 'grid-advanced';    // Complex patterns
+@import 'grid-animations';  // Transitions
+@import 'grid-print';       // Print styles</code></pre>
+
+    <h2>Optimization Checklist</h2>
+    <ul>
+      <li>Generate only used column counts (not all 1-12)</li>
+      <li>Limit spacing scale (not every pixel value)</li>
+      <li>Use responsive utilities only where needed</li>
+      <li>Enable compression in production builds</li>
+      <li>Use PurgeCSS or similar tool</li>
+      <li>Split critical vs non-critical CSS</li>
+      <li>Consider CSS custom properties for dynamic values</li>
+      <li>Monitor compiled CSS file size</li>
+    </ul>
+
+    <h2>Measuring Performance</h2>
+    <pre><code>// Check compiled size
+sass styles.scss styles.css
+ls -lh styles.css
+
+// Before compression: 245KB
+// After compression: 45KB
+// After PurgeCSS: 12KB
+
+// Analyze what's taking space
+npm install -g css-analyzer
+css-analyzer styles.css</code></pre>
+
+    <h2>Real-World Example</h2>
+    <pre><code>// Optimized grid system configuration
+// _config.scss
+
+// Only enable what you need
+$enable-responsive-grids: true;
+$enable-responsive-gaps: true;
+$enable-row-utilities: false;    // Disabled - not used
+$enable-grid-areas: false;        // Disabled - not used
+$enable-auto-fit: true;
+
+// Limited column variations
+$grid-columns: (1, 2, 3, 4, 6, 12);  // Not 1-12
+
+// Limited spacing
+$spacing-values: (0, 4, 8, 16, 24, 32, 48);  // Common values only
+
+// Limit responsive utilities
+$responsive-breakpoints: (md, lg);  // Skip sm, xl if not needed
+
+// Result: 80% smaller CSS file</code></pre>
+
+    <h2>Production Build Script</h2>
+    <pre><code>// package.json
+{
+  "scripts": {
+    "dev": "sass --watch styles.scss:styles.css",
+    "build": "sass --style=compressed styles.scss:dist/styles.css && purgecss --css dist/styles.css --content src/**/*.html --output dist/",
+    "analyze": "ls -lh dist/styles.css && css-analyzer dist/styles.css"
+  }
+}</code></pre>
+
+  </article>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What is the biggest performance issue with SCSS grid systems?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> SCSS is slow to compile</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Loops and utilities can generate huge CSS files with thousands of unused classes</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Grid layouts are inherently slow</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the best solution for removing unused CSS?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Delete it manually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use PurgeCSS to automatically remove unused classes based on your HTML</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Just compress the file</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. When should you use CSS custom properties vs SCSS variables?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Always use SCSS variables</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> SCSS variables for compile-time values, CSS custom properties for runtime and dynamic values</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> They are the same thing</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/scss/level-3/lesson7.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Final Lesson &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">One more lesson to go.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0, "unlocked": true}');
+      if (level3.completed < 2) {
+        level3.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-scss-level-3'), JSON.stringify(level3));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-3/lesson9.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-3/lesson9.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

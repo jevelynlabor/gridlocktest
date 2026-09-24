@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8: Template Areas | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #3236C1;
+    --lesson-accent-d: #262995;
+    --lesson-accent-soft: rgba(50,54,193,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/css/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/css.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Level 3 &bull; Lesson 8 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 8: Template Areas</h1>
+    <p>Create readable, maintainable layouts with named grid areas.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What Are Template Areas?</h2>
+    <p>
+      Grid template areas let you name sections of your grid and arrange them visually in your CSS.
+      It is like drawing your layout with text: readable and easy to modify.
+    </p>
+
+    <h2>The Visual Approach</h2>
+    <p>Instead of this, which is hard to visualize:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: 60px 1fr 40px;
+}
+
+.header { grid-column: 1 / -1; }
+.nav { grid-row: 2; }
+.main { grid-column: 2; grid-row: 2; }
+.aside { grid-column: 3; grid-row: 2; }
+.footer { grid-column: 1 / -1; }</code></pre>
+
+    <p>You can write this, which is visually clear:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-areas:
+    "header  header  header"
+    "nav     main    aside"
+    "footer  footer  footer";
+}
+
+.header { grid-area: header; }
+.nav    { grid-area: nav; }
+.main   { grid-area: main; }
+.aside  { grid-area: aside; }
+.footer { grid-area: footer; }</code></pre>
+
+    <p>
+      The layout is immediately visible. You can see the header spanning all columns,
+      the three-column middle section, and the full-width footer.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Concept</span>
+      <code>grid-template-areas</code> defines the layout on the container.
+      <code>grid-area</code> assigns items to named areas. It is a two-step process.
+    </div>
+
+    <h2>How Template Areas Work</h2>
+
+    <h3>Step 1: Define the Layout</h3>
+    <pre><code>grid-template-areas:
+  "header header header"
+  "sidebar main main"
+  "footer footer footer";</code></pre>
+    <p>Each string represents a row. Each word represents a cell in that row.</p>
+
+    <h3>Step 2: Assign Items to Areas</h3>
+    <pre><code>.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }</code></pre>
+
+    <h2>Template Area Rules</h2>
+
+    <h3>Rule 1: Areas Must Be Rectangular</h3>
+    <pre><code>/* Valid: rectangular area */
+grid-template-areas:
+  "header header"
+  "main   main";
+
+/* Invalid: L-shaped area */
+grid-template-areas:
+  "header header"
+  "main   footer"
+  "main   footer";</code></pre>
+
+    <h3>Rule 2: Use Dots for Empty Cells</h3>
+    <pre><code>grid-template-areas:
+  "header header header"
+  "nav    main   ."
+  "footer footer footer";</code></pre>
+    <p>The dot creates an empty cell where no content is placed.</p>
+
+    <h3>Rule 3: Names Must Be Valid Identifiers</h3>
+    <pre><code>/* Valid names */
+"header main sidebar"
+
+/* Invalid: cannot start with a number */
+"1column 2column 3column"
+
+/* This works instead */
+"col1 col2 col3"</code></pre>
+
+    <h2>Common Layouts with Template Areas</h2>
+
+    <h3>Classic Blog Layout</h3>
+    <pre><code>.blog {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 80px 1fr 60px;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  gap: 20px;
+  min-height: 100vh;
+}</code></pre>
+
+    <h3>App Dashboard</h3>
+    <pre><code>.dashboard {
+  display: grid;
+  grid-template-columns: 60px 200px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
+    "icon   nav     header"
+    "icon   nav     main";
+  height: 100vh;
+}
+
+.icon-menu { grid-area: icon; }
+.sidebar   { grid-area: nav; }
+.top-bar   { grid-area: header; }
+.content   { grid-area: main; }</code></pre>
+
+    <h3>Magazine Layout</h3>
+    <pre><code>.magazine {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 200px);
+  grid-template-areas:
+    "featured featured featured featured aside aside"
+    "featured featured featured featured aside aside"
+    "story1   story1   story2   story2   story3 story3"
+    "footer   footer   footer   footer   footer footer";
+  gap: 16px;
+}</code></pre>
+
+    <h2>Responsive Template Areas</h2>
+    <p>Template areas make responsive design incredibly clear:</p>
+    <pre><code>/* Desktop */
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-areas:
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+      "header header"
+      "nav    main"
+      "footer footer";
+  }
+  .aside { display: none; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "footer";
+  }
+}</code></pre>
+    <p>The layout changes are immediately obvious just by reading the template areas.</p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Best Practice</span>
+      Use template areas for complex layouts where visualization helps. For simple grids,
+      standard columns and rows syntax is often clearer.
+    </div>
+
+    <h2>Combining with Other Grid Properties</h2>
+    <p>Template areas work well with other Grid features:</p>
+    <pre><code>.layout {
+  display: grid;
+  grid-template-columns: 200px minmax(300px, 1fr) 200px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
+  gap: clamp(16px, 2vw, 32px);
+}</code></pre>
+
+    <h2>Real-World Example: Complete Page Layout</h2>
+    <pre><code>/* HTML */
+&lt;div class="page-layout"&gt;
+  &lt;header class="header"&gt;Site Header&lt;/header&gt;
+  &lt;nav class="nav"&gt;Navigation&lt;/nav&gt;
+  &lt;main class="main"&gt;Main Content&lt;/main&gt;
+  &lt;aside class="sidebar"&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="footer"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;
+
+/* CSS */
+.page-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 250px;
+  grid-template-rows: 80px 1fr 60px;
+  grid-template-areas:
+    "header  header  header"
+    "nav     main    sidebar"
+    "footer  footer  footer";
+  gap: 24px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header  { grid-area: header; background: #3b82f6; }
+.nav     { grid-area: nav; background: #8b5cf6; }
+.main    { grid-area: main; background: white; }
+.sidebar { grid-area: sidebar; background: #ec4899; }
+.footer  { grid-area: footer; background: #6366f1; }</code></pre>
+
+    <h2>Debugging Template Areas</h2>
+    <p>If your layout does not look right, check these common issues:</p>
+    <ul>
+      <li>Did you spell area names consistently?</li>
+      <li>Are all areas rectangular (no L or T shapes)?</li>
+      <li>Does each row have the same number of cells?</li>
+      <li>Did you assign items to areas with <code>grid-area</code>?</li>
+    </ul>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Common Mistake</span>
+      Forgetting to assign an item to an area with <code>grid-area</code>. The template areas
+      define the layout, but items will not go there unless you assign them.
+    </div>
+
+    <h2>When to Use Template Areas</h2>
+    <p><strong>Good for:</strong></p>
+    <ul>
+      <li>Page layouts (header, nav, main, footer)</li>
+      <li>Dashboards with named sections</li>
+      <li>Complex magazine-style layouts</li>
+      <li>Any layout where visualization helps understanding</li>
+    </ul>
+
+    <p><strong>Skip it for:</strong></p>
+    <ul>
+      <li>Simple card grids (use auto-fit instead)</li>
+      <li>Layouts with many small cells</li>
+      <li>Dynamic layouts where area names change</li>
+    </ul>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>
+      Template areas are not in the generator yet, but try creating a page layout on paper.
+      Draw it out with named sections; it helps visualize the template areas syntax.
+    </p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. How do you assign an element to a named grid area?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> grid-template-areas</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> grid-area: name;</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> area: name;</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. How do you create an empty cell in template areas?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Leave a space</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use a dot (.)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Use "empty"</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. Can grid areas be L-shaped or T-shaped?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Yes, any shape works</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> No, areas must be rectangular</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only in CSS Grid Level 2</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/css/level-3/lesson7.html">&larr; Previous: Lesson 7</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 9 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">One more lesson to go.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0, "unlocked": true}');
+      if (level3.completed < 2) {
+        level3.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-level-3'), JSON.stringify(level3));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-3/lesson9.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-3/lesson9.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

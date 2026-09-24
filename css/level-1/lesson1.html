@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: What is CSS Grid? | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #3236C1;
+    --lesson-accent-d: #262995;
+    --lesson-accent-soft: rgba(50,54,193,0.08);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Logged-in student badge -->
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/css.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Level 1 &bull; Lesson 1 of 3</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 1: What is CSS Grid?</h1>
+    <p>Learn the fundamentals of CSS Grid and why it changes the way you build layouts.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is CSS Grid?</h2>
+    <p>
+      CSS Grid is a layout system that lets you build two-dimensional layouts with rows and columns.
+      Think of it like a spreadsheet for your webpage: you define a grid structure, then place content into the cells.
+    </p>
+    <p>
+      Before CSS Grid, developers used floats, positioning, and Flexbox to create layouts. These methods work,
+      but they were never designed specifically for page layouts. CSS Grid was built from the ground up to solve
+      layout problems, making it more intuitive and powerful.
+    </p>
+
+    <h2>Why Use CSS Grid?</h2>
+
+    <h3>1. Two-Dimensional Layouts</h3>
+    <p>
+      Unlike Flexbox, which is one-dimensional, CSS Grid lets you control both rows and columns at the same time.
+      This makes complex layouts much easier to build and maintain.
+    </p>
+
+    <h3>2. Less Code</h3>
+    <p>
+      What used to take dozens of lines of CSS with floats or positioning can now be done in just a few lines with Grid.
+      Your code becomes cleaner and easier to understand.
+    </p>
+
+    <h3>3. Responsive by Design</h3>
+    <p>
+      CSS Grid has built-in features for responsive design. You can create layouts that automatically adapt to different
+      screen sizes without writing complex media queries.
+    </p>
+
+    <h2>The Basic Concept</h2>
+    <p>Every CSS Grid layout has two key parts:</p>
+    <ul>
+      <li><strong>Grid Container:</strong> The parent element that holds the grid (set with <code>display: grid</code>)</li>
+      <li><strong>Grid Items:</strong> The children elements that go inside the grid cells</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Concept</span>
+      When you set <code>display: grid</code> on a container, all its direct children automatically become grid items.
+      You do not need to do anything special to the children.
+    </div>
+
+    <h2>Your First Grid</h2>
+    <p>Here is the simplest possible grid:</p>
+
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}</code></pre>
+
+    <p>This creates:</p>
+    <ul>
+      <li>A grid container (<code>display: grid</code>)</li>
+      <li>Three equal columns (<code>1fr 1fr 1fr</code>)</li>
+      <li>20px spacing between items (<code>gap: 20px</code>)</li>
+    </ul>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Try It Yourself</span>
+      The best way to understand Grid is to experiment. Use the Gridlock Holmes generator to create
+      your first grid and see how it works.
+    </div>
+
+    <h2>Common Use Cases</h2>
+    <p>CSS Grid is well suited for:</p>
+    <ul>
+      <li><strong>Page Layouts:</strong> Header, sidebar, content, footer arrangements</li>
+      <li><strong>Card Grids:</strong> Product listings, image galleries, blog post grids</li>
+      <li><strong>Dashboards:</strong> Multi-panel admin interfaces</li>
+      <li><strong>Forms:</strong> Aligned labels and inputs</li>
+      <li><strong>Complex Designs:</strong> Magazine-style layouts with overlapping elements</li>
+    </ul>
+
+    <h2>Grid vs. Other Methods</h2>
+    <p><strong>When to use Grid:</strong> When you need to control both rows and columns, or when you are building a page layout.</p>
+    <p><strong>When to use Flexbox:</strong> When you are arranging items in a single direction, like a navigation bar or a row of buttons.</p>
+    <p><strong>The truth:</strong> You will often use both. Grid for the overall page structure, Flexbox for components within the grid.</p>
+
+    <h2>Browser Support</h2>
+    <p>
+      CSS Grid is supported in all modern browsers, including Chrome, Firefox, Safari, and Edge, and works in over 96%
+      of browsers worldwide. For older browsers such as IE11, you will need fallback layouts, but for most projects,
+      Grid is safe to use today.
+    </p>
+
+    <h2>Next Steps</h2>
+    <p>
+      Now that you understand what CSS Grid is and why it is useful, you are ready to learn how to actually use it.
+      In the next lesson, we will cover rows, columns, and how to create your first practical grid layout.
+    </p>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>
+      Before moving on, try creating a simple 3-column grid using the Gridlock Holmes generator.
+      Experiment with different column sizes and gap values to see how they affect the layout.
+    </p>
+    <a href="/index.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What property turns a div into a grid container?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> grid: true</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> display: grid</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> grid-layout: on</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What makes CSS Grid different from Flexbox?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Grid is older than Flexbox</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Grid controls rows and columns (2D), Flexbox is 1D</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Grid does not work in modern browsers</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What are the two key parts of every CSS Grid layout?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Rows and columns</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Grid container and grid items</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> HTML and CSS</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link disabled" href="#">&larr; Previous</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 2 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">You are ready for the next lesson. Great job.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 1) {
+        level1.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-1/lesson2.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/css/level-1/lesson2.html';
+    }
+  });
+</script>
+
+<script>
+  // Show the logged-in student badge, if any
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

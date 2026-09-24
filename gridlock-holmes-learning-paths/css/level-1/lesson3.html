@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3: Understanding FR Units & Repeat | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #3236C1;
+    --lesson-accent-d: #262995;
+    --lesson-accent-soft: rgba(50,54,193,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/css/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/css.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Level 1 &bull; Lesson 3 of 3</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 3: Understanding FR Units & Repeat</h1>
+    <p>Master Grid's most powerful features: flexible fractions and the repeat() function.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What Are FR Units?</h2>
+    <p>
+      The <code>fr</code> unit stands for fraction and is Grid's secret weapon for creating flexible layouts.
+      It represents a fraction of the available space in the grid container.
+    </p>
+    <p>
+      Think of <code>fr</code> units like slicing a pie. If you have <code>1fr 1fr 1fr</code>, you are dividing
+      the space into three equal slices. Each column gets one slice.
+    </p>
+
+    <h2>How FR Units Work</h2>
+
+    <h3>Example 1: Equal Columns</h3>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}</code></pre>
+    <p>
+      This creates three columns that each take up one fraction of space. Since all fractions are equal (1:1:1),
+      you get three equal columns.
+    </p>
+
+    <h3>Example 2: Unequal Columns</h3>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}</code></pre>
+    <p>
+      Now we have a ratio of 1:2:1. The middle column gets 2 fractions while the side columns get 1 each.
+      If the container is 800px wide, the columns would be 200px, 400px, and 200px.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">The Math</span>
+      Total fractions: 1 + 2 + 1 = 4<br>
+      Column 1: (1/4) &times; 800px = 200px<br>
+      Column 2: (2/4) &times; 800px = 400px<br>
+      Column 3: (1/4) &times; 800px = 200px
+    </div>
+
+    <h2>Mixing FR with Other Units</h2>
+    <p>
+      One of the most powerful features of <code>fr</code> units is that you can mix them with fixed units
+      such as pixels or percentages.
+    </p>
+
+    <h3>Fixed Sidebar + Flexible Content</h3>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 20px;
+}</code></pre>
+    <p>
+      This creates a fixed 250px sidebar and a flexible content area. The content area takes up whatever
+      space is left after the sidebar and gap are accounted for.
+    </p>
+
+    <h3>Holy Grail Layout</h3>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 20px;
+}</code></pre>
+    <p>
+      Two fixed sidebars, 200px each, with a flexible content area in the middle. This is a classic
+      three-column layout that works on any screen size.
+    </p>
+
+    <h2>The Repeat() Function</h2>
+    <p>Writing <code>1fr 1fr 1fr 1fr 1fr</code> gets tedious. The <code>repeat()</code> function is a shorthand for repeating patterns.</p>
+
+    <h3>Basic Repeat</h3>
+    <pre><code>/* Instead of this: */
+grid-template-columns: 1fr 1fr 1fr 1fr;
+
+/* Write this: */
+grid-template-columns: repeat(4, 1fr);</code></pre>
+    <p><code>repeat(4, 1fr)</code> means "repeat <code>1fr</code> four times." Much cleaner.</p>
+
+    <h3>Repeat with Patterns</h3>
+    <p>You can repeat more complex patterns too:</p>
+    <pre><code>/* Creates: 1fr 2fr 1fr 2fr 1fr 2fr */
+grid-template-columns: repeat(3, 1fr 2fr);</code></pre>
+
+    <h3>Mixing Repeat with Other Values</h3>
+    <pre><code>/* Creates: 200px 1fr 1fr 1fr 300px */
+grid-template-columns: 200px repeat(3, 1fr) 300px;</code></pre>
+    <p>This creates a fixed left sidebar (200px), three equal flexible columns, and a fixed right sidebar (300px).</p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      Use <code>repeat()</code> whenever you have more than two or three identical columns. It makes your code
+      much easier to read and maintain.
+    </div>
+
+    <h2>Practical Examples</h2>
+
+    <h3>Card Grid (4 Columns)</h3>
+    <pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}</code></pre>
+    <p>Perfect for product listings, image galleries, or blog post grids.</p>
+
+    <h3>Dashboard Layout</h3>
+    <pre><code>.dashboard {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr);
+  grid-template-rows: 60px 1fr;
+  gap: 16px;
+}</code></pre>
+    <p>Sidebar navigation (200px), header (60px), and three flexible content columns. Good for admin panels or dashboards.</p>
+
+    <h3>Blog Layout with Sidebar</h3>
+    <pre><code>.blog-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}</code></pre>
+    <p>
+      Main content area gets 2 fractions, two thirds of the width, and the sidebar gets 1 fraction, one third of the width.
+      This maintains a 2:1 ratio on any screen size.
+    </p>
+
+    <h2>FR Units vs Percentages</h2>
+    <p>You might wonder why not just use percentages. Here is why <code>fr</code> units are better:</p>
+
+    <h3>With Percentages (Problems)</h3>
+    <pre><code>/* With gap, this breaks. */
+grid-template-columns: 33.33% 33.33% 33.33%;
+gap: 20px;</code></pre>
+    <p>The columns add up to 100%, but the gap takes up additional space. Your columns will wrap or overflow.</p>
+
+    <h3>With FR Units (Works Correctly)</h3>
+    <pre><code>/* Gap is automatically accounted for */
+grid-template-columns: 1fr 1fr 1fr;
+gap: 20px;</code></pre>
+    <p>Grid automatically subtracts the gap space before calculating column widths, so everything just works.</p>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Common Mistake</span>
+      Do not mix <code>fr</code> units with <code>auto</code> unless you understand how they interact.
+      Auto sizes based on content, while <code>fr</code> divides remaining space. This can lead to
+      unexpected results.
+    </div>
+
+    <h2>Advanced Pattern: Responsive Grid</h2>
+    <p>Here is a powerful pattern that creates a responsive grid without media queries:</p>
+    <pre><code>.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}</code></pre>
+    <p>
+      This creates as many columns as will fit, with each column at least 250px wide but able to grow
+      to fill available space. This is covered in detail in the Responsive Grids lesson.
+    </p>
+
+    <h2>Quick Reference</h2>
+    <ul>
+      <li><code>1fr</code> - One fraction of available space</li>
+      <li><code>2fr</code> - Two fractions (twice as large as <code>1fr</code>)</li>
+      <li><code>repeat(4, 1fr)</code> - Four equal columns</li>
+      <li><code>repeat(3, 100px)</code> - Three 100px columns</li>
+      <li><code>200px 1fr</code> - Fixed + flexible column</li>
+      <li><code>1fr 2fr 1fr</code> - Ratio of 1:2:1</li>
+    </ul>
+
+    <h2>What You've Learned</h2>
+    <p>
+      You now understand Grid's most powerful features. With <code>fr</code> units and <code>repeat()</code>,
+      you can create flexible, maintainable layouts that work on any screen size. In the next level, we will
+      use these tools to build real-world layouts.
+    </p>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>
+      Try these challenges in the generator: create a grid with <code>1fr 2fr 1fr</code> and see how the middle
+      column is wider, use <code>repeat(5, 1fr)</code> to create 5 equal columns, then try <code>200px 1fr 300px</code>
+      and notice how the center is flexible.
+    </p>
+    <a href="/index.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before completing Level 1. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. In <code>grid-template-columns: 1fr 3fr 1fr</code>, what is the ratio of column widths?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> All columns are equal</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> 1:3:1 (middle is 3x wider)</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> 1:2:1</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What does <code>repeat(4, 1fr)</code> create?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> One column repeated 4 times</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Four equal columns (same as 1fr 1fr 1fr 1fr)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Four 1px columns</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. Why are FR units better than percentages for Grid?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> They are not, percentages work better</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> FR units automatically account for gaps</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> FR units make columns bigger</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div id="level-complete" class="lesson-complete-banner hidden">
+    <h2>Level 1 Complete</h2>
+    <p>
+      Congratulations. You have mastered the basics of CSS Grid. You now know how to create grids,
+      define columns and rows, add spacing, and use flexible FR units.
+    </p>
+    <p><strong>Level 2 is now unlocked.</strong></p>
+    <a href="/learn/css.html">Continue to Level 2</a>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/css/level-1/lesson2.html">&larr; Previous: Lesson 2</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Complete Level 1 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! Level 1 complete.</p>
+          <p class="result-sub">You have mastered the basics of CSS Grid.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0, "unlocked": true}');
+      level1.completed = 3;
+      localStorage.setItem(getStorageKey('gridlock-level-1'), JSON.stringify(level1));
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-2')) || '{"completed": 0, "unlocked": false}');
+      level2.unlocked = true;
+      localStorage.setItem(getStorageKey('gridlock-level-2'), JSON.stringify(level2));
+
+      document.getElementById('level-complete').classList.remove('hidden');
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Path \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/css.html';
+
+      updateProgressBar();
+
+      document.getElementById('level-complete').scrollIntoView({ behavior: 'smooth' });
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 3) {
+      document.getElementById('level-complete').classList.remove('hidden');
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Path \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/css.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

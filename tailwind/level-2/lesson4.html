@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4: Spanning Columns | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-tailwind-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 2 &bull; Lesson 4 of 6</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 2 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 4: Spanning Columns</h1>
+    <p>Create complex layouts by making items span multiple columns.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is Column Spanning?</h2>
+    <p>
+      Sometimes you want a grid item to take up more than one column. For example, in a 3-column layout, you might want
+      a header to span all 3 columns, or a featured item to span 2 columns while others span 1.
+    </p>
+    <p>Tailwind makes this easy with <code>col-span</code> utilities. These tell an item how many columns to occupy.</p>
+
+    <h2>The col-span Classes</h2>
+    <p>Tailwind provides <code>col-span-*</code> classes from 1 to 12:</p>
+    <ul>
+      <li><code>col-span-1</code> - Span 1 column (default)</li>
+      <li><code>col-span-2</code> - Span 2 columns</li>
+      <li><code>col-span-3</code> - Span 3 columns</li>
+      <li><code>col-span-4</code> - Span 4 columns</li>
+      <li>and so on, up to <code>col-span-12</code></li>
+      <li><code>col-span-full</code> - Span all columns (very useful)</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">How It Works</span>
+      <code>col-span-2</code> means this item occupies 2 column tracks in the grid.
+      If your grid has 4 columns total, a <code>col-span-2</code> item takes up half the width.
+    </div>
+
+    <h2>Basic Example</h2>
+    <p>Here is a simple 3-column grid where the first item spans 2 columns:</p>
+    <pre><code>&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div class="col-span-2 bg-blue-500 text-white p-4"&gt;
+    Spans 2 columns
+  &lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;
+    Spans 1 column
+  &lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Item 3&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Item 4&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Item 5&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      The first item takes up 2 of the 3 columns. The second item takes the remaining column.
+      Items 3, 4, and 5 each take 1 column.
+    </p>
+
+    <h2>The col-span-full Class</h2>
+    <p>Want an item to span the entire width regardless of how many columns? Use <code>col-span-full</code>:</p>
+    <pre><code>&lt;div class="grid grid-cols-4 gap-4"&gt;
+  &lt;div class="col-span-full bg-blue-600 text-white p-4 text-center"&gt;
+    Header - Spans All 4 Columns
+  &lt;/div&gt;
+  &lt;div class="bg-gray-300 p-4"&gt;Column 1&lt;/div&gt;
+  &lt;div class="bg-gray-300 p-4"&gt;Column 2&lt;/div&gt;
+  &lt;div class="bg-gray-300 p-4"&gt;Column 3&lt;/div&gt;
+  &lt;div class="bg-gray-300 p-4"&gt;Column 4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      <code>col-span-full</code> is especially useful because it works regardless of your column count.
+      If you change from 4 columns to 6 columns, the header still spans the full width.
+    </p>
+
+    <h2>Real-World Pattern: Featured Card</h2>
+    <p>A common design pattern is having one large featured item and several smaller items:</p>
+    <pre><code>&lt;div class="grid grid-cols-4 gap-6"&gt;
+  &lt;!-- Featured card spans 2 columns --&gt;
+  &lt;div class="col-span-2 bg-gradient-to-br from-blue-500 to-purple-600 
+              text-white p-8 rounded-lg"&gt;
+    &lt;h2 class="text-2xl font-bold mb-2"&gt;Featured Article&lt;/h2&gt;
+    &lt;p&gt;This is our top story of the day...&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Regular cards span 1 column each --&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold mb-2"&gt;Article 2&lt;/h3&gt;
+    &lt;p class="text-sm"&gt;Short description...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold mb-2"&gt;Article 3&lt;/h3&gt;
+    &lt;p class="text-sm"&gt;Short description...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold mb-2"&gt;Article 4&lt;/h3&gt;
+    &lt;p class="text-sm"&gt;Short description...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+    &lt;h3 class="font-bold mb-2"&gt;Article 5&lt;/h3&gt;
+    &lt;p class="text-sm"&gt;Short description...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>Responsive Column Spanning</h2>
+    <p>You can change how many columns an item spans at different screen sizes:</p>
+    <pre><code>&lt;div class="grid grid-cols-1 md:grid-cols-4 gap-4"&gt;
+  &lt;div class="col-span-1 md:col-span-2 bg-blue-500 text-white p-4"&gt;
+    Mobile: 1 column (full width)
+    Tablet+: 2 columns
+  &lt;/div&gt;
+  &lt;div class="col-span-1 bg-green-500 text-white p-4"&gt;Column 2&lt;/div&gt;
+  &lt;div class="col-span-1 bg-green-500 text-white p-4"&gt;Column 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p><strong>On mobile:</strong> Grid is 1 column, so all items stack vertically.</p>
+    <p><strong>On tablet and up:</strong> Grid is 4 columns. First item spans 2, others span 1 each.</p>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Important</span>
+      Make sure your column spans do not exceed your total columns. If you have <code>grid-cols-3</code>,
+      using <code>col-span-4</code> will not work as expected.
+    </div>
+
+    <h2>Complex Layout: Dashboard Header</h2>
+    <p>Let's build a dashboard header where different sections have different widths:</p>
+    <pre><code>&lt;div class="grid grid-cols-12 gap-4"&gt;
+  &lt;!-- Logo spans 2 columns --&gt;
+  &lt;div class="col-span-2 bg-blue-600 text-white p-4 flex items-center justify-center"&gt;
+    Logo
+  &lt;/div&gt;
+  
+  &lt;!-- Search bar spans 6 columns (half the width) --&gt;
+  &lt;div class="col-span-6 bg-gray-200 p-4 flex items-center"&gt;
+    Search bar...
+  &lt;/div&gt;
+  
+  &lt;!-- User menu spans 4 columns --&gt;
+  &lt;div class="col-span-4 bg-gray-300 p-4 flex items-center justify-end"&gt;
+    User Menu
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>Using a 12-column grid gives you fine control over proportions: 2+6+4 = 12 columns total.</p>
+
+    <h2>Mixing Spans in One Row</h2>
+    <p>You can mix different span sizes freely:</p>
+    <pre><code>&lt;div class="grid grid-cols-6 gap-4"&gt;
+  &lt;div class="col-span-3 bg-blue-400 p-4"&gt;Spans 3 (half)&lt;/div&gt;
+  &lt;div class="col-span-2 bg-green-400 p-4"&gt;Spans 2&lt;/div&gt;
+  &lt;div class="col-span-1 bg-purple-400 p-4"&gt;1&lt;/div&gt;
+  
+  &lt;div class="col-span-4 bg-red-400 p-4"&gt;Spans 4&lt;/div&gt;
+  &lt;div class="col-span-2 bg-yellow-400 p-4"&gt;Spans 2&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>As long as each row adds up to your total columns (6 in this case), the grid flows naturally.</p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      Use a 12-column grid (<code>grid-cols-12</code>) for maximum flexibility. It divides evenly by 2, 3, 4, and 6,
+      making it perfect for creating varied layouts.
+    </div>
+
+    <h2>Common Patterns</h2>
+
+    <h3>Sidebar Layout</h3>
+    <pre><code>&lt;div class="grid grid-cols-4 gap-6"&gt;
+  &lt;aside class="col-span-1 bg-gray-200 p-6"&gt;
+    Sidebar
+  &lt;/aside&gt;
+  &lt;main class="col-span-3 bg-white p-6"&gt;
+    Main content (spans 3 columns = 75% width)
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>Image Gallery with Featured Image</h3>
+    <pre><code>&lt;div class="grid grid-cols-3 gap-2"&gt;
+  &lt;img class="col-span-2 row-span-2 w-full h-full object-cover" src="featured.jpg"&gt;
+  &lt;img class="w-full h-48 object-cover" src="photo1.jpg"&gt;
+  &lt;img class="w-full h-48 object-cover" src="photo2.jpg"&gt;
+  &lt;img class="w-full object-cover" src="photo3.jpg"&gt;
+  &lt;img class="w-full object-cover" src="photo4.jpg"&gt;
+&lt;/div&gt;</code></pre>
+    <p>(Note: this introduces <code>row-span-2</code>, which the next lesson covers.)</p>
+
+    <h2>Practice Exercise</h2>
+    <p>Try building a blog layout with:</p>
+    <ul>
+      <li>A full-width header (<code>col-span-full</code>)</li>
+      <li>One featured post spanning 2 columns</li>
+      <li>Two smaller posts spanning 1 column each</li>
+    </ul>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Open the generator and create a 4-column grid. Make one item <code>col-span-2</code> and watch it take up double the width.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What does <code>col-span-3</code> do?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates 3 columns in the grid</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes an item span 3 columns in width</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Adds 3 pixels of spacing</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. Which class makes an item span all columns?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>col-span-all</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>col-span-full</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>col-span-100</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. In a grid with <code>grid-cols-4</code>, how many columns does <code>col-span-2</code> occupy?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> All 4 columns</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> 2 columns (half the width)</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> 2 pixels</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 5 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0}');
+    const progress = Math.round((level2.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0, "unlocked": true}');
+      if (level2.completed < 1) {
+        level2.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-2'), JSON.stringify(level2));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-2/lesson5.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0}');
+    if (level2.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-2/lesson5.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

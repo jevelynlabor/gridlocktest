@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 6: Common Grid Patterns | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-tailwind-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 2 &bull; Lesson 6 of 6</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 2 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 6: Common Grid Patterns</h1>
+    <p>Master real-world layouts used in modern websites and applications.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>Real-World Grid Patterns</h2>
+    <p>
+      Now that you know the fundamentals, let's build actual layouts you will use in projects. These patterns appear
+      everywhere, from dashboards to e-commerce sites to blogs.
+    </p>
+
+    <h2>Pattern 1: Card Grid</h2>
+    <p>The most common pattern: a responsive grid of cards that adapts from 1 column on mobile to 4 on desktop:</p>
+    <pre><code>&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"&gt;
+  &lt;div class="bg-white rounded-lg shadow-lg p-6"&gt;
+    &lt;img src="product1.jpg" class="w-full h-48 object-cover rounded mb-4"&gt;
+    &lt;h3 class="text-xl font-bold mb-2"&gt;Product Name&lt;/h3&gt;
+    &lt;p class="text-gray-600 mb-4"&gt;Product description here...&lt;/p&gt;
+    &lt;button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"&gt;
+      Add to Cart
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- Repeat for more cards --&gt;
+&lt;/div&gt;</code></pre>
+
+    <p><strong>Responsive behavior:</strong></p>
+    <ul>
+      <li>Mobile (0-639px): 1 column (stacked)</li>
+      <li>Small (640px+): 2 columns</li>
+      <li>Large (1024px+): 3 columns</li>
+      <li>Extra Large (1280px+): 4 columns</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Why This Works</span>
+      Starting with 1 column ensures mobile users get full-width cards, then progressively adding columns
+      as screen size increases creates the optimal reading experience on every device.
+    </div>
+
+    <h2>Pattern 2: Dashboard Layout</h2>
+    <p>A classic dashboard with sidebar, header, and main content area:</p>
+    <pre><code>&lt;div class="grid grid-rows-[auto_1fr] grid-cols-[250px_1fr] gap-0 h-screen"&gt;
+  &lt;!-- Sidebar (spans full height) --&gt;
+  &lt;nav class="row-span-2 bg-gray-900 text-white p-6"&gt;
+    &lt;h2 class="text-xl font-bold mb-6"&gt;My App&lt;/h2&gt;
+    &lt;ul class="space-y-2"&gt;
+      &lt;li class="hover:bg-gray-800 p-2 rounded cursor-pointer"&gt;Dashboard&lt;/li&gt;
+      &lt;li class="hover:bg-gray-800 p-2 rounded cursor-pointer"&gt;Analytics&lt;/li&gt;
+      &lt;li class="hover:bg-gray-800 p-2 rounded cursor-pointer"&gt;Settings&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  
+  &lt;!-- Header --&gt;
+  &lt;header class="bg-white border-b px-6 py-4 flex items-center justify-between"&gt;
+    &lt;h1 class="text-2xl font-bold"&gt;Dashboard&lt;/h1&gt;
+    &lt;div class="flex items-center gap-4"&gt;
+      &lt;button class="text-gray-600"&gt;Notifications&lt;/button&gt;
+      &lt;button class="text-gray-600"&gt;Profile&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+  
+  &lt;!-- Main Content --&gt;
+  &lt;main class="bg-gray-50 p-6 overflow-auto"&gt;
+    &lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;
+      &lt;!-- Stats cards --&gt;
+      &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+        &lt;p class="text-gray-600"&gt;Total Sales&lt;/p&gt;
+        &lt;p class="text-3xl font-bold"&gt;$12,345&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+        &lt;p class="text-gray-600"&gt;New Users&lt;/p&gt;
+        &lt;p class="text-3xl font-bold"&gt;234&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="bg-white p-6 rounded-lg shadow"&gt;
+        &lt;p class="text-gray-600"&gt;Growth&lt;/p&gt;
+        &lt;p class="text-3xl font-bold"&gt;+15%&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      This uses advanced grid sizing: <code>grid-rows-[auto_1fr]</code> makes the header auto-height and main content
+      fills remaining space. The sidebar is fixed at 250px wide.
+    </p>
+
+    <h2>Pattern 3: Blog Layout with Sidebar</h2>
+    <p>A traditional blog layout where content is on the left, sidebar on the right:</p>
+    <pre><code>&lt;div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto p-6"&gt;
+  &lt;!-- Main content (2 columns on desktop) --&gt;
+  &lt;main class="lg:col-span-2"&gt;
+    &lt;article class="bg-white rounded-lg shadow p-8 mb-8"&gt;
+      &lt;h1 class="text-4xl font-bold mb-4"&gt;Article Title&lt;/h1&gt;
+      &lt;p class="text-gray-600 mb-4"&gt;Published on March 17, 2026&lt;/p&gt;
+      &lt;img src="featured.jpg" class="w-full h-64 object-cover rounded mb-6"&gt;
+      &lt;div class="prose prose-lg"&gt;
+        &lt;p&gt;Article content goes here...&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+  
+  &lt;!-- Sidebar (1 column) --&gt;
+  &lt;aside class="space-y-6"&gt;
+    &lt;div class="bg-white rounded-lg shadow p-6"&gt;
+      &lt;h3 class="font-bold mb-4"&gt;About the Author&lt;/h3&gt;
+      &lt;p class="text-gray-600"&gt;Bio goes here...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="bg-white rounded-lg shadow p-6"&gt;
+      &lt;h3 class="font-bold mb-4"&gt;Recent Posts&lt;/h3&gt;
+      &lt;ul class="space-y-2"&gt;
+        &lt;li class="text-blue-600 hover:underline cursor-pointer"&gt;Post 1&lt;/li&gt;
+        &lt;li class="text-blue-600 hover:underline cursor-pointer"&gt;Post 2&lt;/li&gt;
+        &lt;li class="text-blue-600 hover:underline cursor-pointer"&gt;Post 3&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+    <p>On mobile, content and sidebar stack. On large screens, content takes 2 columns (66%), sidebar takes 1 (33%).</p>
+
+    <h2>Pattern 4: Masonry-Style Image Gallery</h2>
+    <p>Different-sized images create visual interest:</p>
+    <pre><code>&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;
+  &lt;!-- Large featured image --&gt;
+  &lt;div class="col-span-2 row-span-2"&gt;
+    &lt;img src="featured.jpg" class="w-full h-full object-cover rounded-lg"&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Regular images --&gt;
+  &lt;img src="photo1.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  &lt;img src="photo2.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  &lt;img src="photo3.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  &lt;img src="photo4.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  
+  &lt;!-- Wide panoramic image --&gt;
+  &lt;div class="col-span-2"&gt;
+    &lt;img src="panorama.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  &lt;/div&gt;
+  
+  &lt;img src="photo5.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+  &lt;img src="photo6.jpg" class="w-full h-48 object-cover rounded-lg"&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>Pattern 5: Pricing Table</h2>
+    <p>Three-column pricing cards with a featured plan:</p>
+    <pre><code>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto p-6"&gt;
+  &lt;!-- Basic Plan --&gt;
+  &lt;div class="bg-white rounded-lg shadow p-8 border-2 border-gray-200"&gt;
+    &lt;h3 class="text-2xl font-bold mb-2"&gt;Basic&lt;/h3&gt;
+    &lt;p class="text-4xl font-bold mb-6"&gt;$9&lt;span class="text-lg"&gt;/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;ul class="space-y-3 mb-8"&gt;
+      &lt;li&gt;10 Projects&lt;/li&gt;
+      &lt;li&gt;5GB Storage&lt;/li&gt;
+      &lt;li&gt;Basic Support&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="w-full bg-gray-200 text-gray-800 py-3 rounded font-bold"&gt;
+      Choose Basic
+    &lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Pro Plan (Featured) --&gt;
+  &lt;div class="bg-blue-600 text-white rounded-lg shadow-xl p-8 border-4 border-blue-500 
+              transform scale-105"&gt;
+    &lt;div class="bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full 
+                inline-block mb-2"&gt;
+      MOST POPULAR
+    &lt;/div&gt;
+    &lt;h3 class="text-2xl font-bold mb-2"&gt;Pro&lt;/h3&gt;
+    &lt;p class="text-4xl font-bold mb-6"&gt;$29&lt;span class="text-lg"&gt;/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;ul class="space-y-3 mb-8"&gt;
+      &lt;li&gt;Unlimited Projects&lt;/li&gt;
+      &lt;li&gt;100GB Storage&lt;/li&gt;
+      &lt;li&gt;Priority Support&lt;/li&gt;
+      &lt;li&gt;Advanced Features&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="w-full bg-white text-blue-600 py-3 rounded font-bold 
+                   hover:bg-gray-100"&gt;
+      Choose Pro
+    &lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Enterprise Plan --&gt;
+  &lt;div class="bg-white rounded-lg shadow p-8 border-2 border-gray-200"&gt;
+    &lt;h3 class="text-2xl font-bold mb-2"&gt;Enterprise&lt;/h3&gt;
+    &lt;p class="text-4xl font-bold mb-6"&gt;$99&lt;span class="text-lg"&gt;/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;ul class="space-y-3 mb-8"&gt;
+      &lt;li&gt;Unlimited Everything&lt;/li&gt;
+      &lt;li&gt;Dedicated Support&lt;/li&gt;
+      &lt;li&gt;Custom Features&lt;/li&gt;
+      &lt;li&gt;SLA Guarantee&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class="w-full bg-gray-200 text-gray-800 py-3 rounded font-bold"&gt;
+      Contact Sales
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Pro Tip</span>
+      The featured plan uses <code>transform scale-105</code> to make it slightly larger, drawing attention.
+      This is a common e-commerce pattern to highlight the recommended option.
+    </div>
+
+    <h2>Pattern 6: Form Layout</h2>
+    <p>Multi-column forms that stack on mobile:</p>
+    <pre><code>&lt;form class="bg-white rounded-lg shadow p-8 max-w-4xl mx-auto"&gt;
+  &lt;h2 class="text-2xl font-bold mb-6"&gt;Contact Form&lt;/h2&gt;
+  
+  &lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"&gt;
+    &lt;div&gt;
+      &lt;label class="block text-gray-700 font-bold mb-2"&gt;First Name&lt;/label&gt;
+      &lt;input type="text" 
+             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none 
+                    focus:border-blue-500"&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;label class="block text-gray-700 font-bold mb-2"&gt;Last Name&lt;/label&gt;
+      &lt;input type="text" 
+             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none 
+                    focus:border-blue-500"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-6"&gt;
+    &lt;label class="block text-gray-700 font-bold mb-2"&gt;Email&lt;/label&gt;
+    &lt;input type="email" 
+           class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none 
+                  focus:border-blue-500"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="mb-6"&gt;
+    &lt;label class="block text-gray-700 font-bold mb-2"&gt;Message&lt;/label&gt;
+    &lt;textarea rows="5" 
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none 
+                     focus:border-blue-500"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  
+  &lt;button class="w-full bg-blue-600 text-white py-3 rounded font-bold 
+                 hover:bg-blue-700"&gt;
+    Send Message
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    <p>First and Last Name are side-by-side on tablets and up, but stack vertically on mobile for easier thumb typing.</p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Level 2 Complete</span>
+      You have mastered practical Tailwind Grid layouts. You can now build cards, dashboards, blogs, galleries,
+      pricing tables, and forms. In Level 3, you will learn advanced techniques like grid flow and auto sizing.
+    </div>
+
+    <h2>Quick Reference: Common Patterns</h2>
+    <ul>
+      <li><strong>Card Grid:</strong> <code>grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4</code></li>
+      <li><strong>Dashboard:</strong> <code>grid-rows-[auto_1fr] grid-cols-[250px_1fr]</code></li>
+      <li><strong>Blog Sidebar:</strong> <code>grid-cols-1 lg:grid-cols-3</code> with <code>lg:col-span-2</code> for main</li>
+      <li><strong>Pricing (3-col):</strong> <code>grid-cols-1 md:grid-cols-3</code></li>
+      <li><strong>Form (2-col):</strong> <code>grid-cols-1 md:grid-cols-2</code></li>
+    </ul>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Pick one of these patterns and build it in the generator. Start with the card grid, it is the most versatile.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before completing Level 2. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. For a responsive card grid that goes from 1 to 4 columns, which classes should you use?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>grid-cols-4</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>col-span-1 col-span-2 col-span-3 col-span-4</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. In a 3-column blog layout, how do you make the main content take 2 columns and sidebar take 1?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Use <code>grid-cols-2</code> on container</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use <code>grid-cols-3</code> on container, <code>col-span-2</code> on main</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Use <code>flex</code> instead of grid</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What is the benefit of using <code>transform scale-105</code> on a featured pricing plan?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> It makes the price bigger</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> It makes the entire card slightly larger to draw attention</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> It changes the color scheme</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div id="level-complete" class="lesson-complete-banner hidden">
+    <h2>Level 2 Complete</h2>
+    <p>You now know real-world Tailwind Grid patterns for cards, dashboards, blogs, and forms.</p>
+    <p><strong>Level 3 is now unlocked.</strong></p>
+    <a href="/learn/tailwind.html">Continue to Level 3</a>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/tailwind/level-2/lesson5.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Continue to Level 3 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0}');
+    const progress = Math.round((level2.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! Level 2 complete.</p>
+          <p class="result-sub">Level 3 is now unlocked.</p>
+        </div>
+      `;
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0, "unlocked": true}');
+      level2.completed = 3;
+      localStorage.setItem(getStorageKey('gridlock-tailwind-level-2'), JSON.stringify(level2));
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0, "unlocked": false}');
+      level3.unlocked = true;
+      localStorage.setItem(getStorageKey('gridlock-tailwind-level-3'), JSON.stringify(level3));
+
+      document.getElementById('level-complete').classList.remove('hidden');
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/learn/tailwind.html';
+
+      updateProgressBar();
+      document.getElementById('level-complete').scrollIntoView({ behavior: 'smooth' });
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-2')) || '{"completed": 0}');
+    if (level2.completed >= 3) {
+      document.getElementById('level-complete').classList.remove('hidden');
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/learn/tailwind.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

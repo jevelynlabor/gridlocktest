@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8: Auto Columns & Rows | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-tailwind-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 3 &bull; Lesson 8 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 8: Auto Columns & Rows</h1>
+    <p>Let the grid automatically size tracks based on content.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What are Auto Columns & Rows?</h2>
+    <p>
+      When you use <code>grid-flow-col</code> or <code>grid-flow-row</code>, the grid creates implicit tracks
+      (columns or rows you did not explicitly define). Auto sizing controls how big these implicit tracks should be.
+    </p>
+    <p>
+      This is incredibly useful for dynamic content where you do not know how many items you will have, or when you
+      want the grid to adapt intelligently to content size.
+    </p>
+
+    <h2>Auto Columns Classes</h2>
+    <p>Control the width of implicitly-created columns:</p>
+    <ul>
+      <li><code>auto-cols-auto</code> - Size based on content (default)</li>
+      <li><code>auto-cols-min</code> - As small as possible (min-content)</li>
+      <li><code>auto-cols-max</code> - As large as content needs (max-content)</li>
+      <li><code>auto-cols-fr</code> - Fill available space (1fr)</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">When Do You Need This?</span>
+      Auto columns are used when you have <code>grid-flow-col</code> and items overflow into new columns.
+      This controls how wide those new columns should be.
+    </div>
+
+    <h2>auto-cols-max Example</h2>
+    <p>Create columns that are as wide as their content needs:</p>
+    <pre><code>&lt;div class="grid grid-flow-col auto-cols-max gap-4"&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;Short&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;Medium Length&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;This is a very long item&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      Each column will be exactly as wide as its content, no wider. Perfect for tag lists or navigation where
+      items have different widths.
+    </p>
+
+    <h2>auto-cols-fr Example</h2>
+    <p>Create equal-width columns that share available space:</p>
+    <pre><code>&lt;div class="grid grid-flow-col auto-cols-fr gap-4"&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;Item 1&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;Item 2&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>All columns will be equal width, splitting the available space evenly. Great for equal-width card layouts.</p>
+
+    <h2>Auto Rows Classes</h2>
+    <p>Control the height of implicitly-created rows:</p>
+    <ul>
+      <li><code>auto-rows-auto</code> - Size based on content (default)</li>
+      <li><code>auto-rows-min</code> - As short as possible (min-content)</li>
+      <li><code>auto-rows-max</code> - As tall as content needs (max-content)</li>
+      <li><code>auto-rows-fr</code> - Fill available height (1fr)</li>
+    </ul>
+
+    <h2>auto-rows-fr Example</h2>
+    <p>Create equal-height rows:</p>
+    <pre><code>&lt;div class="grid grid-rows-2 auto-rows-fr gap-4 h-96"&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Row 1&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Row 2&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Row 3 (auto)&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;Row 4 (auto)&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>The first 2 rows are explicit. Rows 3 and 4 are auto-created and will be equal height thanks to <code>auto-rows-fr</code>.</p>
+
+    <h2>Real-World Example: Dynamic Tag List</h2>
+    <p>Perfect for tags, badges, or pills where content varies:</p>
+    <pre><code>&lt;div class="grid grid-flow-col auto-cols-max gap-2"&gt;
+  &lt;span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"&gt;
+    React
+  &lt;/span&gt;
+  &lt;span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"&gt;
+    Tailwind CSS
+  &lt;/span&gt;
+  &lt;span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"&gt;
+    JavaScript
+  &lt;/span&gt;
+  &lt;span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"&gt;
+    Node.js
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+    <p>Each tag takes only the width it needs. No wasted space.</p>
+
+    <h2>Real-World Example: Equal-Width Cards</h2>
+    <p>Create a flexible card layout that adapts to any number of items:</p>
+    <pre><code>&lt;div class="grid grid-flow-col auto-cols-fr gap-6"&gt;
+  &lt;div class="bg-white rounded-lg shadow p-6"&gt;
+    &lt;h3 class="font-bold text-lg mb-2"&gt;Card 1&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Content here&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-white rounded-lg shadow p-6"&gt;
+    &lt;h3 class="font-bold text-lg mb-2"&gt;Card 2&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Content here&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-white rounded-lg shadow p-6"&gt;
+    &lt;h3 class="font-bold text-lg mb-2"&gt;Card 3&lt;/h3&gt;
+    &lt;p class="text-gray-600"&gt;Content here&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>Add or remove cards dynamically, and they will always be equal width.</p>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Common Mistake</span>
+      <code>auto-cols</code> only affects <strong>implicit</strong> columns created by overflow.
+      If you define <code>grid-cols-3</code>, those 3 columns are explicit and will not be affected by
+      <code>auto-cols</code> settings.
+    </div>
+
+    <h2>Combining with Grid Flow</h2>
+    <p>Auto sizing works hand-in-hand with grid flow:</p>
+    <pre><code>&lt;!-- Vertical timeline with equal-width entries --&gt;
+&lt;div class="grid grid-flow-col grid-rows-5 auto-cols-max gap-4"&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;2024-01-01: Project started&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;2024-02-15: First milestone&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;2024-03-10: Beta release&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;2024-04-01: Launch!&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;2024-05-15: Version 2.0&lt;/div&gt;
+  &lt;!-- More items flow into new columns --&gt;
+  &lt;div class="bg-blue-600 text-white p-4 rounded"&gt;2024-06-01: Expansion&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      <code>grid-rows-5</code> creates 5 rows. With <code>grid-flow-col</code>, items fill vertically.
+      When more than 5 items exist, new columns are created. <code>auto-cols-max</code> makes those new columns
+      as wide as their content.
+    </p>
+
+    <h2>Responsive Auto Sizing</h2>
+    <p>Change auto sizing at different breakpoints:</p>
+    <pre><code>&lt;div class="grid grid-flow-col auto-cols-max md:auto-cols-fr gap-4"&gt;
+  &lt;!-- Mobile: columns sized by content
+       Desktop: equal-width columns --&gt;
+&lt;/div&gt;</code></pre>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      Use <code>auto-cols-max</code> for tag clouds and navigation where items should be compact.
+      Use <code>auto-cols-fr</code> for equal-width cards and dashboard widgets.
+    </div>
+
+    <h2>When to Use Each</h2>
+
+    <h3>auto-cols-max / auto-rows-max</h3>
+    <p><strong>Use for:</strong> Tags, badges, navigation items, compact layouts</p>
+
+    <h3>auto-cols-fr / auto-rows-fr</h3>
+    <p><strong>Use for:</strong> Equal-size cards, dashboard widgets, uniform grids</p>
+
+    <h3>auto-cols-min / auto-rows-min</h3>
+    <p><strong>Use for:</strong> Ultra-compact layouts, minimizing space usage</p>
+
+    <h3>auto-cols-auto / auto-rows-auto</h3>
+    <p><strong>Use for:</strong> Content-adaptive layouts (default behavior)</p>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Try creating a tag list with <code>grid-flow-col auto-cols-max</code> to see how it adapts to content.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What does <code>auto-cols-max</code> do?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates the maximum number of columns</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes implicit columns as wide as their content needs (max-content)</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Sets maximum column width to 100%</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. When should you use <code>auto-cols-fr</code>?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> When you want columns to be as small as possible</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> When you want equal-width columns that share available space</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> When you want columns sized by content</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. Auto columns and rows only affect which tracks?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> All tracks in the grid</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Only implicit tracks created by overflow</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only the first and last tracks</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/tailwind/level-3/lesson7.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 9 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">One more lesson to go.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0, "unlocked": true}');
+      if (level3.completed < 2) {
+        level3.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-3'), JSON.stringify(level3));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-3/lesson9.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-3/lesson9.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

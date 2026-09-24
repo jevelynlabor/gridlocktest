@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 5: Responsive Grids with JavaScript | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #f59e0b;
+    --lesson-accent-d: #D97706;
+    --lesson-accent-soft: rgba(245,158,11,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-js-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/jscript.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">JavaScript &bull; Level 2 &bull; Lesson 5 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 2 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 5: Responsive Grids with JavaScript</h1>
+    <p>Adapt grid layouts based on screen size using JavaScript.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>Why JavaScript for Responsive Grids?</h2>
+    <p>
+      CSS media queries work great, but JavaScript gives you more control: detect exact screen width, respond to
+      orientation changes, calculate optimal layouts, and combine multiple conditions.
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">When to Use JS</span>
+      Use CSS media queries for simple breakpoints. Use JavaScript when you need complex logic,
+      calculations, or need to coordinate layout with other features.
+    </div>
+
+    <h2>Basic Responsive Grid</h2>
+    <p>Change columns based on window width:</p>
+    <pre><code>function updateGrid() {
+  const container = document.getElementById('grid');
+  const width = window.innerWidth;
+  
+  if (width < 640) {
+    // Mobile: 1 column
+    container.style.gridTemplateColumns = '1fr';
+  } else if (width < 1024) {
+    // Tablet: 2 columns
+    container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  } else {
+    // Desktop: 3 columns
+    container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  }
+}
+
+// Call on load and resize
+window.addEventListener('load', updateGrid);
+window.addEventListener('resize', updateGrid);</code></pre>
+
+    <h2>Using matchMedia (Modern Approach)</h2>
+    <p>The <code>matchMedia</code> API is cleaner and more efficient:</p>
+    <pre><code>const mobile = window.matchMedia('(max-width: 640px)');
+const tablet = window.matchMedia('(min-width: 641px) and (max-width: 1024px)');
+const desktop = window.matchMedia('(min-width: 1025px)');
+
+function updateGrid() {
+  const container = document.getElementById('grid');
+  
+  if (mobile.matches) {
+    container.style.gridTemplateColumns = '1fr';
+    container.style.gap = '0.5rem';
+  } else if (tablet.matches) {
+    container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+    container.style.gap = '1rem';
+  } else if (desktop.matches) {
+    container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+    container.style.gap = '2rem';
+  }
+}
+
+// Listen for changes
+mobile.addListener(updateGrid);
+tablet.addListener(updateGrid);
+desktop.addListener(updateGrid);
+
+// Initial call
+updateGrid();</code></pre>
+
+    <h2>Debouncing Resize Events</h2>
+    <p>Resize fires many times per second. Debounce it for performance:</p>
+    <pre><code>let resizeTimer;
+
+function debouncedUpdate() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    updateGrid();
+  }, 250); // Wait 250ms after user stops resizing
+}
+
+window.addEventListener('resize', debouncedUpdate);</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Performance Tip</span>
+      Always debounce or throttle resize handlers. Running updateGrid() 60 times per second during resize
+      can cause jank.
+    </div>
+
+    <h2>Orientation Detection</h2>
+    <p>Respond to portrait vs landscape:</p>
+    <pre><code>function updateGrid() {
+  const container = document.getElementById('grid');
+  const isPortrait = window.innerHeight > window.innerWidth;
+  
+  if (isPortrait) {
+    container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  } else {
+    container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  }
+}
+
+window.addEventListener('orientationchange', updateGrid);</code></pre>
+
+    <h2>Container-Based Responsive</h2>
+    <p>Adapt to container width, not window width:</p>
+    <pre><code>function updateGrid() {
+  const container = document.getElementById('grid');
+  const containerWidth = container.offsetWidth;
+  
+  if (containerWidth < 400) {
+    container.style.gridTemplateColumns = '1fr';
+  } else if (containerWidth < 800) {
+    container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  } else {
+    container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  }
+}</code></pre>
+    <p>This is powerful for components in sidebars or split layouts.</p>
+
+    <h2>React Responsive Grid Hook</h2>
+    <p>Create a reusable hook for responsive grids:</p>
+    <pre><code>function useResponsiveGrid() {
+  const [columns, setColumns] = useState(3);
+  
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
+      if (width < 640) setColumns(1);
+      else if (width < 1024) setColumns(2);
+      else setColumns(3);
+    };
+    
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
+  
+  return columns;
+}
+
+// Usage in component
+function Gallery({ images }) {
+  const columns = useResponsiveGrid();
+  
+  return (
+    &lt;div style={{
+      display: 'grid',
+      gridTemplateColumns: `repeat(${columns}, 1fr)`,
+      gap: '1rem'
+    }}&gt;
+      {images.map(img =&gt; &lt;img key={img.id} src={img.url} /&gt;)}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <h2>Breakpoint Configuration</h2>
+    <p>Define breakpoints in a config object:</p>
+    <pre><code>const breakpoints = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280
+};
+
+const gridConfig = {
+  mobile: { cols: 1, gap: '0.5rem' },
+  tablet: { cols: 2, gap: '1rem' },
+  desktop: { cols: 4, gap: '2rem' }
+};
+
+function updateGrid() {
+  const width = window.innerWidth;
+  const container = document.getElementById('grid');
+  let config;
+  
+  if (width < breakpoints.md) {
+    config = gridConfig.mobile;
+  } else if (width < breakpoints.lg) {
+    config = gridConfig.tablet;
+  } else {
+    config = gridConfig.desktop;
+  }
+  
+  container.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
+  container.style.gap = config.gap;
+}</code></pre>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Best Practice</span>
+      Match your JavaScript breakpoints to your CSS breakpoints (if you are using both). Consistency
+      prevents layout jumps.
+    </div>
+
+    <h2>Responsive with Data Attributes</h2>
+    <p>Store responsive settings in data attributes:</p>
+    <pre><code>// HTML: &lt;div id="grid" data-mobile="1" data-tablet="2" data-desktop="4"&gt;
+
+function updateGrid() {
+  const container = document.getElementById('grid');
+  const width = window.innerWidth;
+  
+  let cols;
+  if (width < 768) {
+    cols = container.dataset.mobile;
+  } else if (width < 1024) {
+    cols = container.dataset.tablet;
+  } else {
+    cols = container.dataset.desktop;
+  }
+  
+  container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+}</code></pre>
+
+    <h2>Combining with User Preferences</h2>
+    <p>Respect both screen size and user choice:</p>
+    <pre><code>let userPreference = localStorage.getItem('grid-density') || 'auto';
+
+function updateGrid() {
+  const container = document.getElementById('grid');
+  
+  if (userPreference === 'auto') {
+    // Use responsive logic
+    const width = window.innerWidth;
+    if (width < 768) {
+      container.style.gridTemplateColumns = '1fr';
+    } else {
+      container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    }
+  } else {
+    // Use user's fixed preference
+    container.style.gridTemplateColumns = `repeat(${userPreference}, 1fr)`;
+  }
+}</code></pre>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Challenge</h2>
+    <p>Create a grid that shows 1 column on mobile, 2 on tablet, and 4 on desktop. Add debouncing to the resize handler.</p>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. Why should you debounce resize events?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> To make the site load faster</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> To prevent running code 60+ times per second and causing performance issues</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> It is required for resize to work</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the advantage of matchMedia over innerWidth?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> It is faster</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> It uses media query syntax and automatically listens for changes</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> It works on older browsers</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. When should you use container width instead of window width?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Never, always use window width</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> For components in sidebars or split layouts where container size varies</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only on mobile devices</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/jscript/level-2/lesson4.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 6 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-2')) || '{"completed": 0}');
+    const progress = Math.round((level2.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-2')) || '{"completed": 0, "unlocked": true}');
+      if (level2.completed < 2) {
+        level2.completed = 2;
+        localStorage.setItem(getStorageKey('gridlock-js-level-2'), JSON.stringify(level2));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-2/lesson6.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level2 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-js-level-2')) || '{"completed": 0}');
+    if (level2.completed >= 2) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/jscript/level-2/lesson6.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

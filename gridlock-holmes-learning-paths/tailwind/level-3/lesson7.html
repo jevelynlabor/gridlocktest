@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 7: Grid Flow | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-tailwind-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 3 &bull; Lesson 7 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 7: Grid Flow</h1>
+    <p>Control how items automatically flow into your grid.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is Grid Flow?</h2>
+    <p>
+      Grid flow controls how items are automatically placed when you do not specify exact positions. By default,
+      grids flow in rows (left to right, then down). But you can change this behavior.
+    </p>
+    <p>
+      This is especially useful when working with dynamic content where you do not know exactly how many items
+      you will have, or when you want items to fill gaps intelligently.
+    </p>
+
+    <h2>The Grid Flow Classes</h2>
+    <p>Tailwind provides four grid flow utilities:</p>
+    <ul>
+      <li><code>grid-flow-row</code> - Flow in rows (default, left to right, then down)</li>
+      <li><code>grid-flow-col</code> - Flow in columns (top to bottom, then right)</li>
+      <li><code>grid-flow-row-dense</code> - Flow in rows, but fill gaps</li>
+      <li><code>grid-flow-col-dense</code> - Flow in columns, but fill gaps</li>
+    </ul>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Default Behavior</span>
+      Without specifying grid flow, grids use <code>grid-flow-row</code>. Items fill left to right
+      in each row, creating new rows as needed.
+    </div>
+
+    <h2>grid-flow-row (Default)</h2>
+    <p>Items fill horizontally first, creating new rows when needed:</p>
+    <pre><code>&lt;div class="grid grid-flow-row grid-cols-3 gap-4"&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;1&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;2&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;3&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;4&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4"&gt;5&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p><strong>Result:</strong> Items 1-3 in first row, items 4-5 in second row.</p>
+
+    <h2>grid-flow-col</h2>
+    <p>Items fill vertically first, creating new columns when needed:</p>
+    <pre><code>&lt;div class="grid grid-flow-col grid-rows-3 gap-4"&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;1&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;2&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;3&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;4&lt;/div&gt;
+  &lt;div class="bg-green-500 text-white p-4"&gt;5&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p><strong>Result:</strong> Items 1-3 in first column (top to bottom), items 4-5 in second column.</p>
+    <p>
+      Note: With <code>grid-flow-col</code>, you typically define <code>grid-rows</code> instead of
+      <code>grid-cols</code>, since you are stacking vertically first.
+    </p>
+
+    <h2>Dense Packing</h2>
+    <p>
+      The "dense" variants (<code>grid-flow-row-dense</code> and <code>grid-flow-col-dense</code>) try to
+      fill in gaps left by larger items. This can make layouts more compact but may change visual order.
+    </p>
+
+    <h3>Without Dense:</h3>
+    <pre><code>&lt;div class="grid grid-flow-row grid-cols-3 gap-4"&gt;
+  &lt;div class="col-span-2 bg-purple-500 text-white p-4"&gt;1 (wide)&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;2&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;3&lt;/div&gt;
+  &lt;div class="bg-purple-500 text-white p-4"&gt;4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      Item 1 takes 2 columns, leaving 1 space in first row. Item 2 fills it. Items 3 and 4 go to the next row,
+      leaving a gap where item 1 was.
+    </p>
+
+    <h3>With Dense:</h3>
+    <pre><code>&lt;div class="grid grid-flow-row-dense grid-cols-3 gap-4"&gt;
+  &lt;div class="col-span-2 bg-blue-600 text-white p-4"&gt;1 (wide)&lt;/div&gt;
+  &lt;div class="bg-blue-600 text-white p-4"&gt;2&lt;/div&gt;
+  &lt;div class="bg-blue-600 text-white p-4"&gt;3&lt;/div&gt;
+  &lt;div class="bg-blue-600 text-white p-4"&gt;4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      The grid tries to fill gaps. Item 3 might move up to fill empty space, creating a tighter layout.
+      Items may appear out of source order visually.
+    </p>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Accessibility Warning</span>
+      Dense packing can reorder items visually, but screen readers still read them in source order.
+      Use carefully and test with keyboard navigation.
+    </div>
+
+    <h2>When to Use Each</h2>
+
+    <h3>grid-flow-row (Default)</h3>
+    <p><strong>Use for:</strong> Most layouts, card grids, image galleries</p>
+    <pre><code>&lt;div class="grid grid-cols-4 gap-4"&gt;
+  &lt;!-- Cards naturally flow left to right --&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>grid-flow-col</h3>
+    <p><strong>Use for:</strong> Vertical timelines, sidebar navigation, column-based layouts</p>
+    <pre><code>&lt;div class="grid grid-flow-col grid-rows-5 gap-2"&gt;
+  &lt;!-- Timeline events stack vertically, then new columns --&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>grid-flow-row-dense</h3>
+    <p><strong>Use for:</strong> Pinterest-style masonry layouts, dynamic content grids</p>
+    <pre><code>&lt;div class="grid grid-flow-row-dense grid-cols-3 gap-4"&gt;
+  &lt;!-- Items of different sizes pack tightly --&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>grid-flow-col-dense</h3>
+    <p><strong>Use for:</strong> Vertical masonry, columnar news layouts</p>
+    <pre><code>&lt;div class="grid grid-flow-col-dense grid-rows-4 gap-4"&gt;
+  &lt;!-- Newspaper-style columns with varying heights --&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>Real-World Example: Dynamic Card Grid</h2>
+    <pre><code>&lt;div class="grid grid-flow-row-dense grid-cols-2 md:grid-cols-4 gap-6"&gt;
+  &lt;!-- Featured cards span 2 columns --&gt;
+  &lt;div class="col-span-2 bg-gradient-to-r from-blue-500 to-purple-600 
+              text-white p-8 rounded-lg"&gt;
+    &lt;h3 class="text-2xl font-bold mb-2"&gt;Featured Article&lt;/h3&gt;
+    &lt;p&gt;This takes up double width&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Regular cards --&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 1&lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 2&lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 3&lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 4&lt;/div&gt;
+  
+  &lt;!-- Another featured card --&gt;
+  &lt;div class="col-span-2 bg-gradient-to-r from-green-500 to-teal-600 
+              text-white p-8 rounded-lg"&gt;
+    &lt;h3 class="text-2xl font-bold mb-2"&gt;Special Offer&lt;/h3&gt;
+    &lt;p&gt;Limited time only&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 5&lt;/div&gt;
+  &lt;div class="bg-white p-6 rounded-lg shadow"&gt;Card 6&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      With <code>grid-flow-row-dense</code>, smaller cards automatically fill gaps left by the wide featured
+      cards, creating a tight, magazine-style layout.
+    </p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      For Pinterest-style layouts with varying heights, use <code>grid-flow-row-dense</code> combined
+      with different <code>row-span</code> values on items.
+    </div>
+
+    <h2>Responsive Grid Flow</h2>
+    <p>You can change flow direction at different breakpoints:</p>
+    <pre><code>&lt;div class="grid grid-flow-row md:grid-flow-col grid-cols-2 md:grid-rows-3 gap-4"&gt;
+  &lt;!-- Mobile: flow in rows (horizontal)
+       Desktop: flow in columns (vertical) --&gt;
+&lt;/div&gt;</code></pre>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Try both <code>grid-flow-row</code> and <code>grid-flow-col</code> with the same items to see the difference.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What does <code>grid-flow-col</code> do?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates columns in the grid</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes items flow vertically (top to bottom) before creating new columns</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Increases column gap</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the purpose of the "dense" variants like <code>grid-flow-row-dense</code>?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Makes items closer together</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Fills in gaps left by larger items, possibly reordering visually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Increases grid density by adding more columns</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. When using <code>grid-flow-col</code>, which property should you typically define?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> <code>grid-cols</code></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> <code>grid-rows</code></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Neither, it works automatically</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 8 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0, "unlocked": true}');
+      if (level3.completed < 1) {
+        level3.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-3'), JSON.stringify(level3));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-3/lesson8.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-3/lesson8.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

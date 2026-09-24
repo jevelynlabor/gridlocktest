@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 9: Arbitrary Values | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+
+<script>
+  // Lesson completion guard - prevents skipping ahead
+  (function () {
+    function getStorageKey(key) {
+      const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+      if (currentStudent && currentStudent.username) {
+        return currentStudent.username + '-' + key;
+      }
+      return key;
+    }
+
+    const urlPath = window.location.pathname;
+    const lessonMatch = urlPath.match(/lesson(\d+)/);
+    const levelMatch = urlPath.match(/level-(\d+)/);
+
+    if (!lessonMatch || !levelMatch) return;
+
+    const currentLesson = parseInt(lessonMatch[1]);
+
+    let requiredLevel, requiredCompleted;
+
+    if (currentLesson <= 3) {
+      if (currentLesson === 1) return;
+      requiredLevel = 1;
+      requiredCompleted = currentLesson - 1;
+    } else if (currentLesson <= 6) {
+      if (currentLesson === 4) {
+        requiredLevel = 1;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 2;
+        requiredCompleted = currentLesson - 4;
+      }
+    } else {
+      if (currentLesson === 7) {
+        requiredLevel = 2;
+        requiredCompleted = 3;
+      } else {
+        requiredLevel = 3;
+        requiredCompleted = currentLesson - 7;
+      }
+    }
+
+    const levelKey = getStorageKey('gridlock-tailwind-level-' + requiredLevel);
+    const progress = JSON.parse(localStorage.getItem(levelKey) || '{"completed": 0}');
+
+    if (progress.completed < requiredCompleted) {
+      let redirectLesson;
+      if (requiredLevel === 1) {
+        redirectLesson = progress.completed + 1;
+      } else if (requiredLevel === 2) {
+        redirectLesson = progress.completed + 4;
+      } else {
+        redirectLesson = progress.completed + 7;
+      }
+
+      alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
+      window.location.href = '/tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+    }
+  })();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 3 &bull; Lesson 9 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 3 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 9: Arbitrary Values</h1>
+    <p>Create custom grid layouts with any CSS values you need.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What are Arbitrary Values?</h2>
+    <p>
+      Sometimes Tailwind's predefined classes do not cover your exact needs. Maybe you need a grid with columns
+      sized <code>200px 1fr 1fr</code>, or a specific gap of <code>18px</code>. That is where arbitrary values come in.
+    </p>
+    <p>
+      Arbitrary values let you use any CSS value directly in Tailwind classes using square bracket notation:
+      <code>[value]</code>
+    </p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">The Power of Flexibility</span>
+      Arbitrary values give you the flexibility of custom CSS while keeping the utility-first workflow.
+      You stay in HTML, no separate stylesheet needed.
+    </div>
+
+    <h2>Arbitrary Grid Columns</h2>
+    <p>Create any column configuration you want:</p>
+    <pre><code>&lt;!-- Sidebar + Main layout: 250px fixed, rest flexible --&gt;
+&lt;div class="grid grid-cols-[250px_1fr] gap-4"&gt;
+  &lt;aside class="bg-gray-200 p-4"&gt;Fixed Sidebar (250px)&lt;/aside&gt;
+  &lt;main class="bg-white p-4"&gt;Flexible Main Content&lt;/main&gt;
+&lt;/div&gt;
+
+&lt;!-- Three columns: fixed, flexible, fixed --&gt;
+&lt;div class="grid grid-cols-[200px_1fr_200px] gap-4"&gt;
+  &lt;div class="bg-blue-200 p-4"&gt;Left (200px)&lt;/div&gt;
+  &lt;div class="bg-blue-300 p-4"&gt;Middle (flexible)&lt;/div&gt;
+  &lt;div class="bg-blue-200 p-4"&gt;Right (200px)&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>Arbitrary Grid Rows</h2>
+    <p>Same concept for rows:</p>
+    <pre><code>&lt;!-- Header, content, footer layout --&gt;
+&lt;div class="grid grid-rows-[auto_1fr_auto] h-screen"&gt;
+  &lt;header class="bg-blue-600 text-white p-4"&gt;Header&lt;/header&gt;
+  &lt;main class="bg-gray-50 p-4 overflow-auto"&gt;Main Content&lt;/main&gt;
+  &lt;footer class="bg-gray-800 text-white p-4"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+    <p><code>auto</code> sizes header and footer to their content, <code>1fr</code> gives all remaining space to main content.</p>
+
+    <h2>Arbitrary Gap Values</h2>
+    <p>Need a specific gap that is not in Tailwind's spacing scale?</p>
+    <pre><code>&lt;!-- 18px gap (not in default scale) --&gt;
+&lt;div class="grid grid-cols-3 gap-[18px]"&gt;
+  &lt;div class="bg-green-500 p-4"&gt;Item 1&lt;/div&gt;
+  &lt;div class="bg-green-500 p-4"&gt;Item 2&lt;/div&gt;
+  &lt;div class="bg-green-500 p-4"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Different horizontal and vertical gaps --&gt;
+&lt;div class="grid grid-cols-3 gap-x-[24px] gap-y-[12px]"&gt;
+  &lt;div class="bg-purple-500 p-4"&gt;Item 1&lt;/div&gt;
+  &lt;div class="bg-purple-500 p-4"&gt;Item 2&lt;/div&gt;
+  &lt;div class="bg-purple-500 p-4"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>Complex Column Patterns</h2>
+    <p>Use CSS Grid's powerful sizing functions:</p>
+    <pre><code>&lt;!-- minmax: column is at least 200px, max 1fr --&gt;
+&lt;div class="grid grid-cols-[minmax(200px,1fr)_2fr] gap-4"&gt;
+  &lt;div class="bg-blue-500 p-4"&gt;Min 200px, Max 1fr&lt;/div&gt;
+  &lt;div class="bg-blue-600 p-4"&gt;Takes 2fr&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- repeat: 4 columns, each min 150px max 1fr --&gt;
+&lt;div class="grid grid-cols-[repeat(4,minmax(150px,1fr))] gap-4"&gt;
+  &lt;div class="bg-green-500 p-4"&gt;1&lt;/div&gt;
+  &lt;div class="bg-green-500 p-4"&gt;2&lt;/div&gt;
+  &lt;div class="bg-green-500 p-4"&gt;3&lt;/div&gt;
+  &lt;div class="bg-green-500 p-4"&gt;4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Syntax Note</span>
+      Use underscores <code>_</code> instead of spaces in arbitrary values.
+      <code>grid-cols-[200px_1fr]</code>, not <code>grid-cols-[200px 1fr]</code>
+    </div>
+
+    <h2>Real-World Example: App Layout</h2>
+    <p>A complete application layout with custom sizing:</p>
+    <pre><code>&lt;div class="grid grid-cols-[250px_1fr_300px] grid-rows-[60px_1fr] h-screen gap-0"&gt;
+  &lt;!-- Header spans all 3 columns --&gt;
+  &lt;header class="col-span-3 bg-blue-600 text-white p-4 flex items-center"&gt;
+    My Application
+  &lt;/header&gt;
+  
+  &lt;!-- Left sidebar: fixed 250px --&gt;
+  &lt;nav class="bg-gray-900 text-white p-6"&gt;
+    &lt;h2 class="text-xl font-bold mb-4"&gt;Menu&lt;/h2&gt;
+    &lt;ul class="space-y-2"&gt;
+      &lt;li&gt;Dashboard&lt;/li&gt;
+      &lt;li&gt;Analytics&lt;/li&gt;
+      &lt;li&gt;Settings&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+  
+  &lt;!-- Main content: flexible --&gt;
+  &lt;main class="bg-gray-50 p-6 overflow-auto"&gt;
+    &lt;h1 class="text-3xl font-bold mb-4"&gt;Dashboard&lt;/h1&gt;
+    &lt;p&gt;Main content area with flexible width&lt;/p&gt;
+  &lt;/main&gt;
+  
+  &lt;!-- Right panel: fixed 300px --&gt;
+  &lt;aside class="bg-white border-l p-6 overflow-auto"&gt;
+    &lt;h3 class="font-bold mb-4"&gt;Activity&lt;/h3&gt;
+    &lt;p class="text-sm text-gray-600"&gt;Recent updates...&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+
+    <p><strong>Breakdown:</strong></p>
+    <ul>
+      <li><code>grid-cols-[250px_1fr_300px]</code> - Left sidebar 250px, center flexible, right panel 300px</li>
+      <li><code>grid-rows-[60px_1fr]</code> - Header 60px, content fills remaining height</li>
+      <li><code>col-span-3</code> - Header spans all 3 columns</li>
+    </ul>
+
+    <h2>Auto-Fit Responsive Grid</h2>
+    <p>Create a responsive grid that automatically fits columns:</p>
+    <pre><code>&lt;!-- Automatically fit as many 250px columns as possible --&gt;
+&lt;div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6"&gt;
+  &lt;div class="bg-blue-500 text-white p-6 rounded"&gt;Card 1&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-6 rounded"&gt;Card 2&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-6 rounded"&gt;Card 3&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-6 rounded"&gt;Card 4&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-6 rounded"&gt;Card 5&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    <p>
+      This creates as many columns as will fit, each at least 250px wide. As the screen resizes, columns
+      automatically wrap to new rows. No media queries needed.
+    </p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Pro Tip</span>
+      <code>repeat(auto-fit, minmax(Xpx, 1fr))</code> is one of the most powerful grid patterns.
+      It creates truly responsive grids that adapt without breakpoints.
+    </div>
+
+    <h2>When to Use Arbitrary Values</h2>
+
+    <h3>Use them when:</h3>
+    <ul>
+      <li>You need specific pixel values not in Tailwind's scale</li>
+      <li>Building unique layouts that do not fit standard patterns</li>
+      <li>Combining fixed and flexible sizing (px with fr)</li>
+      <li>Using advanced CSS Grid functions (minmax, repeat, auto-fit)</li>
+    </ul>
+
+    <h3>Prefer standard classes when:</h3>
+    <ul>
+      <li>The predefined class exists (<code>grid-cols-3</code> vs <code>grid-cols-[repeat(3,1fr)]</code>)</li>
+      <li>Building standard responsive layouts</li>
+      <li>Working on a team (standard classes are more recognizable)</li>
+    </ul>
+
+    <h2>You Have Completed the Course</h2>
+    <p>You have completed the entire Tailwind Grid course. You now know:</p>
+    <ul>
+      <li>What Tailwind Grid is and why it is useful</li>
+      <li>How to create responsive grids with breakpoints</li>
+      <li>Gap and spacing utilities</li>
+      <li>Column and row spanning</li>
+      <li>Common real-world patterns</li>
+      <li>Grid flow control</li>
+      <li>Auto columns and rows</li>
+      <li>Arbitrary values for custom layouts</li>
+    </ul>
+    <p>
+      You are now equipped to build any grid layout in Tailwind CSS. Practice these techniques in your projects,
+      experiment with different patterns, and you will master grid layouts in no time.
+    </p>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Keep Practicing</h2>
+    <p>Ready to put your skills to the test? Try Grid Detective, or keep experimenting in the generator.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Final Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before finishing the learning path. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. How do you create a grid with columns sized 200px, 1fr, 1fr?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>grid-cols-[200px,1fr,1fr]</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-[200px_1fr_1fr]</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-cols-200-1-1</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the benefit of <code>repeat(auto-fit, minmax(250px, 1fr))</code>?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> It fixes the grid to exactly 250px columns</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> It creates a responsive grid that automatically fits columns without media queries</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> It creates 250 columns</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. In arbitrary values, what separates multiple values?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Commas</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Underscores</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Spaces</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Final Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div id="all-complete" class="lesson-complete-banner hidden">
+    <h2>Course Complete</h2>
+    <p>You have mastered Tailwind Grid from beginner to advanced, and you are ready to build any layout you can imagine.</p>
+    <ul class="achievement-grid">
+      <li>Grid Fundamentals</li>
+      <li>Responsive Design</li>
+      <li>Column & Row Spanning</li>
+      <li>Real Layouts</li>
+      <li>Grid Flow</li>
+      <li>Auto Sizing</li>
+      <li>Arbitrary Values</li>
+      <li>Advanced Techniques</li>
+    </ul>
+    <a href="/learn/tailwind.html">View Learning Hub</a>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link" href="/tailwind/level-3/lesson8.html">&larr; Previous Lesson</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Finish Learning Path &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    const progress = Math.round((level3.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! Course complete.</p>
+          <p class="result-sub">You have mastered Tailwind Grid.</p>
+        </div>
+      `;
+
+      const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0, "unlocked": true}');
+      level3.completed = 3;
+      localStorage.setItem(getStorageKey('gridlock-tailwind-level-3'), JSON.stringify(level3));
+
+      document.getElementById('all-complete').classList.remove('hidden');
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/tailwind.html';
+
+      updateProgressBar();
+      document.getElementById('all-complete').scrollIntoView({ behavior: 'smooth' });
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level3 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-3')) || '{"completed": 0}');
+    if (level3.completed >= 3) {
+      document.getElementById('all-complete').classList.remove('hidden');
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.textContent = 'Back to Learning Hub \u2192';
+      nextBtn.onclick = () => window.location.href = '/learn/tailwind.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

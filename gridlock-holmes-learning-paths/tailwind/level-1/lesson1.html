@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: What is Tailwind Grid? | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #2E66D5;
+    --lesson-accent-d: #2552AA;
+    --lesson-accent-soft: rgba(46,102,213,0.08);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">Tailwind &bull; Level 1 &bull; Lesson 1 of 3</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 1: What is Tailwind Grid?</h1>
+    <p>Learn how Tailwind's utility-first approach makes CSS Grid fast and intuitive.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is Tailwind Grid?</h2>
+    <p>
+      Tailwind CSS Grid is a utility-first approach to CSS Grid that lets you build complex layouts directly in your HTML.
+      Instead of writing custom CSS rules in a separate stylesheet, you apply pre-defined utility classes to your elements.
+    </p>
+    <p>
+      Think of it like building with interlocking blocks: each class is a small, reusable piece that does one thing well.
+      Combine them together, and you can create any grid layout imaginable, all without leaving your HTML file.
+    </p>
+
+    <h2>Why Use Tailwind Grid?</h2>
+
+    <h3>1. Faster Development</h3>
+    <p>
+      No need to write custom CSS. Apply classes like <code>grid</code>, <code>grid-cols-3</code>, and <code>gap-4</code>
+      directly in your HTML and see results immediately in your browser.
+    </p>
+
+    <h3>2. No Naming Fatigue</h3>
+    <p>
+      Forget about thinking up class names like <code>.blog-container</code> or <code>.card-grid</code>.
+      Tailwind's utility classes are standardized, descriptive, and immediately recognizable.
+    </p>
+
+    <h3>3. Built-in Responsive Design</h3>
+    <p>
+      Tailwind makes responsive grids incredibly easy with breakpoint prefixes like <code>md:</code>, <code>lg:</code>, and <code>xl:</code>.
+      Change your grid layout on different screen sizes without writing a single media query.
+    </p>
+
+    <h3>4. Consistent Spacing</h3>
+    <p>
+      Tailwind uses a carefully designed spacing scale (0, 1, 2, 3, 4, 5, and so on) that ensures consistent gaps and padding throughout your design.
+      No more guessing whether to use 16px or 18px, the scale does it for you.
+    </p>
+
+    <h2>The Tailwind Approach</h2>
+    <p>Let's compare the same grid in pure CSS versus Tailwind to see the difference:</p>
+
+    <h3>Pure CSS:</h3>
+    <pre><code>/* In your CSS file */
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* In your HTML file */
+&lt;div class="container"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>Tailwind:</h3>
+    <pre><code>&lt;!-- Everything in one file --&gt;
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <p>Same result, less code, no switching between files. The layout is described right where you can see it.</p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Difference</span>
+      <ul>
+        <li>CSS: write styles in a separate stylesheet</li>
+        <li>Tailwind: apply utility classes directly in HTML</li>
+        <li>Result: faster development, less context switching</li>
+      </ul>
+    </div>
+
+    <h2>The Basic Grid Classes</h2>
+    <p>Every Tailwind Grid layout uses these core classes. Let's break them down:</p>
+
+    <h3>1. Enable Grid</h3>
+    <p>
+      <strong>Class:</strong> <code>grid</code><br>
+      <strong>What it does:</strong> Turns the element into a grid container (equivalent to <code>display: grid</code> in CSS)
+    </p>
+    <pre><code>&lt;div class="grid"&gt;
+  &lt;!-- grid items go here --&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>2. Define Columns</h3>
+    <p>
+      <strong>Classes:</strong> <code>grid-cols-1</code> through <code>grid-cols-12</code><br>
+      <strong>What it does:</strong> Sets how many equal-width columns your grid has
+    </p>
+    <pre><code>&lt;!-- 3 equal columns --&gt;
+&lt;div class="grid grid-cols-3"&gt;
+  &lt;div&gt;Column 1&lt;/div&gt;
+  &lt;div&gt;Column 2&lt;/div&gt;
+  &lt;div&gt;Column 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3>3. Add Gap (Spacing)</h3>
+    <p>
+      <strong>Classes:</strong> <code>gap-0</code> through <code>gap-96</code><br>
+      <strong>What it does:</strong> Sets the space between grid items
+    </p>
+    <pre><code>&lt;!-- Gap of 1rem (16px) --&gt;
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">Tailwind Spacing Scale</span>
+      <code>gap-1</code> = 0.25rem (4px)<br>
+      <code>gap-2</code> = 0.5rem (8px)<br>
+      <code>gap-4</code> = 1rem (16px)<br>
+      <code>gap-6</code> = 1.5rem (24px)<br>
+      <code>gap-8</code> = 2rem (32px)
+    </div>
+
+    <h2>Your First Tailwind Grid</h2>
+    <p>Let's put it all together. Here is a complete example of a 3-column grid with styling:</p>
+    <pre><code>&lt;div class="grid grid-cols-3 gap-4"&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 1&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 2&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 3&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 4&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 5&lt;/div&gt;
+  &lt;div class="bg-blue-500 text-white p-4 rounded"&gt;Item 6&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <p><strong>Breaking it down:</strong></p>
+    <ul>
+      <li><code>grid</code> - Enables grid layout</li>
+      <li><code>grid-cols-3</code> - Creates 3 equal columns</li>
+      <li><code>gap-4</code> - Adds 1rem spacing between items</li>
+      <li><code>bg-blue-500</code> - Blue background (styling, not grid-related)</li>
+      <li><code>text-white</code> - White text (styling, not grid-related)</li>
+      <li><code>p-4</code> - Padding (styling, not grid-related)</li>
+      <li><code>rounded</code> - Rounded corners (styling, not grid-related)</li>
+    </ul>
+
+    <h2>Understanding the Class Names</h2>
+    <p>Tailwind class names follow a logical pattern:</p>
+    <ul>
+      <li><code>grid-cols-{number}</code> - Number of columns (1-12)</li>
+      <li><code>gap-{size}</code> - Gap size using Tailwind's spacing scale</li>
+      <li><code>grid-rows-{number}</code> - Number of rows (1-6)</li>
+    </ul>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">When to Use Tailwind Grid</span>
+      <ul>
+        <li>Building modern web applications</li>
+        <li>Working with React, Vue, or other component frameworks</li>
+        <li>Rapid prototyping and development</li>
+        <li>Want consistent, scalable designs</li>
+        <li>Prefer seeing your layout structure directly in HTML</li>
+      </ul>
+    </div>
+
+    <h2>Try It Yourself</h2>
+    <p>The best way to learn Tailwind Grid is to use it. In the next lessons, you will learn how to:</p>
+    <ul>
+      <li>Create responsive grids that adapt to screen size with breakpoint prefixes</li>
+      <li>Span items across multiple columns using <code>col-span</code> classes</li>
+      <li>Control rows and vertical spacing with row utilities</li>
+      <li>Build real-world layouts like dashboards, card grids, and forms</li>
+    </ul>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Try creating a simple 3-column grid in the generator. Switch to Tailwind mode and use <code>grid grid-cols-3 gap-4</code>.</p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What class enables grid layout in Tailwind?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>display-grid</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-layout</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. How do you create a 3-column grid in Tailwind?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>columns-3</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>grid-cols-3</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>grid-template-3</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. What is the main advantage of Tailwind Grid over pure CSS?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> It creates faster-loading pages</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> You apply utility classes directly in HTML without separate CSS files</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> It generates better-looking grids automatically</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link disabled" href="#">&larr; Previous</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 2 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 1) {
+        level1.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-tailwind-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-1/lesson2.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-tailwind-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/tailwind/level-1/lesson2.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>

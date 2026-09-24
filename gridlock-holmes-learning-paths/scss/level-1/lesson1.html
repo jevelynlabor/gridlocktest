@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: What is SCSS Grid? | Gridlock Holmes</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/lessons.css">
+<style>
+  :root {
+    --lesson-accent: #EC4899;
+    --lesson-accent-d: #DB2777;
+    --lesson-accent-soft: rgba(236,72,153,0.08);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/generator.html">Generator</a></li>
+      <li><a href="/learn.html" class="active">Learn</a></li>
+      <li><a href="/gradient.html">Gradients</a></li>
+      <li><a href="/grid-detective.html">Grid Detective</a></li>
+      <li><a href="/educators.html">For Educators</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="lesson-logout" class="lesson-logout hidden">
+  <div class="lesson-logout-inner">
+    <span id="lesson-student-name" class="lesson-logout-name"></span>
+    <button class="lesson-logout-btn" onclick="logoutFromLesson()">Log out</button>
+  </div>
+</div>
+
+<main class="lesson-main">
+
+  <div class="lesson-topbar">
+    <a class="lesson-back" href="/learn/scss.html">&larr; Back to Learning Path</a>
+    <span class="lesson-crumb">SCSS &bull; Level 1 &bull; Lesson 1 of 9</span>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-top">
+      <span>Level 1 progress</span>
+      <span><span id="overall-progress">0</span>% complete</span>
+    </div>
+    <div class="lesson-progress-track">
+      <div id="progress-bar" class="lesson-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="lesson-title-block">
+    <h1>Lesson 1: What is SCSS Grid?</h1>
+    <p>Learn how SCSS makes CSS Grid more powerful with variables, nesting, and mixins.</p>
+  </div>
+
+  <article class="lesson-article">
+
+    <h2>What is SCSS?</h2>
+    <p>
+      SCSS (Sassy CSS) is a preprocessor that extends CSS with programming features. It compiles down to regular CSS
+      that browsers can understand, but gives you powerful tools like variables, nesting, mixins, and functions while
+      you are writing your styles.
+    </p>
+    <p>Think of SCSS as CSS with extra capabilities: everything you can do in CSS, you can do in SCSS, plus much more.</p>
+
+    <div class="lesson-callout tip">
+      <span class="lesson-callout-label">Key Point</span>
+      SCSS uses the exact same CSS Grid syntax, but adds variables and mixins to make it reusable and maintainable.
+      If you know CSS Grid, you already know SCSS Grid.
+    </div>
+
+    <h2>Basic Grid in SCSS</h2>
+    <p>Here is a simple grid layout in SCSS, notice it looks identical to CSS:</p>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}</code></pre>
+    <p>This is valid SCSS. But SCSS becomes powerful when you add variables.</p>
+
+    <h2>Using Variables for Grid Properties</h2>
+    <p>Instead of hardcoding values, use variables with the <code>$</code> symbol:</p>
+    <pre><code>// Define variables at the top
+$grid-columns: 3;
+$grid-gap: 20px;
+
+.container {
+  display: grid;
+  grid-template-columns: repeat($grid-columns, 1fr);
+  gap: $grid-gap;
+}</code></pre>
+    <p>Now you can change <code>$grid-columns</code> in one place and it updates everywhere.</p>
+
+    <h2>Why Variables Matter</h2>
+    <p>Imagine you have a design system with consistent spacing:</p>
+    <pre><code>// Design system variables
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;  // Easy to read and change
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: $spacing-lg;  // Consistent spacing
+}</code></pre>
+    <p>
+      If your designer says "make all medium spacing 32px instead of 24px", you change one variable and it updates everywhere.
+    </p>
+
+    <div class="lesson-callout good">
+      <span class="lesson-callout-label">Real-World Benefit</span>
+      Variables make it easy to maintain consistent spacing, colors, and layouts across large projects.
+      Change once, update everywhere.
+    </div>
+
+    <h2>SCSS Comments</h2>
+    <p>SCSS supports both CSS comments and special SCSS-only comments:</p>
+    <pre><code>/* CSS comment - appears in compiled CSS */
+
+// SCSS comment - removed when compiled
+// Perfect for notes to yourself!
+
+$grid-gap: 24px; // Inline comments work too</code></pre>
+
+    <h2>Common Grid Variables</h2>
+    <p>Here are typical variables you might use for grids:</p>
+    <pre><code>// Column counts
+$grid-cols-mobile: 1;
+$grid-cols-tablet: 2;
+$grid-cols-desktop: 3;
+
+// Spacing
+$grid-gap-tight: 8px;
+$grid-gap-normal: 16px;
+$grid-gap-loose: 32px;
+
+// Common widths
+$sidebar-width: 250px;
+$content-max-width: 1200px;</code></pre>
+
+    <h2>Compiling SCSS to CSS</h2>
+    <p>Browsers cannot read SCSS directly, it must be compiled to CSS. When you write:</p>
+    <pre><code>// SCSS
+$gap: 20px;
+
+.grid {
+  display: grid;
+  gap: $gap;
+}</code></pre>
+    <p>It compiles to regular CSS:</p>
+    <pre><code>/* Compiled CSS */
+.grid {
+  display: grid;
+  gap: 20px;
+}</code></pre>
+
+    <div class="lesson-callout warn">
+      <span class="lesson-callout-label">How to Compile</span>
+      Most modern tools compile SCSS automatically:
+      <ul>
+        <li>Vite, Webpack, Parcel (bundlers)</li>
+        <li>VS Code extensions (Live Sass Compiler)</li>
+        <li>Build tools (Gulp, npm scripts)</li>
+      </ul>
+    </div>
+
+    <h2>SCSS vs Regular CSS for Grid</h2>
+
+    <h3>Regular CSS:</h3>
+    <pre><code>.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;  /* Same value repeated */
+}</code></pre>
+
+    <h3>SCSS with Variables:</h3>
+    <pre><code>$default-columns: 3;
+$default-gap: 24px;
+
+.container {
+  display: grid;
+  grid-template-columns: repeat($default-columns, 1fr);
+  gap: $default-gap;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-columns: repeat($default-columns, 1fr);
+  gap: $default-gap;  // DRY - Don't Repeat Yourself
+}</code></pre>
+
+    <h2>Next Lessons Preview</h2>
+    <p>In the next lessons, you will learn:</p>
+    <ul>
+      <li><strong>Lesson 2:</strong> Nesting grid styles inside parent selectors</li>
+      <li><strong>Lesson 3:</strong> Creating reusable grid mixins</li>
+      <li><strong>Level 2:</strong> Advanced SCSS features for dynamic grids</li>
+      <li><strong>Level 3:</strong> Building complete grid systems with SCSS</li>
+    </ul>
+
+  </article>
+
+  <div class="lesson-cta">
+    <h2>Practice Time</h2>
+    <p>Try the generator with the SCSS format and notice how you can use variables: <code>$gap: 20px;</code></p>
+    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+  </div>
+
+  <div class="lesson-quiz">
+    <h2>Quick Check</h2>
+    <p class="quiz-intro">Test your knowledge before moving to the next lesson. All 3 questions must be correct to continue.</p>
+
+    <form id="quiz-form">
+      <div class="quiz-q">
+        <p class="q-text">1. What symbol is used for SCSS variables?</p>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>@variable-name</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>$variable-name</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>var(--variable-name)</code></label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">2. What is the main benefit of using SCSS variables for grid properties?</p>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Faster browser performance</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Change values in one place and update everywhere, easier maintenance</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Browsers can read SCSS directly</label>
+      </div>
+
+      <div class="quiz-q">
+        <p class="q-text">3. Does SCSS use the same CSS Grid syntax as regular CSS?</p>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> No, it has completely different syntax</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Yes, SCSS uses the exact same CSS Grid properties, but adds variables and other features</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> SCSS cannot use CSS Grid</label>
+      </div>
+
+      <button type="submit" class="quiz-submit">Submit Answers</button>
+    </form>
+
+    <div id="quiz-results" class="quiz-results hidden"></div>
+  </div>
+
+  <div class="lesson-nav-row">
+    <a class="lesson-nav-link disabled" href="#">&larr; Previous</a>
+    <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 2 &rarr;</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
+      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
+      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="/glossary.html">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+<script>
+  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+
+  function getStorageKey(key) {
+    return currentStudent ? `${currentStudent.username}-${key}` : key;
+  }
+
+  function updateProgressBar() {
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0}');
+    const progress = Math.round((level1.completed / 3) * 100);
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('overall-progress').textContent = progress;
+  }
+
+  document.getElementById('quiz-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const userAnswers = {
+      q1: document.querySelector('input[name="q1"]:checked')?.value,
+      q2: document.querySelector('input[name="q2"]:checked')?.value,
+      q3: document.querySelector('input[name="q3"]:checked')?.value
+    };
+
+    if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+      alert('Please answer all questions.');
+      return;
+    }
+
+    let score = 0;
+    if (userAnswers.q1 === answers.q1) score++;
+    if (userAnswers.q2 === answers.q2) score++;
+    if (userAnswers.q3 === answers.q3) score++;
+
+    const resultsDiv = document.getElementById('quiz-results');
+    resultsDiv.classList.remove('hidden');
+
+    if (score === 3) {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box success">
+          <p class="result-title">Perfect! You got all 3 correct.</p>
+          <p class="result-sub">Ready for the next lesson.</p>
+        </div>
+      `;
+
+      const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0, "unlocked": true}');
+      if (level1.completed < 1) {
+        level1.completed = 1;
+        localStorage.setItem(getStorageKey('gridlock-scss-level-1'), JSON.stringify(level1));
+      }
+
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-1/lesson2.html';
+
+      updateProgressBar();
+
+    } else {
+      resultsDiv.innerHTML = `
+        <div class="quiz-result-box retry">
+          <p class="result-title">You got ${score} out of 3 correct.</p>
+          <p class="result-sub">Review the lesson and try again.</p>
+        </div>
+        <button class="quiz-retry-btn" onclick="location.reload()">Try Again</button>
+      `;
+    }
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  window.addEventListener('DOMContentLoaded', function () {
+    updateProgressBar();
+
+    const level1 = JSON.parse(localStorage.getItem(getStorageKey('gridlock-scss-level-1')) || '{"completed": 0}');
+    if (level1.completed >= 1) {
+      const nextBtn = document.getElementById('next-lesson-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.add('enabled');
+      nextBtn.onclick = () => window.location.href = '/scss/level-1/lesson2.html';
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const student = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
+    if (student && student.username) {
+      const el = document.getElementById('lesson-logout');
+      if (el) el.classList.remove('hidden');
+      const nameEl = document.getElementById('lesson-student-name');
+      if (nameEl) nameEl.textContent = student.username;
+    }
+  })();
+
+  function logoutFromLesson() {
+    if (confirm('Are you sure you want to log out? Your progress is saved.')) {
+      localStorage.removeItem('gridlock-current-student');
+      window.location.href = '/learn/choose-language.html';
+    }
+  }
+</script>
+
+</body>
+</html>
