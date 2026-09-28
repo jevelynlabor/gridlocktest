@@ -7,12 +7,12 @@
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
-<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
-<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+<link rel="icon" type="image/png" href="../../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../../assets/images/GH-favicon.png">
 
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="stylesheet" href="/assets/css/lessons.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/lessons.css">
 <style>
   :root {
     --lesson-accent: #2E66D5;
@@ -25,18 +25,18 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="/index.html" class="logo">
-      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    <a href="../../index.html" class="logo">
+      <img src="../../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/generator.html">Generator</a></li>
-      <li><a href="/learn.html" class="active">Learn</a></li>
-      <li><a href="/gradient.html">Gradients</a></li>
-      <li><a href="/grid-detective.html">Grid Detective</a></li>
-      <li><a href="/educators.html">For Educators</a></li>
-      <li><a href="/blog.html">Blog</a></li>
-      <li><a href="/about.html">About</a></li>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../generator.html">Generator</a></li>
+      <li><a href="../../learn.html" class="active">Learn</a></li>
+      <li><a href="../../gradient.html">Gradients</a></li>
+      <li><a href="../../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../../educators.html">For Educators</a></li>
+      <li><a href="../../blog.html">Blog</a></li>
+      <li><a href="../../about.html">About</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -54,7 +54,7 @@
 <main class="lesson-main">
 
   <div class="lesson-topbar">
-    <a class="lesson-back" href="/learn/tailwind.html">&larr; Back to Learning Path</a>
+    <a class="lesson-back" href="../../learn/tailwind.html">&larr; Back to Learning Path</a>
     <span class="lesson-crumb">Tailwind &bull; Level 1 &bull; Lesson 1 of 3</span>
   </div>
 
@@ -248,7 +248,7 @@
   <div class="lesson-cta">
     <h2>Practice Time</h2>
     <p>Try creating a simple 3-column grid in the generator. Switch to Tailwind mode and use <code>grid grid-cols-3 gap-4</code>.</p>
-    <a href="/css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+    <a href="../../css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
   </div>
 
   <div class="lesson-quiz">
@@ -294,15 +294,15 @@
   <div class="footer-inner">
     <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
     <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
-      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
-      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
-      <a href="/glossary.html">Glossary</a>
+      <a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a><a href="../../cookies.html">Cookie Policy</a>
+      <a href="../../contact.html">Contact</a><a href="../../blog.html">Blog</a>
+      <a href="../../css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="../../glossary.html">Glossary</a>
     </div>
   </div>
 </footer>
 
-<script src="/assets/js/app.js"></script>
+<script src="../../assets/js/app.js"></script>
 <script>
   const answers = { q1: 'b', q2: 'b', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
@@ -357,7 +357,7 @@
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '/tailwind/level-1/lesson2.html';
+      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson2.html';
 
       updateProgressBar();
 
@@ -382,7 +382,7 @@
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '/tailwind/level-1/lesson2.html';
+      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson2.html';
     }
   });
 </script>
@@ -401,7 +401,7 @@
   function logoutFromLesson() {
     if (confirm('Are you sure you want to log out? Your progress is saved.')) {
       localStorage.removeItem('gridlock-current-student');
-      window.location.href = '/learn/choose-language.html';
+      window.location.href = '../../learn/choose-language.html';
     }
   }
 </script>

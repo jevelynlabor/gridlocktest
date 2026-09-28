@@ -7,12 +7,12 @@
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="/assets/images/GH-favicon.png">
-<link rel="shortcut icon" type="image/png" href="/assets/images/GH-favicon.png">
-<link rel="apple-touch-icon" href="/assets/images/GH-favicon.png">
+<link rel="icon" type="image/png" href="../../assets/images/GH-favicon.png">
+<link rel="shortcut icon" type="image/png" href="../../assets/images/GH-favicon.png">
+<link rel="apple-touch-icon" href="../../assets/images/GH-favicon.png">
 
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="stylesheet" href="/assets/css/lessons.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../../assets/css/lessons.css">
 <style>
   :root {
     --lesson-accent: #f59e0b;
@@ -78,7 +78,7 @@
       }
 
       alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
-      window.location.href = '/jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+      window.location.href = '../../jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
     }
   })();
 </script>
@@ -87,18 +87,18 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="/index.html" class="logo">
-      <img src="/assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
+    <a href="../../index.html" class="logo">
+      <img src="../../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/generator.html">Generator</a></li>
-      <li><a href="/learn.html" class="active">Learn</a></li>
-      <li><a href="/gradient.html">Gradients</a></li>
-      <li><a href="/grid-detective.html">Grid Detective</a></li>
-      <li><a href="/educators.html">For Educators</a></li>
-      <li><a href="/blog.html">Blog</a></li>
-      <li><a href="/about.html">About</a></li>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../generator.html">Generator</a></li>
+      <li><a href="../../learn.html" class="active">Learn</a></li>
+      <li><a href="../../gradient.html">Gradients</a></li>
+      <li><a href="../../grid-detective.html">Grid Detective</a></li>
+      <li><a href="../../educators.html">For Educators</a></li>
+      <li><a href="../../blog.html">Blog</a></li>
+      <li><a href="../../about.html">About</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -116,7 +116,7 @@
 <main class="lesson-main">
 
   <div class="lesson-topbar">
-    <a class="lesson-back" href="/learn/jscript.html">&larr; Back to Learning Path</a>
+    <a class="lesson-back" href="../../learn/jscript.html">&larr; Back to Learning Path</a>
     <span class="lesson-crumb">JavaScript &bull; Level 3 &bull; Lesson 9 of 9</span>
   </div>
 
@@ -456,11 +456,11 @@ function DynamicGallery({ items, userColumns }) {
       <div class="achievement-item">Level 2: Real Layouts</div>
       <div class="achievement-item">Level 3: Advanced Techniques</div>
     </div>
-    <a href="/learn/jscript.html">Back to Learning Path</a>
+    <a href="../../learn/jscript.html">Back to Learning Path</a>
   </div>
 
   <div class="lesson-nav-row">
-    <a class="lesson-nav-link" href="/jscript/level-3/lesson8.html">&larr; Previous Lesson</a>
+    <a class="lesson-nav-link" href="../../jscript/level-3/lesson8.html">&larr; Previous Lesson</a>
     <button id="next-lesson-btn" class="lesson-next-btn" disabled>Back to Hub &rarr;</button>
   </div>
 
@@ -470,15 +470,15 @@ function DynamicGallery({ items, userColumns }) {
   <div class="footer-inner">
     <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
     <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms</a><a href="/cookies.html">Cookie Policy</a>
-      <a href="/contact.html">Contact</a><a href="/blog.html">Blog</a>
-      <a href="/css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
-      <a href="/glossary.html">Glossary</a>
+      <a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a><a href="../../cookies.html">Cookie Policy</a>
+      <a href="../../contact.html">Contact</a><a href="../../blog.html">Blog</a>
+      <a href="../../css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
+      <a href="../../glossary.html">Glossary</a>
     </div>
   </div>
 </footer>
 
-<script src="/assets/js/app.js"></script>
+<script src="../../assets/js/app.js"></script>
 <script>
   const answers = { q1: 'b', q2: 'b', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
@@ -533,7 +533,7 @@ function DynamicGallery({ items, userColumns }) {
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '/learn/jscript.html';
+      nextBtn.onclick = () => window.location.href = '../../learn/jscript.html';
 
       updateProgressBar();
       document.getElementById('all-complete').scrollIntoView({ behavior: 'smooth' });
@@ -560,7 +560,7 @@ function DynamicGallery({ items, userColumns }) {
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '/learn/jscript.html';
+      nextBtn.onclick = () => window.location.href = '../../learn/jscript.html';
     }
   });
 </script>
@@ -579,7 +579,7 @@ function DynamicGallery({ items, userColumns }) {
   function logoutFromLesson() {
     if (confirm('Are you sure you want to log out? Your progress is saved.')) {
       localStorage.removeItem('gridlock-current-student');
-      window.location.href = '/learn/choose-language.html';
+      window.location.href = '../../learn/choose-language.html';
     }
   }
 </script>
