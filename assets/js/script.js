@@ -22,8 +22,17 @@ const tutorialSteps=[
 {title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉<br><br><div class="mt-6 pt-4 border-t" style="display:none"><p class="text-xs text-gray-600 mb-3">This free tutorial is supported by:</p><div id="adsense-tutorial" class="bg-gray-100 border border-gray-300 rounded p-4 text-center"><p class="text-xs text-gray-500">📢 Ad Space 3 - Tutorial Completion</p><p class="text-xs text-gray-400 mt-1">Add your third AdSense code here</p></div></div>'}
 ];
 
+function loadFromShareLink(){
+const params=new URLSearchParams(window.location.search);
+if(!params.has('cols')&&!params.has('rows')&&!params.has('gap'))return;
+if(params.has('cols'))document.getElementById('columns').value=params.get('cols');
+if(params.has('rows'))document.getElementById('rows').value=params.get('rows');
+if(params.has('gap'))document.getElementById('gap').value=params.get('gap');
+if(params.has('areas'))document.getElementById('grid-areas').value=params.get('areas');
+}
+
 function init(){
-loadSaved();setupKeys();updateLineNumbers();updateGrid();toggleGrid();
+loadSaved();setupKeys();updateLineNumbers();loadFromShareLink();updateGrid();toggleGrid();
 }
 
 function showTutorialStep(){
@@ -533,7 +542,7 @@ updateLineNumbers();
 
 function copyCode(){
 const code=document.getElementById('code-output').textContent;
-navigator.clipboard.writeText(code).then(()=>alert(`✅ ${currentCodeFormat.toUpperCase()} code copied!`));
+navigator.clipboard.writeText(code).then(()=>alert(`${currentCodeFormat.toUpperCase()} code copied!`));
 }
 
 
@@ -559,10 +568,10 @@ let ok=false;
 try{ok=document.execCommand('copy');}catch(e){ok=false;}
 input.setAttribute('readonly','');
 window.getSelection().removeAllRanges();
-if(ok){alert('✅ Link copied!');}else{alert('⚠️ Could not copy automatically. Please copy the link manually.');}
+if(ok){alert('Link copied!');}else{alert('Could not copy automatically. Please copy the link manually.');}
 }
 if(navigator.clipboard&&window.isSecureContext){
-navigator.clipboard.writeText(text).then(()=>alert('✅ Link copied!')).catch(fallbackCopy);
+navigator.clipboard.writeText(text).then(()=>alert('Link copied!')).catch(fallbackCopy);
 }else{
 fallbackCopy();
 }
