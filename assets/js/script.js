@@ -547,7 +547,26 @@ document.getElementById('share-modal').classList.remove('hidden');
 }
 
 function closeShareModal(){document.getElementById('share-modal').classList.add('hidden');}
-function copyShareLink(){navigator.clipboard.writeText(document.getElementById('share-link').value).then(()=>alert('✅ Link copied!'));}
+function copyShareLink(){
+const input=document.getElementById('share-link');
+const text=input.value;
+function fallbackCopy(){
+input.removeAttribute('readonly');
+input.focus();
+input.select();
+input.setSelectionRange(0,text.length);
+let ok=false;
+try{ok=document.execCommand('copy');}catch(e){ok=false;}
+input.setAttribute('readonly','');
+window.getSelection().removeAllRanges();
+if(ok){alert('✅ Link copied!');}else{alert('⚠️ Could not copy automatically. Please copy the link manually.');}
+}
+if(navigator.clipboard&&window.isSecureContext){
+navigator.clipboard.writeText(text).then(()=>alert('✅ Link copied!')).catch(fallbackCopy);
+}else{
+fallbackCopy();
+}
+}
 function shareViaWhatsApp(){window.open(`https://wa.me/?text=${encodeURIComponent('Check this out! ')}${encodeURIComponent(document.getElementById('share-link').value)}`,'_blank');}
 function shareViaEmail(){window.location.href=`mailto:?subject=${encodeURIComponent('CSS Grid')}&body=${encodeURIComponent(document.getElementById('share-link').value)}`;}
 
