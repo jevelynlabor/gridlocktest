@@ -22,13 +22,49 @@ const tutorialSteps=[
 {title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉<br><br><div class="mt-6 pt-4 border-t" style="display:none"><p class="text-xs text-gray-600 mb-3">This free tutorial is supported by:</p><div id="adsense-tutorial" class="bg-gray-100 border border-gray-300 rounded p-4 text-center"><p class="text-xs text-gray-500">📢 Ad Space 3 - Tutorial Completion</p><p class="text-xs text-gray-400 mt-1">Add your third AdSense code here</p></div></div>'}
 ];
 
+function syncGradientDirButtons(target,dir){
+const groupClass=target==='container'?'grad-dir-container':'grad-dir-items';
+document.querySelectorAll('.'+groupClass).forEach(b=>{
+const isActive=(b.getAttribute('onclick')||'').includes(`'${dir}'`);
+b.className=groupClass+' text-xs py-1.5 border rounded hover:bg-gray-50'+(isActive?' bg-blue-50 border-blue-300 font-medium':'');
+});
+}
+
 function loadFromShareLink(){
 const params=new URLSearchParams(window.location.search);
-if(!params.has('cols')&&!params.has('rows')&&!params.has('gap'))return;
+if(!params.has('cols')&&!params.has('rows')&&!params.has('gap')&&!params.has('grad'))return;
 if(params.has('cols'))document.getElementById('columns').value=params.get('cols');
 if(params.has('rows'))document.getElementById('rows').value=params.get('rows');
 if(params.has('gap'))document.getElementById('gap').value=params.get('gap');
 if(params.has('areas'))document.getElementById('grid-areas').value=params.get('areas');
+
+if(params.get('grad')==='1'){
+document.getElementById('gradient-enabled').checked=true;
+
+const cfill=params.get('cfill');
+if(cfill){
+document.getElementById('container-fill-type').value=cfill;
+if(cfill==='solid'){
+if(params.has('csolid'))document.getElementById('container-solid-color').value=params.get('csolid');
+}else{
+if(params.has('cfrom'))document.getElementById('container-color-from').value=params.get('cfrom');
+if(params.has('cto'))document.getElementById('container-color-to').value=params.get('cto');
+if(params.has('cdir')){gradientContainerDir=params.get('cdir');syncGradientDirButtons('container',gradientContainerDir);}
+}
+}
+
+const ifill=params.get('ifill');
+if(ifill){
+document.getElementById('items-fill-type').value=ifill;
+if(ifill==='solid'){
+if(params.has('isolid'))document.getElementById('items-solid-color').value=params.get('isolid');
+}else{
+if(params.has('ifrom'))document.getElementById('items-color-from').value=params.get('ifrom');
+if(params.has('ito'))document.getElementById('items-color-to').value=params.get('ito');
+if(params.has('idir')){gradientItemsDir=params.get('idir');syncGradientDirButtons('items',gradientItemsDir);}
+}
+}
+}
 }
 
 function init(){
@@ -358,7 +394,15 @@ preview.style.placeItems=placeItems;
 preview.style.placeItems='';
 }
 
-const total=cols.trim().split(/[\s,]+/).filter(v=>v).length*rows.trim().split(/[\s,]+/).filter(v=>v).length;
+// Named areas define their own cells (items span by name), so the item
+// count must come from the unique area names, not cols x rows - otherwise
+// adding/removing a track desyncs the preview from the actual layout.
+const areaNames = areas
+    ? [...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v => v && v !== '.'))]
+    : [];
+const total = areaNames.length
+    ? areaNames.length
+    : cols.trim().split(/[\s,]+/).filter(v=>v).length*rows.trim().split(/[\s,]+/).filter(v=>v).length;
 
 // Dynamically create or remove grid items as needed
 const gridItems = document.querySelectorAll('.grid-item');
@@ -366,19 +410,32 @@ const currentCount = gridItems.length;
 
 if (total > currentCount) {
     // Need more items - create them
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (let i = currentCount; i < total; i++) {
         const newItem = document.createElement('div');
         newItem.className = 'grid-item';
-        newItem.textContent = letters[i % 26] + (Math.floor(i / 26) > 0 ? Math.floor(i / 26) : '');
         preview.appendChild(newItem);
     }
-} else if (total < currentCount) {
-    // Too many items - hide excess
-    gridItems.forEach((item, i) => {
-        item.style.display = i < total ? 'flex' : 'none';
-    });
 }
+
+// Relabel every visible item on each render (not just newly created ones)
+// so switching between a named-area layout and a plain track grid never
+// leaves stale letters/area names behind on reused elements.
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+document.querySelectorAll('.grid-item').forEach((item, i) => {
+    if (i >= total) {
+        item.style.display = 'none';
+        item.style.gridArea = '';
+        return;
+    }
+    item.style.display = 'flex';
+    if (areaNames.length) {
+        item.textContent = areaNames[i];
+        item.style.gridArea = areaNames[i];
+    } else {
+        item.textContent = letters[i % 26] + (Math.floor(i / 26) > 0 ? Math.floor(i / 26) : '');
+        item.style.gridArea = '';
+    }
+});
 
 updateInfo();generateCode();
 
@@ -435,6 +492,13 @@ if(g){
 code+=`\n  background: ${getBackgroundCSS(g.container)};`;
 }
 code+='\n}';
+if(areas){
+const areaNames=[...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v=>v&&v!=='.'))];
+if(areaNames.length){
+code+=`\n\n/* Place each child in its named area: */`;
+areaNames.forEach(name=>{code+=`\n.${name} {\n  grid-area: ${name};\n}`;});
+}
+}
 if(g){
 code+=`\n\n.container > * {\n  background: ${buildGradientCSS(g.items.from,g.items.to,g.items.dir)};\n}`;
 }
@@ -502,6 +566,13 @@ code+=`\n\n  // Responsive breakpoint
     grid-template-columns: 1fr;
   }
 }`;
+if(areas){
+const areaNames=[...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v=>v&&v!=='.'))];
+if(areaNames.length){
+code+=`\n\n// Place each child in its named area:`;
+areaNames.forEach(name=>{code+=`\n.${name} {\n  grid-area: ${name};\n}`;});
+}
+}
 }
 
 document.getElementById('code-output').textContent=code;
@@ -550,6 +621,26 @@ navigator.clipboard.writeText(code).then(()=>alert(`${currentCodeFormat.toUpperC
 function shareLayout(){
 const params=new URLSearchParams({cols:document.getElementById('columns').value,rows:document.getElementById('rows').value,gap:document.getElementById('gap').value});
 if(isPro&&document.getElementById('grid-areas').value){params.set('areas',document.getElementById('grid-areas').value);params.set('pro','1');}
+const g=getGradientState();
+if(g){
+params.set('grad','1');
+params.set('cfill',g.container.fillType);
+if(g.container.fillType==='solid'){
+params.set('csolid',g.container.color);
+}else{
+params.set('cfrom',g.container.from);
+params.set('cto',g.container.to);
+params.set('cdir',g.container.dir);
+}
+params.set('ifill',g.items.fillType);
+if(g.items.fillType==='solid'){
+params.set('isolid',g.items.color);
+}else{
+params.set('ifrom',g.items.from);
+params.set('ito',g.items.to);
+params.set('idir',g.items.dir);
+}
+}
 const url=(window.location.hostname?window.location.origin+window.location.pathname:'https://gridlock-holmes.com')+'?'+params;
 document.getElementById('share-link').value=url;
 document.getElementById('share-modal').classList.remove('hidden');
