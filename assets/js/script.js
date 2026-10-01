@@ -192,36 +192,61 @@ function validateGridValue(inputId, value, label) {
     }
     
     const errorElement = document.getElementById(inputId + '-error');
-    const values = value.trim().split(/\s+/);
+    const trimmed = value.trim();
     const errors = [];
-    
-    // Valid CSS Grid units
-    const validUnits = ['px', 'fr', '%', 'em', 'rem', 'vw', 'vh', 'auto', 'min-content', 'max-content'];
-    
-    values.forEach((v, i) => {
-        // Check if it's just a number without a unit
-        if (/^\d+$/.test(v)) {
-            errors.push(`<strong>"${v}"</strong> - Missing unit! Try: <code>${v}fr</code> or <code>${v}px</code>`);
-        }
-        // Check for numbers with invalid units (like "1f", "2x", "1F", "2D")
-        else if (/^\d+[a-zA-Z]{1,2}$/i.test(v) && !validUnits.some(unit => v.toLowerCase().endsWith(unit))) {
-            errors.push(`<strong>"${v}"</strong> - Invalid unit! Valid units: px, fr, %, auto, em, rem`);
-        }
-        // Check for commas
-        else if (v.includes(',')) {
-            errors.push(`<strong>"${v}"</strong> - Remove commas! Use SPACES to separate values`);
-        }
-    });
-    
-    // Check for style warnings (not errors - still valid CSS but not best practice)
     const warnings = [];
-    values.forEach((v, i) => {
-        // Warn about uppercase units (valid but not idiomatic)
-        if (/^\d+[A-Z]{2}$/.test(v)) {
-            const lowercase = v.toLowerCase();
-            warnings.push(`<strong>"${v}"</strong> - Use lowercase: <code>${lowercase}</code> (better style)`);
+
+    // Valid CSS Grid track units and bare keywords
+    const validUnits = ['px', 'fr', '%', 'em', 'rem', 'vw', 'vh', 'vmin', 'vmax', 'cm', 'mm', 'in', 'pt', 'pc', 'ch'];
+    const validKeywords = ['auto', 'min-content', 'max-content'];
+
+    // Functions like repeat(), minmax(), fit-content() contain commas/spaces
+    // that aren't separate tracks, so they can't be tokenized the same way.
+    // Just sanity-check the parentheses balance and leave the rest alone.
+    if (/[()]/.test(trimmed)) {
+        const opens = (trimmed.match(/\(/g) || []).length;
+        const closes = (trimmed.match(/\)/g) || []).length;
+        if (opens !== closes) {
+            errors.push(`Unbalanced parentheses - check your <code>repeat()</code> / <code>minmax()</code> syntax`);
         }
-    });
+    } else {
+        const values = trimmed.split(/\s+/).filter(v => v);
+
+        values.forEach(v => {
+            // Just a number with no unit
+            if (/^-?\d+$/.test(v)) {
+                errors.push(`<strong>"${v}"</strong> - Missing unit! Try: <code>${v}fr</code> or <code>${v}px</code>`);
+                return;
+            }
+            // Commas belong between tracks (as spaces), not inside one
+            if (v.includes(',')) {
+                errors.push(`<strong>"${v}"</strong> - Remove commas! Use SPACES to separate values`);
+                return;
+            }
+            // Bare keyword (auto, min-content, max-content)
+            if (validKeywords.includes(v.toLowerCase())) {
+                if (v !== v.toLowerCase()) {
+                    warnings.push(`<strong>"${v}"</strong> - Use lowercase: <code>${v.toLowerCase()}</code> (better style)`);
+                }
+                return;
+            }
+            // Number + unit (e.g. 1fr, 200px, 0.5fr, 100%)
+            const m = v.match(/^-?\d*\.?\d+([a-zA-Z%]+)$/);
+            if (m) {
+                const unit = m[1];
+                if (validUnits.includes(unit.toLowerCase())) {
+                    if (unit !== unit.toLowerCase()) {
+                        warnings.push(`<strong>"${v}"</strong> - Use lowercase: <code>${v.toLowerCase()}</code> (better style)`);
+                    }
+                } else {
+                    errors.push(`<strong>"${v}"</strong> - Invalid unit! Valid units: px, fr, %, em, rem, vw, vh, auto`);
+                }
+                return;
+            }
+            // Doesn't match any valid track-size shape at all
+            errors.push(`<strong>"${v}"</strong> - Not a valid CSS Grid size. Use values like <code>1fr</code>, <code>200px</code>, or <code>auto</code>`);
+        });
+    }
     
     if (errors.length > 0) {
         errorElement.innerHTML = '<strong>⚠️ Invalid CSS Grid syntax in ' + label + ':</strong><br>' + errors.join('<br>') + '<br><br><em>💡 Tip: Preview is frozen until errors are fixed!</em>';
