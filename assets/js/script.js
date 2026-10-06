@@ -68,7 +68,7 @@ if(params.has('idir')){gradientItemsDir=params.get('idir');syncGradientDirButton
 }
 
 function init(){
-loadSaved();setupKeys();updateLineNumbers();loadFromShareLink();updateGrid();toggleGrid();
+loadSaved();setupKeys();updateLineNumbers();loadPresetFromURL();loadFromShareLink();updateGrid();toggleGrid();
 }
 
 function showTutorialStep(){
@@ -136,18 +136,32 @@ clearTimeout(updateTimeout);
 updateTimeout=setTimeout(()=>{updateGrid();document.getElementById('loading').style.display='none';},300);
 }
 
-function loadExample(){
-const id=document.getElementById('example-gallery').value;
-const desc=document.getElementById('example-desc');
-if(!id){desc.classList.add('hidden');return;}
+function applyExample(id){
 const ex=examples[id];
+if(!ex) return false;
+const desc=document.getElementById('example-desc');
+document.getElementById('example-gallery').value=id;
 desc.textContent=ex.desc;desc.classList.remove('hidden');
 if(ex.pro&&!isPro)togglePro();
 document.getElementById('columns').value=ex.cols;
 document.getElementById('rows').value=ex.rows;
 document.getElementById('gap').value=ex.gap;
 if(ex.areas)document.getElementById('grid-areas').value=ex.areas;
+return true;
+}
+
+function loadExample(){
+const id=document.getElementById('example-gallery').value;
+if(!id){document.getElementById('example-desc').classList.add('hidden');return;}
+applyExample(id);
 updateGrid();
+}
+
+// Load an example from a ?preset= link (e.g. css-grid-layout.html's
+// "Open in generator" buttons) the same way the Example Gallery dropdown does.
+function loadPresetFromURL(){
+const preset=new URLSearchParams(window.location.search).get('preset');
+if(preset) applyExample(preset);
 }
 
 function clearExample(){

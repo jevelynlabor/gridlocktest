@@ -3,24 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glossary | Gridlock Holmes</title>
+<title>CSS Grid Glossary | Gridlock Holmes</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="shortcut icon" type="image/png" href="assets/images/GH-favicon.png">
 <link rel="apple-touch-icon" href="assets/images/GH-favicon.png">
 
 <!-- SEO -->
-<meta name="description" content="Read the Gridlock Holmes glossary.">
+<meta name="description" content="A plain-English glossary of CSS Grid terms: grid container, grid item, tracks, the fr unit, auto-fit vs auto-fill, minmax(), subgrid and more.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://gridlock-holmes.com/privacy.html">
+<link rel="canonical" href="https://gridlock-holmes.com/glossary.html">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Gridlock Holmes">
-<meta property="og:title" content="Glossary | Gridlock Holmes">
-<meta property="og:description" content="How Gridlock Holmes collects, uses and protects your data.">
-<meta property="og:url" content="https://gridlock-holmes.com/privacy.html">
+<meta property="og:title" content="CSS Grid Glossary | Gridlock Holmes">
+<meta property="og:description" content="A plain-English glossary of CSS Grid terms: grid container, grid item, tracks, the fr unit, auto-fit vs auto-fill, minmax(), subgrid and more.">
+<meta property="og:url" content="https://gridlock-holmes.com/glossary.html">
 <meta property="og:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CSS Grid Glossary | Gridlock Holmes">
+<meta name="twitter:description" content="A plain-English glossary of CSS Grid terms: grid container, grid item, tracks, the fr unit, auto-fit vs auto-fill, minmax(), subgrid and more.">
+<meta name="twitter:image" content="https://gridlock-holmes.com/assets/images/gholmes.png">
 
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -47,24 +53,106 @@
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<section class="post-hero">
-  <div class="post-hero-inner">
-    <div class="breadcrumb">
-      <a href="index.html">Home</a><span class="sep">/</span><span class="current">Glossary</span>
+<!-- HERO -->
+<section class="hero-learn">
+  <div class="hero-inner">
+    <div class="hero-tag">Reference</div>
+    <h1><em>CSS Grid glossary:</em> every term, in plain English</h1>
+    <p class="hero-sub">Short, plain-English definitions for every CSS Grid term you'll run into - from grid container and grid line to auto-fit, minmax() and subgrid. Looking for property syntax instead? Try the <a href="css-grid-cheat-sheet.html">cheat sheet</a>.</p>
+    <div class="hero-btns">
+      <a href="css-grid-generator.html" class="btn btn-primary">Try these terms in the generator</a>
+      <a href="learn.html" class="btn btn-outline">Learn CSS Grid</a>
     </div>
-    <h1>Glossary</h1>
-    <div class="author-row"><span>Needs update</span></div>
   </div>
 </section>
 
-<!-- glossary CONTENT -->
+<!-- GLOSSARY CONTENT -->
 <section class="content-section">
   <div class="content-inner content-narrow">
     <article class="post-content">
 
-      <h2>Content</h2>
-      <p>CSS Grid Generator - a user-friendly tool designed for web developers to effortlessly create customizable CSS grids for seamless web development.</p>
+      <h3 id="align-items">Align Items &amp; Align Self</h3>
+      <p><code>align-items</code> controls where every grid item sits within its cell on the vertical (block) axis. <code>align-self</code> overrides that for one specific item.</p>
+
+      <h3 id="auto-fill">Auto-fill</h3>
+      <p>A keyword used with <code>repeat()</code>, e.g. <code>repeat(auto-fill, minmax(200px, 1fr))</code>. Fits as many tracks as will comfortably fit the container, and keeps any leftover empty tracks in place rather than collapsing them - so existing items don't stretch to fill the gap.</p>
+
+      <h3 id="auto-fit">Auto-fit</h3>
+      <p>Behaves like <a href="#auto-fill">auto-fill</a>, except empty tracks collapse to zero width once created, letting the remaining items stretch to fill the extra space. The usual choice for a responsive card grid that should always look full.</p>
+
+      <h3 id="auto-placement">Auto-placement</h3>
+      <p>CSS Grid's default behaviour: items you haven't positioned explicitly are placed automatically into the next available cell, filling row by row.</p>
+
+      <h3 id="dense-packing">Dense Packing</h3>
+      <p>Set with <code>grid-auto-flow: dense</code>. Tells the browser to backfill gaps in the grid with smaller items that appear later in the source order, instead of leaving holes. Useful for photo galleries with mixed image sizes.</p>
+
+      <h3 id="explicit-grid">Explicit Grid</h3>
+      <p>The rows and columns you define directly with <code>grid-template-columns</code> and <code>grid-template-rows</code>. Compare with the <a href="#implicit-grid">implicit grid</a>.</p>
+
+      <h3 id="fr-unit">fr Unit</h3>
+      <p><code>fr</code> stands for fraction. <code>1fr</code> is one equal share of the space left over after fixed-width tracks and gaps are subtracted. Unlike percentages, <code>fr</code> divides only what's left after the gap, so it never causes columns to overflow. See the <a href="css-grid-cheat-sheet.html#fr-unit">fr unit explained</a> for worked examples.</p>
+
+      <h3 id="gap">Gap (Row Gap / Column Gap)</h3>
+      <p>The gutter between grid tracks. Set both at once with the <code>gap</code> shorthand, or independently with <code>row-gap</code> and <code>column-gap</code>.</p>
+
+      <h3 id="grid-area">Grid Area</h3>
+      <p>One or more grid cells that form a rectangular region - either a single cell, a group spanned with <code>grid-column</code>/<code>grid-row</code>, or a named region declared in <a href="#grid-template-areas">grid-template-areas</a>.</p>
+
+      <h3 id="grid-auto-rows">Grid Auto Columns &amp; Grid Auto Rows</h3>
+      <p>Sets the size of tracks created in the <a href="#implicit-grid">implicit grid</a> - for example, when you place more items than your <code>grid-template</code> explicitly has room for.</p>
+
+      <h3 id="grid-cell">Grid Cell</h3>
+      <p>The smallest unit of a grid: the space where one row track and one column track intersect.</p>
+
+      <h3 id="grid-container">Grid Container</h3>
+      <p>The element with <code>display: grid</code> (or <code>inline-grid</code>) applied. All of its direct children automatically become grid items.</p>
+
+      <h3 id="grid-item">Grid Item</h3>
+      <p>A direct child of a grid container. Grid items are placed into cells automatically via <a href="#auto-placement">auto-placement</a>, unless you position them explicitly.</p>
+
+      <h3 id="grid-line">Grid Line</h3>
+      <p>The numbered dividing lines that make up a grid's structure. A 3-column grid has 4 vertical grid lines, numbered 1 to 4 (or counted backwards from -1).</p>
+
+      <h3 id="grid-template-areas">Grid Template Areas</h3>
+      <p>A way to sketch a layout visually in your CSS, using named strings like <code>"header header" "nav main"</code>, then placing each item into a named region with <code>grid-area</code>.</p>
+
+      <h3 id="grid-track">Grid Track</h3>
+      <p>A single column or row in the grid - the space between two adjacent grid lines.</p>
+
+      <h3 id="holy-grail-layout">Holy Grail Layout</h3>
+      <p>A classic page layout with a header, footer, main content area and two sidebars. A common way to demonstrate CSS Grid, since <code>grid-template-areas</code> makes it quick to build. See <a href="blog/holy-grail-layout.html">how to build one</a>.</p>
+
+      <h3 id="implicit-grid">Implicit Grid</h3>
+      <p>Extra rows or columns CSS Grid creates automatically when you place more items than your <a href="#explicit-grid">explicit grid</a> has room for. Sized with <a href="#grid-auto-rows">grid-auto-rows / grid-auto-columns</a>, which default to <code>auto</code>.</p>
+
+      <h3 id="justify-items">Justify Items &amp; Justify Self</h3>
+      <p><code>justify-items</code> controls where every grid item sits within its cell on the horizontal (inline) axis. <code>justify-self</code> overrides that for one specific item.</p>
+
+      <h3 id="line-based-placement">Line-based Placement</h3>
+      <p>Positioning a grid item by referencing grid line numbers directly, e.g. <code>grid-column: 1 / 3</code>, rather than using a named area.</p>
+
+      <h3 id="minmax">minmax()</h3>
+      <p>A function that sets a track's minimum and maximum size in one step. <code>minmax(200px, 1fr)</code> never shrinks below 200px, but grows to fill its <a href="#fr-unit">fr</a> share when there's room.</p>
+
+      <h3 id="named-lines">Named Lines &amp; Named Areas</h3>
+      <p>Custom names given to grid lines or grid regions, so you can place items by name instead of counting line numbers.</p>
+
+      <h3 id="place-items">Place Items &amp; Place Self</h3>
+      <p>Shorthand combining <a href="#align-items">align-items + justify-items</a> (or <code>align-self</code> + <code>justify-self</code>) into one declaration. <code>place-items: center</code> centers everything in both directions at once.</p>
+
+      <h3 id="repeat">repeat()</h3>
+      <p>Shorthand for repeating the same track size multiple times - <code>repeat(3, 1fr)</code> is identical to <code>1fr 1fr 1fr</code>. Often paired with <a href="#auto-fit">auto-fit</a> or <a href="#auto-fill">auto-fill</a> for responsive grids.</p>
+
+      <h3 id="responsive-grid">Responsive Grid</h3>
+      <p>A grid that adapts to different screen sizes without media queries, typically built with <code>repeat(auto-fit, minmax(240px, 1fr))</code> so columns are added or removed automatically as space allows.</p>
+
+      <h3 id="subgrid">Subgrid</h3>
+      <p>A value for <code>grid-template-columns</code>/<code>grid-template-rows</code> that lets a nested grid item inherit its parent's track sizing, so nested content can line up with the outer grid's columns or rows.</p>
+
+      <h3 id="two-dimensional">Two-dimensional Layout</h3>
+      <p>The defining trait of CSS Grid: it controls rows and columns together. Flexbox, by contrast, is one-dimensional - it only controls a single row or column at a time. Most real layouts use both.</p>
+
+      <p class="mt-32">Want the property-by-property version instead? See the <a href="css-grid-cheat-sheet.html">full CSS Grid cheat sheet</a>, or build a layout directly in the <a href="css-grid-generator.html">generator</a>.</p>
 
     </article>
   </div>

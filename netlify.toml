@@ -1,0 +1,11 @@
+# This is a plain static HTML site - no build step, no dependencies.
+# Publishing from the repo root means _redirects, robots.txt and sitemap.xml
+# are picked up automatically without relying on dashboard settings.
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"

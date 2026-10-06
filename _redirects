@@ -1,0 +1,74 @@
+# Netlify redirect rules: old gridlock-holmes.com (live) -> new site structure (this repo)
+# Format: source  destination  status
+# Generated from the live site's actual sitemap.xml, fetched and verified page-by-page.
+
+# --- Unchanged URLs: /, /educators.html, /about.html, /blog.html, /contact.html,
+# /privacy.html, /terms.html, /cookies.html, /gradient.html are all identical on
+# old and new - no rule needed, Netlify just serves the file directly. (An earlier
+# draft of this file had these as self-to-self redirects, which is pointless at
+# best and a redirect-loop risk at worst - removed before publishing.)
+
+# --- Learning path hub + language start pages (renamed) ---
+/learn/choose-language.html   /learn.html                   301
+/learn/start-css.html         /learn/css.html               301
+/learn/start-tailwind.html    /learn/tailwind.html          301
+/learn/start-js.html          /learn/jscript.html           301
+/learn/start-scss.html        /learn/scss.html              301
+
+# --- CSS lessons: /lessons/css/level-N/lesson-M.html -> /css/level-N/lessonM.html ---
+/lessons/css/level-1/lesson-1.html   /css/level-1/lesson1.html   301
+/lessons/css/level-1/lesson-2.html   /css/level-1/lesson2.html   301
+/lessons/css/level-1/lesson-3.html   /css/level-1/lesson3.html   301
+/lessons/css/level-2/lesson-4.html   /css/level-2/lesson4.html   301
+/lessons/css/level-2/lesson-5.html   /css/level-2/lesson5.html   301
+/lessons/css/level-2/lesson-6.html   /css/level-2/lesson6.html   301
+/lessons/css/level-3/lesson-7.html   /css/level-3/lesson7.html   301
+/lessons/css/level-3/lesson-8.html   /css/level-3/lesson8.html   301
+/lessons/css/level-3/lesson-9.html   /css/level-3/lesson9.html   301
+
+# --- Tailwind lessons ---
+/lessons/tailwind/level-1/lesson-1.html   /tailwind/level-1/lesson1.html   301
+/lessons/tailwind/level-1/lesson-2.html   /tailwind/level-1/lesson2.html   301
+/lessons/tailwind/level-1/lesson-3.html   /tailwind/level-1/lesson3.html   301
+/lessons/tailwind/level-2/lesson-4.html   /tailwind/level-2/lesson4.html   301
+/lessons/tailwind/level-2/lesson-5.html   /tailwind/level-2/lesson5.html   301
+/lessons/tailwind/level-2/lesson-6.html   /tailwind/level-2/lesson6.html   301
+/lessons/tailwind/level-3/lesson-7.html   /tailwind/level-3/lesson7.html   301
+/lessons/tailwind/level-3/lesson-8.html   /tailwind/level-3/lesson8.html   301
+/lessons/tailwind/level-3/lesson-9.html   /tailwind/level-3/lesson9.html   301
+
+# --- JavaScript lessons (old slug was "js-object", new slug is "jscript") ---
+/lessons/js-object/level-1/lesson-1.html   /jscript/level-1/lesson1.html   301
+/lessons/js-object/level-1/lesson-2.html   /jscript/level-1/lesson2.html   301
+/lessons/js-object/level-1/lesson-3.html   /jscript/level-1/lesson3.html   301
+/lessons/js-object/level-2/lesson-4.html   /jscript/level-2/lesson4.html   301
+/lessons/js-object/level-2/lesson-5.html   /jscript/level-2/lesson5.html   301
+/lessons/js-object/level-2/lesson-6.html   /jscript/level-2/lesson6.html   301
+/lessons/js-object/level-3/lesson-7.html   /jscript/level-3/lesson7.html   301
+/lessons/js-object/level-3/lesson-8.html   /jscript/level-3/lesson8.html   301
+/lessons/js-object/level-3/lesson-9.html   /jscript/level-3/lesson9.html   301
+
+# --- SCSS lessons ---
+/lessons/scss/level-1/lesson-1.html   /scss/level-1/lesson1.html   301
+/lessons/scss/level-1/lesson-2.html   /scss/level-1/lesson2.html   301
+/lessons/scss/level-1/lesson-3.html   /scss/level-1/lesson3.html   301
+/lessons/scss/level-2/lesson-4.html   /scss/level-2/lesson4.html   301
+/lessons/scss/level-2/lesson-5.html   /scss/level-2/lesson5.html   301
+/lessons/scss/level-2/lesson-6.html   /scss/level-2/lesson6.html   301
+/lessons/scss/level-3/lesson-7.html   /scss/level-3/lesson7.html   301
+/lessons/scss/level-3/lesson-8.html   /scss/level-3/lesson8.html   301
+/lessons/scss/level-3/lesson-9.html   /scss/level-3/lesson9.html   301
+
+# --- Content matched by page purpose, not filename (verified by fetching the live page) ---
+# /guide.html was a "CSS Grid Complete Guide": fundamentals, 4 syntaxes, mistakes,
+# responsive patterns, named areas, Grid+Flexbox. Matches css-grid-layout.html's scope closely.
+/guide.html                  /css-grid-layout.html          301
+
+# /how-to-use.html was a tutorial on using the interactive tool itself (templates,
+# controls, live preview, code export, shortcuts, FAQ) -> that's the tool page now.
+/how-to-use.html              /css-grid-generator.html       301
+
+# /grid-vs-flexbox.html was a dedicated comparison article. No standalone equivalent
+# exists on the new site; css-grid-layout.html's FAQ answers this exact question, but
+# it's a lower-confidence match (loses the old page's dedicated depth) - review this one.
+/grid-vs-flexbox.html         /css-grid-layout.html          301
