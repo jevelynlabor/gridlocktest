@@ -19,7 +19,7 @@ const tutorialSteps=[
 // Pro Features step hidden for now - restore by uncommenting and moving back into tutorialSteps:
 // {title:'Pro Features',content:'Upgrade to <strong>Pro</strong> to unlock:<br><br><strong>🎨 Layout Tools:</strong><br>• Auto-Responsive Columns<br>• Named Layout Areas<br>• Item Positioning<br><br><strong>📚 Content:</strong><br>• 20+ Advanced Examples<br>• Professional Templates<br><br><strong>💎 Experience:</strong><br>• No Advertisements<br>• Priority Support<br>• Cloud Save (coming)<br><br><strong>💰 Choose Your Plan:</strong><br>📆 <strong>Monthly - £4.99/month</strong><br>📅 <strong>Annual - £14.99/year</strong> (SAVE 75%) ⭐<br>💎 <strong>Lifetime - £29.99</strong> (one-time) 🏆 BEST VALUE'},
 {title:'Grid Detective',content:'<strong>Grid Detective</strong> is your CSS error checker!<br><br>Paste any CSS Grid code and it will:<br>• Catch typos and mistakes<br>• Give you helpful tips<br>• Help you learn proper syntax<br><br>Perfect for debugging!'},
-{title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉<br><br><div class="mt-6 pt-4 border-t" style="display:none"><p class="text-xs text-gray-600 mb-3">This free tutorial is supported by:</p><div id="adsense-tutorial" class="bg-gray-100 border border-gray-300 rounded p-4 text-center"><p class="text-xs text-gray-500">📢 Ad Space 3 - Tutorial Completion</p><p class="text-xs text-gray-400 mt-1">Add your third AdSense code here</p></div></div>'}
+{title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉'}
 ];
 
 function syncGradientDirButtons(target,dir){
@@ -1468,10 +1468,6 @@ window.addEventListener('load', function() {
     if (checkProStatus()) {
         // Activate Pro features
         isPro = true;
-        
-        // Hide ads
-        const ads = document.querySelectorAll('[id^="adsense-"]');
-        ads.forEach(ad => ad.style.display = 'none');
         
         // Update Pro section to show activated status
         const upgradeBtn = document.getElementById('upgrade-btn');
