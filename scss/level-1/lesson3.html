@@ -404,23 +404,23 @@ $spacing-lg: 32px;
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. How do you use a mixin in SCSS?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>@apply mixin-name;</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>@include mixin-name;</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>@include mixin-name;</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>@apply mixin-name;</code></label>
         <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>@use mixin-name;</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the main advantage of using mixins for grids?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> They make CSS files smaller</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Reusable patterns: write once, use everywhere with optional parameters</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Reusable patterns: write once, use everywhere with optional parameters</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> They make CSS files smaller</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> They are required for CSS Grid to work</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Can mixin parameters have default values?</p>
         <label class="quiz-option"><input type="radio" name="q3" value="a"> No, all parameters must be provided</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Yes, you can provide defaults like: @mixin grid($cols: 3)</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only in SCSS version 2.0+</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Only in SCSS version 2.0+</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Yes, you can provide defaults like: @mixin grid($cols: 3)</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -457,7 +457,7 @@ $spacing-lg: 32px;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

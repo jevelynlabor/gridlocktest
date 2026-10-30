@@ -436,16 +436,16 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>grid-auto-flow: column</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates columns automatically</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Places items in columns (top to bottom) instead of rows</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Places items in columns (top to bottom) instead of rows</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Creates columns automatically</label>
         <label class="quiz-option"><input type="radio" name="q1" value="c"> Adds automatic gaps between columns</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is <code>grid-auto-rows</code> used for?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Automatically counting rows</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Making rows resize automatically</label>
         <label class="quiz-option"><input type="radio" name="q2" value="b"> Setting the size of implicitly created rows</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Making rows resize automatically</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Automatically counting rows</label>
       </div>
 
       <div class="quiz-q">
@@ -496,7 +496,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'b', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

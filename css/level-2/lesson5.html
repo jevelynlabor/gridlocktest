@@ -293,9 +293,9 @@ gap: 20px; /* Gap is automatically accounted for */</code></pre>
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What is wrong with: <code>grid-template-columns: 1fr, 2fr, 1fr;</code></p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Nothing, it is correct</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Should use spaces, not commas</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Missing semicolon</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Should use spaces, not commas</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Missing semicolon</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Nothing, it is correct</label>
       </div>
 
       <div class="quiz-q">
@@ -307,9 +307,9 @@ gap: 20px; /* Gap is automatically accounted for */</code></pre>
 
       <div class="quiz-q">
         <p class="q-text">3. What is the modern property name for spacing?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> grid-gap</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> gap</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> spacing</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> spacing</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> grid-gap</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> gap</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -339,7 +339,7 @@ gap: 20px; /* Gap is automatically accounted for */</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'b', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

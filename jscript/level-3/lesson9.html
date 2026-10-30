@@ -438,23 +438,23 @@ function DynamicGallery({ items, userColumns }) {
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What is the main advantage of CSS-in-JS for grids?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Faster rendering</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Component-scoped styles, dynamic props, and theming</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> No JavaScript needed</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Component-scoped styles, dynamic props, and theming</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> No JavaScript needed</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Faster rendering</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. Which CSS-in-JS approach is fastest for production?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> styled-components (runtime)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> All perform exactly the same</label>
         <label class="quiz-option"><input type="radio" name="q2" value="b"> Tailwind CSS (build-time, utility classes)</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> All perform exactly the same</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> styled-components (runtime)</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. How do you pass dynamic columns to a styled-component?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> <code>grid-template-columns: columns;</code></label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> <code>grid-template-columns: repeat(${props =&gt; props.columns}, 1fr);</code></label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Passing columns as plain HTML only</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Passing columns as plain HTML only</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> <code>grid-template-columns: columns;</code></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> <code>grid-template-columns: repeat(${props =&gt; props.columns}, 1fr);</code></label>
       </div>
 
       <button type="submit" class="quiz-submit">Complete Course</button>
@@ -495,7 +495,7 @@ function DynamicGallery({ items, userColumns }) {
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'b', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

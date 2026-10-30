@@ -437,23 +437,23 @@ $responsive-breakpoints: (md, lg);  // Skip sm, xl if not needed
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What is the biggest performance issue with SCSS grid systems?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> SCSS is slow to compile</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Grid layouts are inherently slow</label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> Loops and utilities can generate huge CSS files with thousands of unused classes</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Grid layouts are inherently slow</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> SCSS is slow to compile</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the best solution for removing unused CSS?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Delete it manually</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use PurgeCSS to automatically remove unused classes based on your HTML</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Use PurgeCSS to automatically remove unused classes based on your HTML</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Delete it manually</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Just compress the file</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. When should you use CSS custom properties vs SCSS variables?</p>
         <label class="quiz-option"><input type="radio" name="q3" value="a"> Always use SCSS variables</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> SCSS variables for compile-time values, CSS custom properties for runtime and dynamic values</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> They are the same thing</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> They are the same thing</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> SCSS variables for compile-time values, CSS custom properties for runtime and dynamic values</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -483,7 +483,7 @@ $responsive-breakpoints: (md, lg);  // Skip sm, xl if not needed
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'a', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

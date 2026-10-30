@@ -351,23 +351,23 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>gap-4</code> equal in pixels?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> 4px</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> 40px</label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> 16px (1rem)</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> 40px</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> 4px</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. How do you create horizontal spacing of 24px and vertical spacing of 8px?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>gap-24 gap-8</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>gap-x-6 gap-y-2</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>gap-h-24 gap-v-8</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>gap-h-24 gap-v-8</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>gap-24 gap-8</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>gap-x-6 gap-y-2</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is the difference between gap and padding?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Gap is for grids, padding is for flexbox</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Gap creates space between items, padding creates space inside items</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> They are the same, just different names</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Gap creates space between items, padding creates space inside items</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> They are the same, just different names</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Gap is for grids, padding is for flexbox</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -404,7 +404,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

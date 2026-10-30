@@ -261,23 +261,23 @@ $default-gap: 24px;
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What symbol is used for SCSS variables?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>@variable-name</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>var(--variable-name)</code></label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>$variable-name</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>var(--variable-name)</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>@variable-name</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the main benefit of using SCSS variables for grid properties?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Faster browser performance</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Browsers can read SCSS directly</label>
         <label class="quiz-option"><input type="radio" name="q2" value="b"> Change values in one place and update everywhere, easier maintenance</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Browsers can read SCSS directly</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Faster browser performance</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Does SCSS use the same CSS Grid syntax as regular CSS?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> No, it has completely different syntax</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Yes, SCSS uses the exact same CSS Grid properties, but adds variables and other features</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> SCSS cannot use CSS Grid</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Yes, SCSS uses the exact same CSS Grid properties, but adds variables and other features</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> SCSS cannot use CSS Grid</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> No, it has completely different syntax</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -307,7 +307,7 @@ $default-gap: 24px;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'b', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

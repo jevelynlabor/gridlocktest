@@ -502,23 +502,23 @@ $containers: (
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What are the main components of a grid system?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Only grid-template-columns classes</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Containers, columns, rows, gaps, and responsive utilities</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Just colors and typography</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Containers, columns, rows, gaps, and responsive utilities</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Just colors and typography</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Only grid-template-columns classes</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. Why use configuration files in grid systems?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> They are not useful</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Centralize design tokens so you can update breakpoints, spacing, and columns in one place</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Centralize design tokens so you can update breakpoints, spacing, and columns in one place</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> They are not useful</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Required by browsers</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is the purpose of responsive modifiers like md:grid-cols-3?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> They do not do anything</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Apply different grid layouts at different screen sizes for responsive design</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only for print styles</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Only for print styles</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> They do not do anything</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Apply different grid layouts at different screen sizes for responsive design</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -555,7 +555,7 @@ $containers: (
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

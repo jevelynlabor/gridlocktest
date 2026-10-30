@@ -394,9 +394,9 @@ function updateGrid() {
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. Why should you debounce resize events?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> To make the site load faster</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> It is required for resize to work</label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> To prevent running code 60+ times per second and causing performance issues</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> It is required for resize to work</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> To make the site load faster</label>
       </div>
 
       <div class="quiz-q">
@@ -408,9 +408,9 @@ function updateGrid() {
 
       <div class="quiz-q">
         <p class="q-text">3. When should you use container width instead of window width?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Never, always use window width</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> For components in sidebars or split layouts where container size varies</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only on mobile devices</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> For components in sidebars or split layouts where container size varies</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Only on mobile devices</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Never, always use window width</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -440,7 +440,7 @@ function updateGrid() {
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'b', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

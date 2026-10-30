@@ -407,22 +407,22 @@ $breakpoint-lg: 1024px;
       <div class="quiz-q">
         <p class="q-text">1. What does the &amp; symbol represent in SCSS?</p>
         <label class="quiz-option"><input type="radio" name="q1" value="a"> A special character for variables</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> The parent selector</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> A comment marker</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> A comment marker</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> The parent selector</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the main benefit of nesting in SCSS?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Makes CSS files smaller</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Keeps related code together and mirrors HTML structure for better organization</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Required for CSS Grid to work</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Keeps related code together and mirrors HTML structure for better organization</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Required for CSS Grid to work</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Makes CSS files smaller</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. How deep should you nest selectors in SCSS?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> As deep as possible, more nesting is always better</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Never nest, always use separate selectors</label>
         <label class="quiz-option"><input type="radio" name="q3" value="b"> Avoid nesting more than 3-4 levels to keep specificity manageable</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Never nest, always use separate selectors</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> As deep as possible, more nesting is always better</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -452,7 +452,7 @@ $breakpoint-lg: 1024px;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

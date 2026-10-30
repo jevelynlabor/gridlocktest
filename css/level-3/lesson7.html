@@ -366,23 +366,23 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 300px));</code></pre>
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>repeat(auto-fit, minmax(250px, 1fr))</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates 250px columns</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Creates as many columns as fit, minimum 250px each</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates as many columns as fit, minimum 250px each</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Creates 250px columns</label>
         <label class="quiz-option"><input type="radio" name="q1" value="c"> Creates one flexible column</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the difference between auto-fit and auto-fill?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> There is no difference</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> auto-fit collapses empty columns, auto-fill keeps them</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> auto-fill is faster</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> auto-fill is faster</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> There is no difference</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> auto-fit collapses empty columns, auto-fill keeps them</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. In <code>minmax(250px, 1fr)</code>, what does the 1fr represent?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Minimum size</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Maximum size (can grow to fill space)</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Fixed size of 1 pixel</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Maximum size (can grow to fill space)</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Fixed size of 1 pixel</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Minimum size</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -412,7 +412,7 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 300px));</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

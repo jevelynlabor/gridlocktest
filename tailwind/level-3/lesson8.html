@@ -320,16 +320,16 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>auto-cols-max</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates the maximum number of columns</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes implicit columns as wide as their content needs (max-content)</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Sets maximum column width to 100%</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Sets maximum column width to 100%</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Creates the maximum number of columns</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Makes implicit columns as wide as their content needs (max-content)</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. When should you use <code>auto-cols-fr</code>?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> When you want columns to be as small as possible</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> When you want equal-width columns that share available space</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> When you want columns sized by content</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> When you want equal-width columns that share available space</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> When you want columns sized by content</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> When you want columns to be as small as possible</label>
       </div>
 
       <div class="quiz-q">
@@ -366,7 +366,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

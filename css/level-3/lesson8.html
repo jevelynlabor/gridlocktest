@@ -432,16 +432,16 @@ grid-template-areas:
 
       <div class="quiz-q">
         <p class="q-text">2. How do you create an empty cell in template areas?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Leave a space</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use a dot (.)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Use a dot (.)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Leave a space</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Use "empty"</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Can grid areas be L-shaped or T-shaped?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Yes, any shape works</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Only in CSS Grid Level 2</label>
         <label class="quiz-option"><input type="radio" name="q3" value="b"> No, areas must be rectangular</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only in CSS Grid Level 2</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Yes, any shape works</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -471,7 +471,7 @@ grid-template-areas:
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

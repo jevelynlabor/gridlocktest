@@ -314,15 +314,15 @@
       <div class="quiz-q">
         <p class="q-text">2. Which property adds spacing between grid items?</p>
         <label class="quiz-option"><input type="radio" name="q2" value="a"> margin</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> gap</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> padding</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> padding</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> gap</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What does <code>grid-template-columns: 200px 1fr;</code> create?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Two equal columns</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> A 200px fixed column and a flexible column</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> One column that is 200px wide</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> One column that is 200px wide</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Two equal columns</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> A 200px fixed column and a flexible column</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -352,7 +352,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'c', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

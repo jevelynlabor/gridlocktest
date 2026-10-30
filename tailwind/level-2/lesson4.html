@@ -342,21 +342,21 @@
       <div class="quiz-q">
         <p class="q-text">1. What does <code>col-span-3</code> do?</p>
         <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates 3 columns in the grid</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes an item span 3 columns in width</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Adds 3 pixels of spacing</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Adds 3 pixels of spacing</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Makes an item span 3 columns in width</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. Which class makes an item span all columns?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>col-span-all</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>col-span-full</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>col-span-100</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>col-span-100</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>col-span-all</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>col-span-full</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. In a grid with <code>grid-cols-4</code>, how many columns does <code>col-span-2</code> occupy?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> All 4 columns</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> 2 columns (half the width)</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> 2 columns (half the width)</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> All 4 columns</label>
         <label class="quiz-option"><input type="radio" name="q3" value="c"> 2 pixels</label>
       </div>
 
@@ -387,7 +387,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

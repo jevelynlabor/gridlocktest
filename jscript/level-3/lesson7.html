@@ -367,16 +367,16 @@ setLayout('mobile');</code></pre>
 
       <div class="quiz-q">
         <p class="q-text">2. What does a dot (.) mean in gridTemplateAreas?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> End of row</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Empty cell, no content</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Separator between areas</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Separator between areas</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> End of row</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Empty cell, no content</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is the advantage of grid template areas?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Faster rendering</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Visual, readable layouts that are easy to rearrange and maintain</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Required for responsive grids</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Visual, readable layouts that are easy to rearrange and maintain</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Required for responsive grids</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Faster rendering</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -406,7 +406,7 @@ setLayout('mobile');</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

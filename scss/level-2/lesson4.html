@@ -419,23 +419,23 @@ $grid-presets: (
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What is the main difference between functions and mixins?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Functions are faster</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Functions return values, mixins output CSS code</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> There is no difference</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Functions return values, mixins output CSS code</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> There is no difference</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Functions are faster</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. How do you define a function in SCSS?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>@include function-name() { }</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>@function function-name() { @return value; }</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>@function function-name() { @return value; }</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>@include function-name() { }</code></label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>function function-name() { }</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is a good use case for SCSS functions in grids?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Functions cannot be used with grids</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Only for color calculations</label>
         <label class="quiz-option"><input type="radio" name="q3" value="b"> Creating spacing scales and calculating dynamic values like column widths</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Only for color calculations</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Functions cannot be used with grids</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -465,7 +465,7 @@ $grid-presets: (
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

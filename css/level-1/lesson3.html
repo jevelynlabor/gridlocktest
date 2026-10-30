@@ -348,22 +348,22 @@ gap: 20px;</code></pre>
       <div class="quiz-q">
         <p class="q-text">1. In <code>grid-template-columns: 1fr 3fr 1fr</code>, what is the ratio of column widths?</p>
         <label class="quiz-option"><input type="radio" name="q1" value="a"> All columns are equal</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> 1:3:1 (middle is 3x wider)</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> 1:2:1</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> 1:2:1</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> 1:3:1 (middle is 3x wider)</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What does <code>repeat(4, 1fr)</code> create?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> One column repeated 4 times</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Four equal columns (same as 1fr 1fr 1fr 1fr)</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Four 1px columns</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Four equal columns (same as 1fr 1fr 1fr 1fr)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Four 1px columns</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> One column repeated 4 times</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Why are FR units better than percentages for Grid?</p>
         <label class="quiz-option"><input type="radio" name="q3" value="a"> They are not, percentages work better</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> FR units automatically account for gaps</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> FR units make columns bigger</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> FR units make columns bigger</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> FR units automatically account for gaps</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -403,7 +403,7 @@ gap: 20px;</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'a', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

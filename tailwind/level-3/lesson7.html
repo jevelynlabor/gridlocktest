@@ -323,15 +323,15 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>grid-flow-col</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates columns in the grid</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes items flow vertically (top to bottom) before creating new columns</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Increases column gap</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Makes items flow vertically (top to bottom) before creating new columns</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Increases column gap</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Creates columns in the grid</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the purpose of the "dense" variants like <code>grid-flow-row-dense</code>?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Makes items closer together</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Fills in gaps left by larger items, possibly reordering visually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Fills in gaps left by larger items, possibly reordering visually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Makes items closer together</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Increases grid density by adding more columns</label>
       </div>
 
@@ -369,7 +369,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

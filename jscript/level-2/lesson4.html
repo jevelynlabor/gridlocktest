@@ -368,23 +368,23 @@ container.style.gridTemplateColumns = 'repeat(4, 1fr)';</code></pre>
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. How do you create columns based on array length?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>gridTemplateColumns = array.length</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>gridTemplateColumns = `repeat(${array.length}, 1fr)`</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>gridTemplateColumns = 'auto'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>gridTemplateColumns = `repeat(${array.length}, 1fr)`</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>gridTemplateColumns = 'auto'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>gridTemplateColumns = array.length</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the benefit of storing layout preferences in localStorage?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Faster rendering</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> User's choice persists across sessions</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> User's choice persists across sessions</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Faster rendering</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Required for grids to work</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. How do you animate grid layout changes?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> <code>animation = 'grid 0.3s'</code></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Grids cannot be animated</label>
         <label class="quiz-option"><input type="radio" name="q3" value="b"> <code>transition = 'grid-template-columns 0.3s ease'</code></label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Grids cannot be animated</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> <code>animation = 'grid 0.3s'</code></label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -414,7 +414,7 @@ container.style.gridTemplateColumns = 'repeat(4, 1fr)';</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

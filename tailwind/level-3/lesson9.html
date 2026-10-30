@@ -340,21 +340,21 @@
       <div class="quiz-q">
         <p class="q-text">1. How do you create a grid with columns sized 200px, 1fr, 1fr?</p>
         <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>grid-cols-[200px,1fr,1fr]</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-[200px_1fr_1fr]</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-cols-200-1-1</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-200-1-1</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-cols-[200px_1fr_1fr]</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the benefit of <code>repeat(auto-fit, minmax(250px, 1fr))</code>?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> It fixes the grid to exactly 250px columns</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> It creates 250 columns</label>
         <label class="quiz-option"><input type="radio" name="q2" value="b"> It creates a responsive grid that automatically fits columns without media queries</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> It creates 250 columns</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> It fixes the grid to exactly 250px columns</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. In arbitrary values, what separates multiple values?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Commas</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Underscores</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Underscores</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Commas</label>
         <label class="quiz-option"><input type="radio" name="q3" value="c"> Spaces</label>
       </div>
 
@@ -401,7 +401,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'b', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

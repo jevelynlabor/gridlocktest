@@ -309,15 +309,15 @@
 
       <div class="quiz-q">
         <p class="q-text">2. Which should you use for a navigation bar?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Grid</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Flexbox</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Either works equally well</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Flexbox</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Either works equally well</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Grid</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Can you use Grid and Flexbox together in the same project?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> No, choose one</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Yes, use Grid for layouts and Flexbox for components</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Yes, use Grid for layouts and Flexbox for components</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> No, choose one</label>
         <label class="quiz-option"><input type="radio" name="q3" value="c"> Only if necessary</label>
       </div>
 
@@ -355,7 +355,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'a', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

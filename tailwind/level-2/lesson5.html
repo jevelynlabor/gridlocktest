@@ -345,22 +345,22 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>row-span-3</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates 3 rows in the grid</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Makes an item span 3 rows in height</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Adds 3 pixels of height</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Adds 3 pixels of height</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Creates 3 rows in the grid</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Makes an item span 3 rows in height</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. Which class makes an item span all rows?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>row-span-all</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>row-span-100</code></label>
         <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>row-span-full</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>row-span-100</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>row-span-all</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Can you combine <code>col-span-2</code> and <code>row-span-2</code> on the same element?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> No, you can only span in one direction</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Yes, an item can span both columns and rows simultaneously</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Yes, an item can span both columns and rows simultaneously</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> No, you can only span in one direction</label>
         <label class="quiz-option"><input type="radio" name="q3" value="c"> Only on desktop screens</label>
       </div>
 
@@ -391,7 +391,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'b', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

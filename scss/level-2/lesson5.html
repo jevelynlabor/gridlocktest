@@ -393,15 +393,15 @@ $flow-directions: row, column, dense, row-dense, column-dense;
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does the @for loop do in SCSS?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Creates CSS animations</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Validates your CSS</label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> Repeats code a specific number of times to generate multiple CSS classes</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Validates your CSS</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Creates CSS animations</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the main advantage of using loops for grid systems?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Loops make CSS files smaller</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Automatically generate hundreds of utility classes instead of writing them manually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Automatically generate hundreds of utility classes instead of writing them manually</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Loops make CSS files smaller</label>
         <label class="quiz-option"><input type="radio" name="q2" value="c"> Loops are required for CSS Grid to work</label>
       </div>
 
@@ -439,7 +439,7 @@ $flow-directions: row, column, dense, row-dense, column-dense;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

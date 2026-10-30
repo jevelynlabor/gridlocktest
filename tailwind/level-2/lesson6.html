@@ -419,23 +419,23 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. For a responsive card grid that goes from 1 to 4 columns, which classes should you use?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>grid-cols-4</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>col-span-1 col-span-2 col-span-3 col-span-4</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>col-span-1 col-span-2 col-span-3 col-span-4</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid-cols-4</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. In a 3-column blog layout, how do you make the main content take 2 columns and sidebar take 1?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Use <code>grid-cols-2</code> on container</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use <code>grid-cols-3</code> on container, <code>col-span-2</code> on main</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Use <code>flex</code> instead of grid</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Use <code>grid-cols-3</code> on container, <code>col-span-2</code> on main</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Use <code>flex</code> instead of grid</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Use <code>grid-cols-2</code> on container</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is the benefit of using <code>transform scale-105</code> on a featured pricing plan?</p>
         <label class="quiz-option"><input type="radio" name="q3" value="a"> It makes the price bigger</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> It makes the entire card slightly larger to draw attention</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> It changes the color scheme</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> It changes the color scheme</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> It makes the entire card slightly larger to draw attention</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -472,7 +472,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'a', q3: 'c' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

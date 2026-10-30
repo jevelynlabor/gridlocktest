@@ -516,16 +516,16 @@ $card-max-width: 1fr;
 
       <div class="quiz-q">
         <p class="q-text">2. What is the difference between auto-fit and auto-fill?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> They are the same thing</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> auto-fit collapses empty columns, auto-fill maintains them</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> auto-fill is faster</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> auto-fill is faster</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> They are the same thing</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> auto-fit collapses empty columns, auto-fill maintains them</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. How do you create overlapping grid items?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> It is not possible with CSS Grid</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Place items on overlapping grid lines and use z-index to control stacking</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Use negative margins</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Place items on overlapping grid lines and use z-index to control stacking</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Use negative margins</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> It is not possible with CSS Grid</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -555,7 +555,7 @@ $card-max-width: 1fr;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

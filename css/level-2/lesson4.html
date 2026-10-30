@@ -244,23 +244,23 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. Which pattern is best for a blog with a sidebar?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Card Grid</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Two-Column Layout</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Dashboard Layout</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Two-Column Layout</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Dashboard Layout</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Card Grid</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What does <code>grid-column: 1 / -1</code> do?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Creates one column</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Spans all columns (full width)</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Creates negative spacing</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Spans all columns (full width)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Creates negative spacing</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Creates one column</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Which pattern uses <code>repeat(auto-fit, minmax(...))</code>?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Holy Grail</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Two-Column</label>
         <label class="quiz-option"><input type="radio" name="q3" value="b"> Card Grid (responsive)</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Two-Column</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Holy Grail</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -290,7 +290,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

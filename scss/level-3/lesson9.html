@@ -494,23 +494,23 @@ $grid-columns: 16;
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What should you use !default for?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Every variable</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Configuration variables that users might want to override</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> Configuration variables that users might want to override</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Every variable</label>
         <label class="quiz-option"><input type="radio" name="q1" value="c"> !default is not necessary</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is a good target file size for a production grid system?</p>
         <label class="quiz-option"><input type="radio" name="q2" value="a"> As large as possible</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Under 50KB minified, lean and optimized</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> File size does not matter</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> File size does not matter</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Under 50KB minified, lean and optimized</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What have you learned in this SCSS Grid course?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Just basic CSS Grid</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Variables, nesting, mixins, functions, loops, optimization, and building complete grid systems</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> How to use Flexbox</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Variables, nesting, mixins, functions, loops, optimization, and building complete grid systems</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> How to use Flexbox</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Just basic CSS Grid</label>
       </div>
 
       <button type="submit" class="quiz-submit">Complete Course</button>
@@ -556,7 +556,7 @@ $grid-columns: 16;
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

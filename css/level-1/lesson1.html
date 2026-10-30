@@ -203,22 +203,22 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What property turns a div into a grid container?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> grid: true</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> display: grid</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> grid-layout: on</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> grid-layout: on</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> grid: true</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> display: grid</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What makes CSS Grid different from Flexbox?</p>
         <label class="quiz-option"><input type="radio" name="q2" value="a"> Grid is older than Flexbox</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Grid controls rows and columns (2D), Flexbox is 1D</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Grid does not work in modern browsers</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Grid does not work in modern browsers</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Grid controls rows and columns (2D), Flexbox is 1D</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What are the two key parts of every CSS Grid layout?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Rows and columns</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Grid container and grid items</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Grid container and grid items</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Rows and columns</label>
         <label class="quiz-option"><input type="radio" name="q3" value="c"> HTML and CSS</label>
       </div>
 
@@ -249,7 +249,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

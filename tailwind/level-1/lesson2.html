@@ -320,16 +320,16 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What does <code>md:grid-cols-3</code> mean?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> 3 columns only on medium screens</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> 3 columns on screens smaller than 768px</label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> 3 columns on medium screens and larger (768px+)</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> 3 columns on screens smaller than 768px</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> 3 columns only on medium screens</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. For mobile styles in Tailwind, you should use:</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>sm:</code> prefix</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Unprefixed classes (no breakpoint prefix)</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>mobile:</code> prefix</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Unprefixed classes (no breakpoint prefix)</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>mobile:</code> prefix</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>sm:</code> prefix</label>
       </div>
 
       <div class="quiz-q">
@@ -366,7 +366,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'a', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

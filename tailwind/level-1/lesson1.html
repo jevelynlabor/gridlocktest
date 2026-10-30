@@ -273,9 +273,9 @@
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. What class enables grid layout in Tailwind?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>display-grid</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>grid-layout</code></label>
         <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>grid</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>grid-layout</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>display-grid</code></label>
       </div>
 
       <div class="quiz-q">
@@ -287,9 +287,9 @@
 
       <div class="quiz-q">
         <p class="q-text">3. What is the main advantage of Tailwind Grid over pure CSS?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> It creates faster-loading pages</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> You apply utility classes directly in HTML without separate CSS files</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> It generates better-looking grids automatically</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> You apply utility classes directly in HTML without separate CSS files</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> It generates better-looking grids automatically</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> It creates faster-loading pages</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -319,7 +319,7 @@
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'b', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

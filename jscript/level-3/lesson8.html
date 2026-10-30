@@ -392,16 +392,16 @@ if (!prefersReducedMotion) {
 
       <div class="quiz-q">
         <p class="q-text">2. What should you check before enabling animations?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Browser version</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> User's prefers-reduced-motion preference for accessibility</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Nothing, always animate</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Nothing, always animate</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Browser version</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> User's prefers-reduced-motion preference for accessibility</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. What is a good duration for grid animations?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> 1-2 seconds for impact</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> 200-400ms for responsive, natural feeling</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> 50ms or less</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> 200-400ms for responsive, natural feeling</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> 50ms or less</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> 1-2 seconds for impact</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -431,7 +431,7 @@ if (!prefersReducedMotion) {
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'b', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

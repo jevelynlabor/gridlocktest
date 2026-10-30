@@ -167,23 +167,23 @@ container.style.gap = 20px;      // Error!</code></pre>
     <form id="quiz-form">
       <div class="quiz-q">
         <p class="q-text">1. How do you enable grid display in JavaScript?</p>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>element.style.display = grid</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>element.style.display = 'grid'</code></label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>element.display = 'grid'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> <code>element.style.display = 'grid'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> <code>element.display = 'grid'</code></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> <code>element.style.display = grid</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the JavaScript equivalent of <code>grid-template-columns</code>?</p>
         <label class="quiz-option"><input type="radio" name="q2" value="a"> <code>grid-template-columns</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>gridTemplateColumns</code></label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>GridTemplateColumns</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>GridTemplateColumns</code></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>gridTemplateColumns</code></label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">3. Why must style values be wrapped in quotes?</p>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> For better performance</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Because JavaScript requires string values for style properties</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> They do not need quotes</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Because JavaScript requires string values for style properties</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> They do not need quotes</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> For better performance</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Answers</button>
@@ -213,7 +213,7 @@ container.style.gap = 20px;      // Error!</code></pre>
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'a', q2: 'c', q3: 'a' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {

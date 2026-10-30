@@ -420,15 +420,15 @@ function openLightbox(imageSrc, index) {
       <div class="quiz-q">
         <p class="q-text">1. What does <code>gridColumn = '1 / -1'</code> mean?</p>
         <label class="quiz-option"><input type="radio" name="q1" value="a"> First column only</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Span from first column to last column (full width)</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Invalid syntax</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Invalid syntax</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Span from first column to last column (full width)</label>
       </div>
 
       <div class="quiz-q">
         <p class="q-text">2. What is the advantage of <code>repeat(auto-fit, minmax(250px, 1fr))</code>?</p>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Faster rendering</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Automatically responsive, fits as many columns as possible, minimum 250px each</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Only works on desktop</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> Only works on desktop</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Faster rendering</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Automatically responsive, fits as many columns as possible, minimum 250px each</label>
       </div>
 
       <div class="quiz-q">
@@ -472,7 +472,7 @@ function openLightbox(imageSrc, index) {
 
 <script src="../../assets/js/app.js"></script>
 <script>
-  const answers = { q1: 'b', q2: 'b', q3: 'b' };
+  const answers = { q1: 'c', q2: 'c', q3: 'b' };
   const currentStudent = JSON.parse(localStorage.getItem('gridlock-current-student') || 'null');
 
   function getStorageKey(key) {
