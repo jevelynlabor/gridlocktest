@@ -137,7 +137,7 @@ def render_post_card(p, image_href, post_href):
 def render_empty_state(label, blog_href):
     return f'''    <div class="empty-state">
       <strong>No {label} posts yet</strong>
-      We have not published in this category yet, but it is on the roadmap. Check the <a href="{blog_href}" style="color:var(--teal);">full blog</a> or subscribe in the sidebar to hear when it lands.
+      We have not published in this category yet, but it is on the roadmap. Check the <a href="{blog_href}" style="color:var(--teal);">full blog</a> for other posts in the meantime.
     </div>'''
 
 
