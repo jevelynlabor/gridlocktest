@@ -241,6 +241,8 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
 .ad-band { background:var(--bg2); border-top:1px solid var(--border); padding:24px; display:flex; justify-content:center; }
 .ad-band .adsbygoogle { max-width:100%; }
 .ad-band:empty { display:none; }
+.ad-band-auto { background:var(--bg2); border-top:1px solid var(--border); padding:24px; }
+.ad-band-auto .adsbygoogle { max-width:1200px; margin:0 auto; }
 .inline-ad { display:flex; justify-content:center; margin-top:32px; }
 .inline-ad .adsbygoogle { max-width:100%; }
 .inline-ad:empty { display:none; }
@@ -256,6 +258,9 @@ nav { position:sticky; top:0; z-index:100; background:rgba(17,24,39,0.97); backd
 .download-card { background:rgba(79,70,229,0.08); border:1px solid rgba(79,70,229,0.25); border-radius:16px; padding:30px; text-align:center; }
 .download-card h3 { color:var(--white); font-size:1.05rem; font-weight:700; margin-bottom:14px; }
 .badge-row { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:20px; }
+.badge-row-left { justify-content:flex-start; margin-bottom:24px; }
+.educator-inner-ad { grid-template-columns:1fr 300px; align-items:start; }
+.educator-ad { width:300px; min-height:250px; }
 .badge { background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:12px; font-size:0.71rem; font-weight:600; color:var(--muted); padding:3px 10px; }
 
 /* WHO */
@@ -477,8 +482,8 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
   .routes-grid,.paths-grid,.who-grid,.values-grid,.type-grid,.audience-grid { grid-template-columns:repeat(2,1fr); }
   .ghmiddle img{ width:250px; }
   .stat-row,.mini-links { grid-template-columns:repeat(2,1fr); }
-  .steps-ad:empty,.creator-ad:empty,.what-ad:empty { display:none; }
-  .what-ad { margin:0 auto; }
+  .steps-ad:empty,.creator-ad:empty,.what-ad:empty,.educator-ad:empty { display:none; }
+  .what-ad,.educator-ad { margin:0 auto; }
   .creator-split { grid-template-columns:1fr; }
   .creator-ad { margin:0 auto; }
   .steps-grid,.detect-grid { grid-template-columns:1fr; }
