@@ -80,6 +80,7 @@ a.lesson-row:hover { background:rgba(79,70,229,0.08); }
 .lesson-cta p { color:var(--muted); font-size:0.92rem; margin-bottom:18px; }
 
 /* ---- Quiz ---- */
+.lesson-ad { margin-bottom:32px; }
 .lesson-quiz { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; margin-bottom:32px; }
 .lesson-quiz h2 { font-size:1.3rem; font-weight:800; color:var(--white); margin-bottom:6px; }
 .lesson-quiz > p.quiz-intro { color:var(--muted); font-size:0.88rem; margin-bottom:24px; }
