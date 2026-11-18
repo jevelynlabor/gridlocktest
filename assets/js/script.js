@@ -1,4 +1,4 @@
-let isPro=false,saved=[],updateTimeout=null,tutorialStep=0,currentCodeFormat='css',currentAnalyzerFormat='css';
+let saved=[],updateTimeout=null,tutorialStep=0,currentCodeFormat='css',currentAnalyzerFormat='css';
 // Track last valid values to revert on error
 let lastValidCols='200px 1fr auto';
 let lastValidRows='auto auto';
@@ -6,7 +6,7 @@ let lastValidRows='auto auto';
 let gradientContainerDir='to right';
 let gradientItemsDir='to bottom';
 let currentGradientTarget='container';
-const examples={'two-col':{cols:'250px 1fr',rows:'auto',gap:16,desc:'Sidebar + content'},'three-col':{cols:'1fr 1fr 1fr',rows:'auto',gap:20,desc:'Three equal columns'},'holy-grail':{cols:'200px 1fr 200px',rows:'auto 1fr auto',gap:12,areas:'"h h h"\n"n m a"\n"f f f"',desc:'Header, nav, main, aside, footer'},'cards':{cols:'1fr 1fr 1fr 1fr',rows:'auto',gap:16,desc:'Equal card grid'},'dashboard':{cols:'220px 1fr 1fr',rows:'auto auto',gap:16,desc:'Sidebar + widgets'},'magazine':{cols:'2fr 1fr',rows:'300px auto',gap:20,desc:'Featured + sidebar'},'asymmetric':{cols:'1fr 2fr',rows:'auto',gap:24,desc:'Unequal columns'},'masonry':{cols:'1fr 1fr 1fr',rows:'auto auto auto',gap:12,desc:'Pinterest-style'},'app-shell':{cols:'1fr',rows:'auto 1fr auto',gap:0,desc:'Header, content, footer'},'split-screen':{cols:'1fr 1fr',rows:'100vh',gap:0,desc:'50/50 split'},'portfolio':{cols:'1fr 1fr 1fr',rows:'300px 300px',gap:20,pro:true,desc:'🔒 PRO: Portfolio grid'},'blog':{cols:'2fr 1fr',rows:'auto auto auto',gap:24,pro:true,desc:'🔒 PRO: Blog layout'},'ecommerce':{cols:'1fr 1fr 1fr 1fr',rows:'auto auto',gap:16,pro:true,desc:'🔒 PRO: Product grid'},'landing':{cols:'1fr',rows:'auto 400px auto auto',gap:0,pro:true,desc:'🔒 PRO: Landing page'},'admin':{cols:'250px 1fr 300px',rows:'60px 1fr 40px',gap:0,pro:true,desc:'🔒 PRO: Admin panel'},'gallery':{cols:'1fr 2fr 1fr',rows:'200px 300px 200px',gap:12,pro:true,desc:'🔒 PRO: Photo gallery'},'pricing':{cols:'1fr 1fr 1fr',rows:'auto',gap:32,pro:true,desc:'🔒 PRO: Pricing table'},'timeline':{cols:'100px 1fr',rows:'auto auto auto',gap:20,pro:true,desc:'🔒 PRO: Timeline'},'form':{cols:'1fr 1fr',rows:'auto auto auto auto',gap:16,pro:true,desc:'🔒 PRO: Multi-column form'},'footer':{cols:'1fr 1fr 1fr 1fr',rows:'auto auto',gap:24,pro:true,desc:'🔒 PRO: Complex footer'}};
+const examples={'two-col':{cols:'250px 1fr',rows:'auto',gap:16,desc:'Sidebar + content'},'three-col':{cols:'1fr 1fr 1fr',rows:'auto',gap:20,desc:'Three equal columns'},'holy-grail':{cols:'200px 1fr 200px',rows:'auto 1fr auto',gap:12,desc:'Header, nav, main, aside, footer'},'cards':{cols:'1fr 1fr 1fr 1fr',rows:'auto',gap:16,desc:'Equal card grid'},'dashboard':{cols:'220px 1fr 1fr',rows:'auto auto',gap:16,desc:'Sidebar + widgets'},'magazine':{cols:'2fr 1fr',rows:'300px auto',gap:20,desc:'Featured + sidebar'},'asymmetric':{cols:'1fr 2fr',rows:'auto',gap:24,desc:'Unequal columns'},'masonry':{cols:'1fr 1fr 1fr',rows:'auto auto auto',gap:12,desc:'Pinterest-style'},'app-shell':{cols:'1fr',rows:'auto 1fr auto',gap:0,desc:'Header, content, footer'},'split-screen':{cols:'1fr 1fr',rows:'100vh',gap:0,desc:'50/50 split'}};
 
 const tutorialSteps=[
 {title:'Welcome to CSS Grid!',content:'CSS Grid is a powerful layout system that lets you create complex, responsive designs easily. Think of it like a spreadsheet where you can place items anywhere you want!'},
@@ -16,8 +16,6 @@ const tutorialSteps=[
 {title:'The Example Gallery',content:'The <strong>Example Gallery</strong> at the top contains pre-built layouts you can learn from.<br><br>Try selecting "Two Columns" or "Holy Grail" to see common layout patterns. Each example shows how professionals structure their grids!'},
 {title:'Live Preview',content:'The <strong>Preview</strong> section shows your grid in real-time. Each box (A, B, C...) represents a grid item.<br><br>Notice how they automatically position themselves based on your column and row settings. This is the power of CSS Grid!'},
 {title:'Generated CSS Code',content:'Below the preview, you\'ll see the actual <strong>CSS code</strong> that creates your grid.<br><br>This is the code you can copy and use in your own projects. Click the "Copy" button to grab it!'},
-// Pro Features step hidden for now - restore by uncommenting and moving back into tutorialSteps:
-// {title:'Pro Features',content:'Upgrade to <strong>Pro</strong> to unlock:<br><br><strong>🎨 Layout Tools:</strong><br>• Auto-Responsive Columns<br>• Named Layout Areas<br>• Item Positioning<br><br><strong>📚 Content:</strong><br>• 20+ Advanced Examples<br>• Professional Templates<br><br><strong>💎 Experience:</strong><br>• No Advertisements<br>• Priority Support<br>• Cloud Save (coming)<br><br><strong>💰 Choose Your Plan:</strong><br>📆 <strong>Monthly - £4.99/month</strong><br>📅 <strong>Annual - £14.99/year</strong> (SAVE 75%) ⭐<br>💎 <strong>Lifetime - £29.99</strong> (one-time) 🏆 BEST VALUE'},
 {title:'Grid Detective',content:'<strong>Grid Detective</strong> is your CSS error checker!<br><br>Paste any CSS Grid code and it will:<br>• Catch typos and mistakes<br>• Give you helpful tips<br>• Help you learn proper syntax<br><br>Perfect for debugging!'},
 {title:'You\'re Ready!',content:'That\'s it! You now know the basics of CSS Grid.<br><br><strong>Next steps:</strong><br>1. Try the Example Gallery<br>2. Experiment with different values<br>3. Save your favorite layouts<br>4. Share your creations<br><br>Happy grid building! 🎉'}
 ];
@@ -36,8 +34,6 @@ if(!params.has('cols')&&!params.has('rows')&&!params.has('gap')&&!params.has('gr
 if(params.has('cols'))document.getElementById('columns').value=params.get('cols');
 if(params.has('rows'))document.getElementById('rows').value=params.get('rows');
 if(params.has('gap'))document.getElementById('gap').value=params.get('gap');
-if(params.has('areas'))document.getElementById('grid-areas').value=params.get('areas');
-
 if(params.get('grad')==='1'){
 document.getElementById('gradient-enabled').checked=true;
 
@@ -128,8 +124,6 @@ tutorialStep=0;
 showTutorialStep();
 document.getElementById('tutorial-modal').classList.remove('hidden');
 }
-function showProHelp(){alert('PRO FEATURES:\n\nLayout Tools:\n• Auto-Responsive Columns\n• Named Layout Areas\n• Item Positioning\n\nContent:\n• 20+ Advanced Examples\n• Professional Templates\n• Real-world Layouts\n\nExperience:\n• No Ads\n• Priority Support\n• Cloud Save (coming)\n\n💰 Choose Your Plan:\n📆 Monthly - £4.99/month\n📅 Annual - £14.99/year (SAVE 75%) ⭐\n💎 Lifetime - £29.99 (BEST VALUE) 🏆');}
-
 function debouncedUpdate(){
 document.getElementById('loading').style.display='flex';
 clearTimeout(updateTimeout);
@@ -142,11 +136,9 @@ if(!ex) return false;
 const desc=document.getElementById('example-desc');
 document.getElementById('example-gallery').value=id;
 desc.textContent=ex.desc;desc.classList.remove('hidden');
-if(ex.pro&&!isPro)togglePro();
 document.getElementById('columns').value=ex.cols;
 document.getElementById('rows').value=ex.rows;
 document.getElementById('gap').value=ex.gap;
-if(ex.areas)document.getElementById('grid-areas').value=ex.areas;
 return true;
 }
 
@@ -173,25 +165,9 @@ document.getElementById('gap').value=8;
 updateGrid();
 }
 
-function togglePro(){
-if(!isPro){
-alert('💎 Upgrade to Gridlock Holmes Pro\n\n💰 CHOOSE YOUR PLAN:\n\n📆 MONTHLY - £4.99/month\n   Try it out. Cancel anytime.\n\n📅 ANNUAL - £14.99/year (SAVE 75%) ⭐\n   Best for regular users.\n   Save £44.89 vs monthly!\n\n💎 LIFETIME - £29.99 (one-time) 🏆 BEST VALUE\n   Pay once, own forever!\n   No subscription. No recurring fees.\n\n✨ ALL PLANS INCLUDE:\n\n🎨 Layout Tools:\n• Auto-Responsive Columns\n• Named Layout Areas\n• Item Positioning\n\n📚 Content:\n• 20+ Advanced Examples\n• Professional Templates\n\n💎 Experience:\n• No Advertisements\n• Priority Email Support\n• Cloud Save (coming)\n• All Future Updates\n\n💡 Want to upgrade later?\nEmail: jon.ellisdon@gridlock-holmes.com\n\n🚀 Coming Soon!');
-return;
-}
-}
-
 function validateGap(){const g=document.getElementById('gap');if(g.value>100)g.value=100;if(g.value<0)g.value=0;}
 
 function checkForCommas(fieldId){const field=document.getElementById(fieldId);const value=field.value;if(value.includes(",")){let warning=document.getElementById(fieldId+"-comma-warning");if(!warning){warning=document.createElement("div");warning.id=fieldId+"-comma-warning";warning.className="text-xs text-orange-600 mt-1 font-medium";warning.innerHTML="⚠️ Commas detected! Did you mean spaces? (e.g., \"auto auto\" not \"auto, auto\")";field.parentElement.appendChild(warning);}}else{const warning=document.getElementById(fieldId+"-comma-warning");if(warning)warning.remove();}}
-
-function validateMinWidth(){
-const m=document.getElementById('min-width');
-if(m.value>800)m.value=800;
-if(m.value<50)m.value=50;
-const display=document.getElementById('min-width-display');
-if(display)display.textContent=m.value;
-}
-
 
 // Educational validation - teaches users about CSS Grid syntax
 function validateGridValue(inputId, value, label) {
@@ -405,16 +381,8 @@ if (!rowsValid) {
 if (!colsValid && !rowsValid) {
     return;
 }
-const areas=isPro?document.getElementById('grid-areas').value:'';
 const alignItems=document.getElementById('align-items').value;
 const justifyItems=document.getElementById('justify-items').value;
-const minWidth=isPro?document.getElementById('min-width').value:'';
-
-// Apply responsive columns if min-width is set
-if(isPro&&minWidth&&minWidth>0){
-cols=`repeat(auto-fit, minmax(${minWidth}px, 1fr))`;
-document.getElementById('columns').value=cols;
-}
 
 preview.style.gridTemplateColumns=cols;
 preview.style.gridTemplateRows=rows;
@@ -423,7 +391,6 @@ preview.style.gap=gap+'px';
 // Save these as last known good values
 lastValidCols = cols;
 lastValidRows = rows;
-preview.style.gridTemplateAreas=areas?areas.split('\n').map(l=>`"${l.trim().replace(/"/g,'')}"`).join(' '):'none';
 
 // Apply alignment
 if(alignItems||justifyItems){
@@ -433,15 +400,7 @@ preview.style.placeItems=placeItems;
 preview.style.placeItems='';
 }
 
-// Named areas define their own cells (items span by name), so the item
-// count must come from the unique area names, not cols x rows - otherwise
-// adding/removing a track desyncs the preview from the actual layout.
-const areaNames = areas
-    ? [...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v => v && v !== '.'))]
-    : [];
-const total = areaNames.length
-    ? areaNames.length
-    : cols.trim().split(/[\s,]+/).filter(v=>v).length*rows.trim().split(/[\s,]+/).filter(v=>v).length;
+const total=cols.trim().split(/[\s,]+/).filter(v=>v).length*rows.trim().split(/[\s,]+/).filter(v=>v).length;
 
 // Dynamically create or remove grid items as needed
 const gridItems = document.querySelectorAll('.grid-item');
@@ -456,24 +415,14 @@ if (total > currentCount) {
     }
 }
 
-// Relabel every visible item on each render (not just newly created ones)
-// so switching between a named-area layout and a plain track grid never
-// leaves stale letters/area names behind on reused elements.
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 document.querySelectorAll('.grid-item').forEach((item, i) => {
     if (i >= total) {
         item.style.display = 'none';
-        item.style.gridArea = '';
         return;
     }
     item.style.display = 'flex';
-    if (areaNames.length) {
-        item.textContent = areaNames[i];
-        item.style.gridArea = areaNames[i];
-    } else {
-        item.textContent = letters[i % 26] + (Math.floor(i / 26) > 0 ? Math.floor(i / 26) : '');
-        item.style.gridArea = '';
-    }
+    item.textContent = letters[i % 26] + (Math.floor(i / 26) > 0 ? Math.floor(i / 26) : '');
 });
 
 updateInfo();generateCode();
@@ -511,7 +460,6 @@ function generateCode(){
 const cols=document.getElementById('columns').value;
 const rows=document.getElementById('rows').value;
 const gap=document.getElementById('gap').value;
-const areas=isPro?document.getElementById('grid-areas').value:'';
 const alignItems=document.getElementById('align-items').value;
 const justifyItems=document.getElementById('justify-items').value;
 const g=getGradientState();
@@ -520,10 +468,6 @@ let code='';
 
 if(currentCodeFormat==='css'){
 code=`.container {\n  display: grid;\n  grid-template-columns: ${cols};\n  grid-template-rows: ${rows};\n  gap: ${gap}px;`;
-if(areas){
-const fmt=areas.split('\n').map(l=>`  "${l.trim().replace(/"/g,'')}"`).join('\n');
-code+=`\n  grid-template-areas:\n${fmt};`;
-}
 if(alignItems||justifyItems){
 code+=`\n  place-items: ${alignItems||'stretch'} ${justifyItems||'stretch'};`;
 }
@@ -531,13 +475,6 @@ if(g){
 code+=`\n  background: ${getBackgroundCSS(g.container)};`;
 }
 code+='\n}';
-if(areas){
-const areaNames=[...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v=>v&&v!=='.'))];
-if(areaNames.length){
-code+=`\n\n/* Place each child in its named area: */`;
-areaNames.forEach(name=>{code+=`\n.${name} {\n  grid-area: ${name};\n}`;});
-}
-}
 if(g){
 code+=`\n\n.container > * {\n  background: ${buildGradientCSS(g.items.from,g.items.to,g.items.dir)};\n}`;
 }
@@ -558,7 +495,6 @@ code=`<div class="grid ${colClass} ${gapClass}"${containerStyle}>
   <div${itemStyle}>Item 3</div>
   <!-- Add more items as needed -->
 </div>`;
-if(areas)code+=`\n\n<!-- Note: Grid template areas not directly supported in Tailwind.\n     Use custom CSS or grid positioning classes. -->`;
 }
 
 else if(currentCodeFormat==='js'){
@@ -567,10 +503,6 @@ code=`const gridStyles = {
   gridTemplateColumns: '${cols}',
   gridTemplateRows: '${rows}',
   gap: '${gap}px'`;
-if(areas){
-const areasFmt=areas.split('\n').map(l=>`"${l.trim().replace(/"/g,'')}"`).join(' ');
-code+=`,\n  gridTemplateAreas: '${areasFmt}'`;
-}
 if(alignItems||justifyItems){
 code+=`,\n  placeItems: '${alignItems||'stretch'} ${justifyItems||'stretch'}'`;
 }
@@ -589,10 +521,6 @@ code=`.container {
   grid-template-columns: ${cols};
   grid-template-rows: ${rows};
   gap: ${gap}px;`;
-if(areas){
-const fmt=areas.split('\n').map(l=>`    "${l.trim().replace(/"/g,'')}"`).join('\n');
-code+=`\n  grid-template-areas:\n${fmt};`;
-}
 if(alignItems||justifyItems){
 code+=`\n  place-items: ${alignItems||'stretch'} ${justifyItems||'stretch'};`;
 }
@@ -605,13 +533,6 @@ code+=`\n\n  // Responsive breakpoint
     grid-template-columns: 1fr;
   }
 }`;
-if(areas){
-const areaNames=[...new Set(areas.split('\n').join(' ').trim().split(/\s+/).filter(v=>v&&v!=='.'))];
-if(areaNames.length){
-code+=`\n\n// Place each child in its named area:`;
-areaNames.forEach(name=>{code+=`\n.${name} {\n  grid-area: ${name};\n}`;});
-}
-}
 }
 
 document.getElementById('code-output').textContent=code;
@@ -659,7 +580,6 @@ navigator.clipboard.writeText(code).then(()=>alert(`${currentCodeFormat.toUpperC
 
 function shareLayout(){
 const params=new URLSearchParams({cols:document.getElementById('columns').value,rows:document.getElementById('rows').value,gap:document.getElementById('gap').value});
-if(isPro&&document.getElementById('grid-areas').value){params.set('areas',document.getElementById('grid-areas').value);params.set('pro','1');}
 const g=getGradientState();
 if(g){
 params.set('grad','1');
@@ -712,7 +632,7 @@ function shareViaEmail(){window.location.href=`mailto:?subject=${encodeURICompon
 function saveLayout(){
 const name=document.getElementById('save-name').value.trim();
 if(!name){alert('⚠️ Enter a name!');return;}
-saved.push({id:Date.now(),name,cols:document.getElementById('columns').value,rows:document.getElementById('rows').value,gap:document.getElementById('gap').value,areas:isPro?document.getElementById('grid-areas').value:''});
+saved.push({id:Date.now(),name,cols:document.getElementById('columns').value,rows:document.getElementById('rows').value,gap:document.getElementById('gap').value});
 localStorage.setItem('gridlock-saved',JSON.stringify(saved));
 document.getElementById('save-name').value='';
 alert('✅ Saved!');
@@ -736,11 +656,9 @@ list.innerHTML=saved.map(s=>`<div class="flex justify-between p-2 bg-white borde
 function loadSavedLayout(id){
 const layout=saved.find(s=>s.id===id);
 if(!layout)return;
-if(layout.areas&&!isPro)togglePro();
 document.getElementById('columns').value=layout.cols;
 document.getElementById('rows').value=layout.rows;
 document.getElementById('gap').value=layout.gap;
-if(layout.areas)document.getElementById('grid-areas').value=layout.areas;
 updateGrid();
 }
 
@@ -1429,73 +1347,4 @@ output.innerHTML=`<div class="diagnostic-panel">
 </div>`;
 }
 
-// Simple trust-based license activation
-function activateLicense() {
-    const licenseKey = document.getElementById('license-key').value.trim().toUpperCase();
-    
-    // Basic validation - check format
-    if (!licenseKey || licenseKey.length < 8) {
-        alert('❌ Please enter a valid license key.\n\nYour key was sent via email after purchase.\n\nNeed help? Email: jon.ellisdon@gridlock-holmes.com');
-        return;
-    }
-    
-    // Store in localStorage (trust-based - no API validation)
-    localStorage.setItem('gridlock_pro_license', licenseKey);
-    localStorage.setItem('gridlock_pro_activated', 'true');
-    localStorage.setItem('gridlock_pro_activation_date', new Date().toISOString());
-    
-    // Show success message
-    alert('🎉 Pro Activated Successfully!\n\n✅ Your license key has been activated\n✅ Pro features are now unlocked\n✅ Ads have been removed\n\nRefreshing page...');
-    
-    // Reload page to show Pro features
-    location.reload();
-}
-
-// Check if Pro is already activated
-function checkProStatus() {
-    const isActivated = localStorage.getItem('gridlock_pro_activated');
-    const licenseKey = localStorage.getItem('gridlock_pro_license');
-    
-    if (isActivated === 'true' && licenseKey) {
-        // User has Pro!
-        return true;
-    }
-    return false;
-}
-
-// Initialize on page load
-window.addEventListener('load', function() {
-    if (checkProStatus()) {
-        // Activate Pro features
-        isPro = true;
-        
-        // Update Pro section to show activated status
-        const upgradeBtn = document.getElementById('upgrade-btn');
-        if (upgradeBtn) {
-            upgradeBtn.textContent = '✅ Pro Activated';
-            upgradeBtn.className = 'w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg mb-2 cursor-default';
-            upgradeBtn.onclick = function() {
-                const key = localStorage.getItem('gridlock_pro_license');
-                alert('✅ Pro Status: ACTIVE\n\nLicense Key: ' + key + '\n\nAll Pro features are unlocked!\n\nNeed help? Email: jon.ellisdon@gridlock-holmes.com');
-            };
-        }
-        
-        // Hide license activation form
-        const licenseForm = document.querySelector('.bg-blue-50.border-blue-200');
-        if (licenseForm) {
-            licenseForm.innerHTML = '<p class="text-green-700 font-bold text-sm">✅ Pro License Active</p><p class="text-xs text-gray-600 mt-1">All features unlocked!</p>';
-        }
-    }
-});
-
-// Add deactivation function (for testing/support)
-function deactivateLicense() {
-    if (confirm('Are you sure you want to deactivate Pro?\n\nYou can reactivate anytime with your license key.')) {
-        localStorage.removeItem('gridlock_pro_license');
-        localStorage.removeItem('gridlock_pro_activated');
-        localStorage.removeItem('gridlock_pro_activation_date');
-        alert('Pro deactivated. Refreshing page...');
-        location.reload();
-    }
-}
 window.onload=init;

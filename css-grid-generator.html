@@ -374,135 +374,6 @@
             </div>
         </main>
 
-        <!-- Pro Features Section (below main tool) - hidden for now, remove style to restore -->
-        <div class="mt-6 bg-white p-6 rounded-xl shadow-xl" style="display:none">
-
-                    <!-- PRO FEATURES PREVIEW -->
-                    <div class="mb-6 bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-lg p-5">
-                        <div class="flex justify-between items-start mb-3">
-                            <h2 class="text-2xl font-bold text-purple-700 flex items-center">
-                                <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Pro Features
-                            </h2>
-                            <span class="px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">COMING SOON</span>
-                        </div>
-                        
-                        <p class="text-sm text-purple-900 mb-4">
-                            🚀 <strong>Pro features in development!</strong>
-                        </p>
-
-                        <!-- WAITLIST FORM — commented out until ready
-                        <form action="https://formsubmit.co/jon.ellisdon@gridlock-holmes.com" method="POST" class="space-y-3">
-                            <div class="flex gap-2">
-                                <input type="email" name="email" placeholder="your.email@example.com" required
-                                       class="flex-1 p-2 border-2 border-purple-300 rounded text-sm focus:border-purple-500 focus:outline-none">
-                                <input type="hidden" name="_subject" value="Gridlock Holmes Pro Waitlist Signup">
-                                <input type="hidden" name="_captcha" value="false">
-                                <input type="hidden" name="_next" value="https://gridlock-holmes.com/thanks.html">
-                                <input type="hidden" name="_template" value="box">
-                                <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-medium text-sm transition whitespace-nowrap">
-                                    Join Waitlist
-                                </button>
-                            </div>
-                        </form>
-                        -->
-                    
-                    <!-- Preview: What's Coming (grayed out) -->
-                    <div class="opacity-50 pointer-events-none select-none">
-                        <h3 class="text-lg font-bold text-gray-600 mb-3">📋 Preview: What's Coming</h3>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1 flex items-center">
-                            Drag & Drop Grid Builder
-                            <span class="ml-2 px-2 py-0.5 bg-purple-200 text-purple-800 text-xs rounded">Visual</span>
-                        </label>
-                        <div class="w-full p-3 border rounded bg-gray-100 text-xs text-gray-500" style="min-height:80px;">
-                            <div class="grid grid-cols-3 gap-1" style="height:60px;">
-                                <div class="bg-purple-200 rounded flex items-center justify-center text-purple-600" style="grid-column:span 2;">Header</div>
-                                <div class="bg-blue-200 rounded flex items-center justify-center text-blue-600" style="grid-row:span 2;">Sidebar</div>
-                                <div class="bg-green-200 rounded flex items-center justify-center text-green-600" style="grid-column:span 2;">Main</div>
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">Click and drag on the grid to define areas, span items across cells, and generate code visually</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1">Auto-Responsive Columns</label>
-                        <input type="number" id="min-width" value="250" min="50" max="800" disabled class="w-full p-3 border rounded bg-gray-100">
-                        <p class="text-xs text-gray-500 mt-1">Columns automatically wrap to fit screen - minimum 250px per column</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1">Named Layout Areas</label>
-                        <textarea id="grid-areas" rows="3" disabled placeholder='"head head"&#10;"menu main"&#10;"foot foot"' class="w-full p-3 border rounded bg-gray-100 font-mono text-sm"></textarea>
-                        <p class="text-xs text-gray-500 mt-1">Create named sections like "header" or "sidebar" to build complex layouts</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1 flex items-center">
-                            Pro Examples Gallery
-                            <span class="ml-2 px-2 py-0.5 bg-purple-200 text-purple-800 text-xs rounded">30+ Templates</span>
-                        </label>
-                        <select disabled class="w-full p-3 border rounded bg-gray-100 text-sm">
-                            <option>📱 Dashboard Layouts (5)</option>
-                            <option>🛍️ E-commerce Grids (7)</option>
-                            <option>📰 Magazine Layouts (6)</option>
-                            <option>💼 Portfolio Galleries (5)</option>
-                            <option>📄 Landing Pages (7)</option>
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Professional, production-ready layouts you can use immediately</p>
-                    </div>
-
-                    <div class="mb-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-lg">
-                        <div class="flex items-start gap-3">
-                            <span class="text-3xl">🚫</span>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Ad-Free Experience</h4>
-                                <p class="text-xs text-gray-600">Focus on your work without distractions</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                    <!-- End grayed preview -->
-                    </div>
-                    <!-- End purple border Pro section -->
-                    
-                    <!-- Upgrade & License hidden until Pro launches -->
-                    <div class="hidden">
-                    <button id="upgrade-btn" onclick="togglePro()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg mb-2">
-                        Upgrade to Pro & Unlock Tools
-                    </button>
-                    
-                    <!-- License Activation -->
-                    <div class="mt-4 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg">
-                        <h3 class="font-bold text-blue-900 mb-2 text-sm">✅ Already purchased?</h3>
-                        <p class="text-xs text-gray-600 mb-3">Enter license key to activate Pro</p>
-                        <div class="flex gap-2">
-                            <input type="text" id="license-key" placeholder="GRID-XXXX-XXXX-XXXX" 
-                                   class="flex-1 p-2 border-2 border-blue-300 rounded text-sm font-mono">
-                            <button onclick="activateLicense()"
-                                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium text-sm">
-                                Activate
-                            </button>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-2">Key sent via email after purchase</p>
-                    </div>
-                    </div>
-                    <!-- End hidden section -->
-                    
-                    <!-- Gumroad Payment Link (uncomment when ready) -->
-                    <!-- 
-                    <a href="/buy" target="_blank" class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-4 rounded-lg text-center">
-                        💳 Purchase Pro - $9.99
-                    </a>
-                    <p class="text-xs text-gray-500 text-center mt-2">One-time payment • Instant access • 30-day money back</p>
-                    -->
-
-        </div>
-
     </div>
 
     <div id="tutorial-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
@@ -542,11 +413,10 @@
                 <li><strong>Fast unit entry:</strong> type values like <code class="bg-gray-100 px-1 rounded">1fr</code>, <code class="bg-gray-100 px-1 rounded">auto</code>, or <code class="bg-gray-100 px-1 rounded">200px</code> directly into Columns/Rows, separated by spaces.</li>
                 <li><strong>Tab through fields:</strong> use <code class="bg-gray-100 px-1 rounded">Tab</code> to jump between Columns, Rows, and Gap without touching the mouse.</li>
                 <li><strong>Live preview:</strong> every change updates the grid preview and generated code instantly, no need to click a refresh button.</li>
-                <li><strong>Named areas:</strong> use the grid-template-areas field to lay out sections like "header" or "sidebar" by name instead of by column/row numbers.</li>
                 <li><strong>Save your work:</strong> give a layout a name and click Save so you can come back to it later.</li>
                 <li><strong>Check your code:</strong> paste existing CSS/Tailwind/JS/SCSS into Grid Detective to catch common grid mistakes.</li>
             </ul>
-            <div class="mt-4 pt-3 border-t text-sm text-gray-600">🍎 <strong>Mac users:</strong> use <code class="bg-gray-100 px-1 rounded">Cmd</code> in place of <code class="bg-gray-100 px-1 rounded">Ctrl</code> for every shortcut above - <code class="bg-gray-100 px-1 rounded">Cmd+S</code> to save, <code class="bg-gray-100 px-1 rounded">Cmd+K</code> to copy code.</div>
+            <div class="mt-4 pt-3 border-t text-sm text-gray-600"><strong>Mac users:</strong> use <code class="bg-gray-100 px-1 rounded">Cmd</code> in place of <code class="bg-gray-100 px-1 rounded">Ctrl</code> for every shortcut above - <code class="bg-gray-100 px-1 rounded">Cmd+S</code> to save, <code class="bg-gray-100 px-1 rounded">Cmd+K</code> to copy code.</div>
             <button type="button" onclick="document.getElementById('shortcuts-modal').classList.add('hidden')" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium">Got it</button>
         </div>
     </div>

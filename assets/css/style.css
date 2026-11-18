@@ -614,8 +614,6 @@ footer { border-top:1px solid var(--border); padding:32px 24px; background:var(-
 /* code tabs / analyzer tabs default (inactive) state */
 .tool-page .code-tab,.tool-page .analyzer-tab { transition:background 0.15s,color 0.15s; }
 
-/* pro-features "coming soon" preview panel - keep muted on dark bg */
-.tool-page .opacity-50 { opacity:0.45; }
 
 /* scrollbar polish inside dark textareas/pre */
 .tool-page pre.code-output::-webkit-scrollbar,.tool-page textarea::-webkit-scrollbar { width:8px; height:8px; }
