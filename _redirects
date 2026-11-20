@@ -72,3 +72,13 @@
 # exists on the new site; css-grid-layout.html's FAQ answers this exact question, but
 # it's a lower-confidence match (loses the old page's dedicated depth) - review this one.
 /grid-vs-flexbox.html         /css-grid-layout          301
+
+# --- SCSS lessons ---
+/guide    /css-grid-layout    301
+/grid-vs-flexbox    /css-grid-layout    301
+/learn/choose-language    /learn    301
+/game/grid-detective-tailwind.html    /grid-detective    301
+/how-to-use    /learn    301
+
+
+
