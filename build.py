@@ -179,7 +179,7 @@ def build_hub(posts):
     rest = posts[1:]
 
     hero = f'''  <div class="hero-featured-wrap">
-    <a href="blog/{newest['slug']}.html" class="hero-featured" style="text-decoration:none;">
+    <a href="blog/{newest['slug']}" class="hero-featured" style="text-decoration:none;">
       <div class="hero-featured-img">
         <img src="assets/images/{os.path.basename(newest['image'])}" alt="{newest['image_alt']}" loading="lazy">
       </div>
@@ -201,13 +201,13 @@ def build_hub(posts):
         render_post_card(
             p,
             image_href=f"assets/images/{os.path.basename(p['image'])}",
-            post_href=f"blog/{p['slug']}.html",
+            post_href=f"blog/{p['slug']}",
         )
         for p in rest
     )
     content, ok = replace_between(content, "POST_LIST", cards + "\n", fpath); changed.append(ok)
 
-    sidebar = render_sidebar_categories(posts, lambda slug: f"blog/category/{slug}.html")
+    sidebar = render_sidebar_categories(posts, lambda slug: f"blog/category/{slug}")
     content, ok = replace_between(content, "SIDEBAR_CATEGORIES", sidebar, fpath); changed.append(ok)
 
     write_if_changed(fpath, content, changed)
@@ -235,12 +235,12 @@ def build_archive(posts):
             color = CATEGORY_BY_SLUG[p["category_slug"]]["color"]
             blocks.append(f'''
       <div class="archive-row">
-        <a href="{p['slug']}.html" class="archive-thumb">
+        <a href="{p['slug']}" class="archive-thumb">
           <img src="../assets/images/{os.path.basename(p['image'])}" alt="{p['image_alt']}" loading="lazy">
         </a>
         <div class="archive-row-body">
           <div class="archive-row-cat" style="color:{color};">{p['badge']}</div>
-          <h3><a href="{p['slug']}.html" style="color:inherit;">{p['title']}</a></h3>
+          <h3><a href="{p['slug']}" style="color:inherit;">{p['title']}</a></h3>
           <div class="archive-row-date">{p['date_display']} &bull; {p['read_time']}</div>
         </div>
       </div>''')
@@ -248,7 +248,7 @@ def build_archive(posts):
 
     content, ok = replace_between(content, "ARCHIVE_LIST", "".join(blocks), fpath); changed.append(ok)
 
-    sidebar = render_sidebar_categories(posts, lambda slug: f"category/{slug}.html")
+    sidebar = render_sidebar_categories(posts, lambda slug: f"category/{slug}")
     content, ok = replace_between(content, "SIDEBAR_CATEGORIES", sidebar, fpath); changed.append(ok)
 
     write_if_changed(fpath, content, changed)
@@ -274,16 +274,16 @@ def build_category_pages(posts):
                 render_post_card(
                     p,
                     image_href=f"../../assets/images/{os.path.basename(p['image'])}",
-                    post_href=f"../{p['slug']}.html",
+                    post_href=f"../{p['slug']}",
                 )
                 for p in matching
             ) + "\n"
         else:
-            body = render_empty_state(cat["label"], "../../blog.html") + "\n"
+            body = render_empty_state(cat["label"], "../../blog") + "\n"
 
         content, ok = replace_between(content, "POST_LIST", body, fpath); changed.append(ok)
 
-        sidebar = render_sidebar_categories(posts, lambda slug: f"{slug}.html")
+        sidebar = render_sidebar_categories(posts, lambda slug: f"{slug}")
         content, ok = replace_between(content, "SIDEBAR_CATEGORIES", sidebar, fpath); changed.append(ok)
 
         write_if_changed(fpath, content, changed)
@@ -307,7 +307,7 @@ def build_post_pages(posts):
 
         prev_html = ""
         if older:
-            prev_html = f'''<a href="{older['slug']}.html" class="post-nav-link prev">
+            prev_html = f'''<a href="{older['slug']}" class="post-nav-link prev">
           <span class="post-nav-label">&larr; Previous post</span>
           <span class="post-nav-title">{older['title']}</span>
         </a>'''
@@ -316,7 +316,7 @@ def build_post_pages(posts):
 
         next_html = ""
         if newer:
-            next_html = f'''<a href="{newer['slug']}.html" class="post-nav-link next">
+            next_html = f'''<a href="{newer['slug']}" class="post-nav-link next">
           <span class="post-nav-label">Next post &rarr;</span>
           <span class="post-nav-title">{newer['title']}</span>
         </a>'''

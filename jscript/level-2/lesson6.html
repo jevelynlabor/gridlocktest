@@ -20,6 +20,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lesson 6: Common JS Grid Patterns | Gridlock Holmes</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://gridlock-holmes.com/jscript/level-2/lesson6">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="../../assets/images/GH-favicon.png">
@@ -93,7 +94,7 @@
       }
 
       alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
-      window.location.href = '../../jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+      window.location.href = '../../jscript/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson;
     }
   })();
 </script>
@@ -104,18 +105,18 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="../../index.html" class="logo">
+    <a href="../../" class="logo">
       <img src="../../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../generator.html">Generator</a></li>
-      <li><a href="../../learn.html" class="active">Learn</a></li>
-      <li><a href="../../gradient.html">Gradients</a></li>
-      <li><a href="../../grid-detective.html">Grid Detective</a></li>
-      <li><a href="../../educators.html">For Educators</a></li>
-      <li><a href="../../blog.html">Blog</a></li>
-      <li><a href="../../about.html">About</a></li>
+      <li><a href="../../">Home</a></li>
+      <li><a href="../../generator">Generator</a></li>
+      <li><a href="../../learn" class="active">Learn</a></li>
+      <li><a href="../../gradient">Gradients</a></li>
+      <li><a href="../../grid-detective">Grid Detective</a></li>
+      <li><a href="../../educators">For Educators</a></li>
+      <li><a href="../../blog">Blog</a></li>
+      <li><a href="../../about">About</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -133,7 +134,7 @@
 <main class="lesson-main">
 
   <div class="lesson-topbar">
-    <a class="lesson-back" href="../../learn/jscript.html">&larr; Back to Learning Path</a>
+    <a class="lesson-back" href="../../learn/jscript">&larr; Back to Learning Path</a>
     <span class="lesson-crumb">JavaScript &bull; Level 2 &bull; Lesson 6 of 9</span>
   </div>
 
@@ -463,11 +464,11 @@ function openLightbox(imageSrc, index) {
     <h2>Level 2 Complete</h2>
     <p>You can now build dynamic, responsive grids with real-world JavaScript patterns.</p>
     <p><strong>Level 3 is now unlocked.</strong></p>
-    <a href="../../learn/jscript.html">Continue to Level 3</a>
+    <a href="../../learn/jscript">Continue to Level 3</a>
   </div>
 
   <div class="lesson-nav-row">
-    <a class="lesson-nav-link" href="../../jscript/level-2/lesson5.html">&larr; Previous Lesson</a>
+    <a class="lesson-nav-link" href="../../jscript/level-2/lesson5">&larr; Previous Lesson</a>
     <button id="next-lesson-btn" class="lesson-next-btn" disabled>Continue to Level 3 &rarr;</button>
   </div>
 
@@ -477,10 +478,10 @@ function openLightbox(imageSrc, index) {
   <div class="footer-inner">
     <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
     <div class="footer-links">
-      <a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a><a href="../../cookies.html">Cookie Policy</a>
-      <a href="../../contact.html">Contact</a><a href="../../blog.html">Blog</a>
-      <a href="../../css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
-      <a href="../../glossary.html">Glossary</a>
+      <a href="../../privacy">Privacy Policy</a><a href="../../terms">Terms</a><a href="../../cookies">Cookie Policy</a>
+      <a href="../../contact">Contact</a><a href="../../blog">Blog</a>
+      <a href="../../css-grid-cheat-sheet">CSS Grid Cheat Sheet</a>
+      <a href="../../glossary">Glossary</a>
     </div>
   </div>
 </footer>
@@ -544,7 +545,7 @@ function openLightbox(imageSrc, index) {
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '../../learn/jscript.html';
+      nextBtn.onclick = () => window.location.href = '../../learn/jscript';
 
       updateProgressBar();
       document.getElementById('level-complete').scrollIntoView({ behavior: 'smooth' });
@@ -571,7 +572,7 @@ function openLightbox(imageSrc, index) {
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '../../learn/jscript.html';
+      nextBtn.onclick = () => window.location.href = '../../learn/jscript';
     }
   });
 </script>
@@ -590,7 +591,7 @@ function openLightbox(imageSrc, index) {
   function logoutFromLesson() {
     if (confirm('Are you sure you want to log out? Your progress is saved.')) {
       localStorage.removeItem('gridlock-current-student');
-      window.location.href = '../../learn/choose-language.html';
+      window.location.href = '../../learn';
     }
   }
 </script>

@@ -19,7 +19,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lesson 2: Responsive Grids | Gridlock Holmes</title>
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gridlock-holmes.com/tailwind/level-1/lesson2">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="../../assets/images/GH-favicon.png">
@@ -93,7 +94,7 @@
       }
 
       alert('Please complete Lesson ' + redirectLesson + ' first.\n\nLessons must be completed in order.');
-      window.location.href = '../../tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson + '.html';
+      window.location.href = '../../tailwind/level-' + Math.ceil(redirectLesson / 3) + '/lesson' + redirectLesson;
     }
   })();
 </script>
@@ -104,18 +105,18 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="../../index.html" class="logo">
+    <a href="../../" class="logo">
       <img src="../../assets/images/gholmes.png" class="logo-gridlock" alt="Gridlock Holmes">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../generator.html">Generator</a></li>
-      <li><a href="../../learn.html" class="active">Learn</a></li>
-      <li><a href="../../gradient.html">Gradients</a></li>
-      <li><a href="../../grid-detective.html">Grid Detective</a></li>
-      <li><a href="../../educators.html">For Educators</a></li>
-      <li><a href="../../blog.html">Blog</a></li>
-      <li><a href="../../about.html">About</a></li>
+      <li><a href="../../">Home</a></li>
+      <li><a href="../../generator">Generator</a></li>
+      <li><a href="../../learn" class="active">Learn</a></li>
+      <li><a href="../../gradient">Gradients</a></li>
+      <li><a href="../../grid-detective">Grid Detective</a></li>
+      <li><a href="../../educators">For Educators</a></li>
+      <li><a href="../../blog">Blog</a></li>
+      <li><a href="../../about">About</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -133,7 +134,7 @@
 <main class="lesson-main">
 
   <div class="lesson-topbar">
-    <a class="lesson-back" href="../../learn/tailwind.html">&larr; Back to Learning Path</a>
+    <a class="lesson-back" href="../../learn/tailwind">&larr; Back to Learning Path</a>
     <span class="lesson-crumb">Tailwind &bull; Level 1 &bull; Lesson 2 of 3</span>
   </div>
 
@@ -312,7 +313,7 @@
       Try creating a responsive grid in the generator. Use <code>grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4</code>
       and resize your browser to see it adapt.
     </p>
-    <a href="../../css-grid-generator.html" target="_blank" class="btn btn-primary">Open Generator</a>
+    <a href="../../css-grid-generator" target="_blank" class="btn btn-primary">Open Generator</a>
   </div>
 
   <div class="lesson-ad">
@@ -361,7 +362,7 @@
   </div>
 
   <div class="lesson-nav-row">
-    <a class="lesson-nav-link" href="../../tailwind/level-1/lesson1.html">&larr; Previous Lesson</a>
+    <a class="lesson-nav-link" href="../../tailwind/level-1/lesson1">&larr; Previous Lesson</a>
     <button id="next-lesson-btn" class="lesson-next-btn" disabled>Next: Lesson 3 &rarr;</button>
   </div>
 
@@ -371,10 +372,10 @@
   <div class="footer-inner">
     <div class="footer-logo">&copy; 2026 <strong>Gridlock Holmes</strong>. Built in the UK. Free CSS Grid tools and learning.</div>
     <div class="footer-links">
-      <a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a><a href="../../cookies.html">Cookie Policy</a>
-      <a href="../../contact.html">Contact</a><a href="../../blog.html">Blog</a>
-      <a href="../../css-grid-cheat-sheet.html">CSS Grid Cheat Sheet</a>
-      <a href="../../glossary.html">Glossary</a>
+      <a href="../../privacy">Privacy Policy</a><a href="../../terms">Terms</a><a href="../../cookies">Cookie Policy</a>
+      <a href="../../contact">Contact</a><a href="../../blog">Blog</a>
+      <a href="../../css-grid-cheat-sheet">CSS Grid Cheat Sheet</a>
+      <a href="../../glossary">Glossary</a>
     </div>
   </div>
 </footer>
@@ -434,7 +435,7 @@
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson3.html';
+      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson3';
 
       updateProgressBar();
 
@@ -459,7 +460,7 @@
       const nextBtn = document.getElementById('next-lesson-btn');
       nextBtn.disabled = false;
       nextBtn.classList.add('enabled');
-      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson3.html';
+      nextBtn.onclick = () => window.location.href = '../../tailwind/level-1/lesson3';
     }
   });
 </script>
@@ -478,7 +479,7 @@
   function logoutFromLesson() {
     if (confirm('Are you sure you want to log out? Your progress is saved.')) {
       localStorage.removeItem('gridlock-current-student');
-      window.location.href = '../../learn/choose-language.html';
+      window.location.href = '../../learn';
     }
   }
 </script>
